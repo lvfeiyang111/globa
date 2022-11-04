@@ -239,11 +239,19 @@ mark {
 .container .row {
     margin-bottom: 0;
 }
-
+ /*
 .bg-color {
-    /*background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);*/
+
 	background-image: linear-gradient(to right, #8cbfb8 0%, #128c6f 100%);
 }
+*/
+.bg-color {
+    background-image: linear-gradient(to right, #1f4d71 0%, #71bbb6 100%);
+    opacity: 0.9;
+    /* 透明度*/
+}
+
+
 
 .text-color {
     color: #0f9d58 !important;
