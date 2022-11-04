@@ -1,0 +1,2027 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="SpringCloud, 扬 Blog">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>SpringCloud | 扬 Blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+    
+                <style>
+
+                </style>
+
+                <body>
+                    <!-- <div id="DynamicBackground"><canvas></canvas><canvas></canvas><canvas></canvas></div>
+                    <script src="/js/canvas_moving.js"></script>
+                    <script src="../source/libs/jquery/jquery.min.js"></script> -->
+
+                    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">扬 Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/artitalk" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>ArtiTalk</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">扬 Blog</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/artitalk" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			ArtiTalk
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+                        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SpringCloud</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/java/">
+                                <span class="chip bg-color">java</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                                <span class="chip bg-color">分布式</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java/" class="post-category">
+                                java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-02
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="主从选举理解"><a href="#主从选举理解" class="headerlink" title="主从选举理解"></a>主从选举理解</h3><p>当列表没有主机时，所有的服务器进入150-300毫秒的沉睡，然后谁先醒谁给自己投一票，然后告诉别的服务器自己要当主机了，别的主机也会投票给自己</p>
+<p>如果有两台从机同时醒，则两台从机继续进入150-300随机沉睡，直到有一个先醒</p>
+<h3 id="更新数据理解"><a href="#更新数据理解" class="headerlink" title="更新数据理解"></a>更新数据理解</h3><p>当主机接收到客户端的数据时，会先把数据写进日志，但是不提交，然后告诉从机，从机如果大部分没有响应，主机就不更新数据，为了数据一致性</p>
+<p>如果从机大部分有响应，则主机写入数据后，从机在写入数据</p>
+<h1 id="1-Eureka集群"><a href="#1-Eureka集群" class="headerlink" title="1.Eureka集群"></a>1.Eureka集群</h1><p>版本</p>
+<pre class="line-numbers language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        
+        
+        
+        主要就是这个2.3.12        
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.3.12.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        
+        
+        
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- lookup parent from repository --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.lfy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>EurekaServer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.0.1-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>02-EurekaServer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>02-EurekaServer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.version</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>java.version</span><span class="token punctuation">></span></span>
+        
+        
+        
+        还有这个Hoxton
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-cloud.version</span><span class="token punctuation">></span></span>Hoxton.SR12<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-cloud.version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实就是几个server端服务器之间相互注册</p>
+<p>然后Client注册到Server端</p>
+<p>集群peer1</p>
+<pre class="line-numbers language-yml"><code class="language-yml">server:
+  port: 8761
+spring:
+  application:
+    name: Eureka-Server #服务名称
+eureka:
+  server:
+    eviction-interval-timer-in-ms: 10000 #服务端间隔多少毫秒做定期删除操作
+    renewal-percent-threshold: 0.85 #续约百分比，超过百分之85的应用没和你续约，那么eureka会保护服务 不会剔除任何一个服务
+    #注册实例
+  instance:
+      #windows模拟多台服务器，把host文件夹127.0.0.1 改成peer1 pper2 peer3模拟三台服务器
+    hostname: peer1 #本机ip
+    instance-id: $&#123;eureka.instance.hostname&#125;:$&#123;spring.application.name&#125;:$&#123;server.port&#125; #主机名称
+    prefer-ip-address: true #以ip的形式显示具体的服务信息
+    lease-renewal-interval-in-seconds: 5 #服务器实例的续约时间间隔
+  client:
+    service-url:
+    #多态服务器相互注册，如果是peer2主机就注册peer1和peer3 
+      defaultZone: http://peer2:8762/eureka,http://peer3:8763/eureka
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>peer2</p>
+<pre class="line-numbers language-yml"><code class="language-yml">server:
+  port: 8762
+
+spring:
+  application:
+    name: Eureka-Server
+
+eureka:
+  client:
+    service-url:
+    #注册多台Server端部署集群
+      defaultZone: http://peer1:8761/eureka,http://peer3:8763/eureka
+  server:
+    eviction-interval-timer-in-ms: 10000
+  instance:
+  #其实就是ip,等同于127.0.0.1，这里是windows模拟多态主机
+    hostname: peer3
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    instance-id: $&#123;eureka.instance.hostname&#125;:$&#123;spring.application.name&#125;:$&#123;server.port&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>peer3省略，同理</p>
+<p>然后client端也注册到三个集群服务</p>
+<pre class="line-numbers language-yml"><code class="language-yml">server:
+  port: 8081
+spring:
+  application:
+    name: eureka-client-a
+eureka:
+  client:
+    service-url:
+    #上面搭建的集群peer1，peer2，peer3
+      defaultZone: http://peer1:8761/eureka,http://peer2:8762/eureka,http://peer3:8763/eureka
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="2-ribbon"><a href="#2-ribbon" class="headerlink" title="2.ribbon"></a>2.ribbon</h1><p>是fegin的底层，fegin是封装了的ribbon</p>
+<p>ribbon</p>
+<pre class="line-numbers language-yml"><code class="language-yml">ribbon:
+   ReadTimeout: 3000 #给服务执行3S超时时间
+   ConnectTimeout: 3000 #连接服务的超时时间
+    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@EnableEurekaClient</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">consumerApplication</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>consumerApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//首先想让RestTemplate工具可以实现轮循之类的策略需要加上 @LoadBalanced 交给ribbon托管</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token annotation punctuation">@LoadBalanced</span>
+    <span class="token keyword">public</span> RestTemplate <span class="token function">restTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//我们可以通过配置IRule来改变负载均衡策略，常见的有RoundRobinRule()随机，以及默认的轮循，又或是这个Wei开头的权重</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> IRule <span class="token function">myrule</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">WeightedResponseTimeRule</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-1RestTemplate"><a href="#2-1RestTemplate" class="headerlink" title="2.1RestTemplate"></a>2.1RestTemplate</h3><p>接上文，在主配置类中定义了bean即可直接注入使用rest工具常见方法</p>
+<pre class="line-numbers language-java"><code class="language-java">restTemplate<span class="token punctuation">.</span><span class="token function">getForObject</span><span class="token punctuation">(</span><span class="token string">"http://服务名称（spring.application.name）/test"</span><span class="token punctuation">,</span> 返回值类型：例如String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//平常我们访问都需要指定http://localhost:xxx/xxx来访问，为什么这里我们可以直接使用服务名称呢</span>
+<span class="token comment" spellcheck="true">//因为在框架底层会在我们写上服务名称时，自动去获取服务名称的ip地址与端口号，所以无需我们指定</span>
+
+
+ ResponseEntity<span class="token operator">&lt;</span>String<span class="token operator">></span> forEntity <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">getForEntity</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//这个getForEntity是获取一些接口信息的，比如服务名称之类的</span>
+
+
+restTemplate<span class="token punctuation">.</span><span class="token function">postForObject</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span>user<span class="token punctuation">,</span> User<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//postForObject接口传参，是JSON格式的，接口需要使用requestBody注解接收</span>
+
+
+<span class="token comment" spellcheck="true">//那么如果想提交表单数据，不是JSON的格式的数据怎么传参？使用LinkedMultiValueMap注意是用add方法添加数据</span>
+        LinkedMultiValueMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> lvmap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedMultiValueMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lvmap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span><span class="token string">"lfy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lvmap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lvmap<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"price"</span><span class="token punctuation">,</span><span class="token number">8000D</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        User u <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">postForObject</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span>lvmap<span class="token punctuation">,</span>User<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestContrller</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> RestTemplate restTemplate<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        String s <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">getForObject</span><span class="token punctuation">(</span><span class="token string">"http://privode/test"</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> s<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="3-Fegin-调用提供者接口"><a href="#3-Fegin-调用提供者接口" class="headerlink" title="3.Fegin 调用提供者接口"></a>3.Fegin 调用提供者接口</h1><p>当然作为消费者也是需要和提供者一起注册Server端的，从而实现<strong>client的互相调用</strong>，Fegin是一种封装了的调用策略，底层还是ribbon</p>
+<p>需要添加openFegin的依赖</p>
+<p>启动类注解</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@EnableEurekaClient</span>
+<span class="token annotation punctuation">@EnableFeignClients</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">consumerBApplication</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>consumerBApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>写一个Fegin接口类</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//添加@FeignClient("服务名称（spring.application.name）")</span>
+<span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span><span class="token string">"privode"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TestFegin</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//直接把要调用的接口把他的方法体去掉，转为抽象方法，在把地址注解写上即可</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用时就可以直接在controller调用别的服务中的接口了</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Resource</span> 
+<span class="token keyword">private</span> TestFegin testFegin<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/fegintest"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//直接使用接口点方法</span>
+        String test <span class="token operator">=</span> testFegin<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> test<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-1传参"><a href="#2-1传参" class="headerlink" title="2.1传参"></a>2.1传参</h3><p>当Fegin调用提供者的接口时，如果传参，</p>
+<p><strong>post请求传入对象要用@RequestBody注解 接收</strong>，<strong>单个数据需要用@RequestParams，并且使用@RequestParams注解后必须传参，如果不是必须传参可以@RequestParam(required &#x3D; false)</strong></p>
+<p><strong>Get请求传参每个参数都要使用@RequestParams</strong></p>
+<p>不然无法调用提供者的接口</p>
+<p><strong>总结：调用提供者的接口传参，对象参数使用@RequestBody，单个字段参数使用@RequestParams；</strong></p>
+<p><strong>并且不仅是在提供者的接口参数前面要写注解，在Fegin接口中参数前面也得写上</strong></p>
+<h3 id="2-2日志"><a href="#2-2日志" class="headerlink" title="2.2日志"></a>2.2日志</h3><p>启动类中定义日志级别</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> Logger<span class="token punctuation">.</span>Level <span class="token function">level</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/*
+* NONE:所有
+* BASICE：只打印请求方法路径，响应状态码和执行时间
+* HEADERS：
+* FULL：所有信息都打印
+*
+ */</span>
+        <span class="token keyword">return</span> Logger<span class="token punctuation">.</span>Level<span class="token punctuation">.</span>FULL<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>去配置文件中开启日志输出</p>
+<pre class="line-numbers language-yml"><code class="language-yml">
+spring:
+  application:
+    name: consumer-B
+eureka:
+  client:
+    service-url:
+      dufaultZone: http://localhost:8761/eureka
+  instance:
+    ip-address: true
+    instance-id: $&#123;spring.application.name&#125;:$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;
+    hostname: localhost
+server:
+  port: 8087
+#开启日志输出
+logging:
+  level:
+    com.lfy.fegin: debug #包名com.lfy.fegin
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>开启日志的日志级别<ul>
+<li>debug：只有在debug的时候能看见日志</li>
+<li>info：打印记录日志</li>
+<li>trace：打印跟踪日志</li>
+<li>warn：打印警告日志</li>
+<li>error：打印错误日志</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3Fegin性能优化，连接池配置、"><a href="#2-3Fegin性能优化，连接池配置、" class="headerlink" title="2.3Fegin性能优化，连接池配置、"></a>2.3Fegin性能优化，连接池配置、</h3><p>依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.github.openfeign<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>feign-httpclient<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置连接池</p>
+<pre class="line-numbers language-yml"><code class="language-yml">feign:
+  client:
+    default:
+      loggerLevel: BASIC
+  httpclient:
+    enabled: true #开启feign对连接池的支持
+    max-connections: 200 #最大连接数
+    max-connections-per-route: 50 %每个路径的最大连接数
+    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="4-Hystrix熔断器"><a href="#4-Hystrix熔断器" class="headerlink" title="4.Hystrix熔断器"></a>4.Hystrix熔断器</h1><p><strong>依赖：</strong>openFegin依赖，Hystrix依赖</p>
+<p>场景：比如我们有一个链式调用服务，A-&gt;B-&gt;C 此时C服务宕机了，<strong>B服务会等C服务，就这样卡着，然后这时候如果有别的用户访问B就会进不来</strong>，此时就需要熔断，（就意思把关系剪断）</p>
+<ul>
+<li><strong>熔断器没法完成业务，但是可以保护服务</strong></li>
+<li><strong>因为熔断器是切断与宕机服务的调用联系，所以一般与openFegin，ribbon一起使用</strong></li>
+</ul>
+<pre><code>有三个状态。打开，关闭，半开，当用户调用fegin报错超过3次（默认)，就会开启断路器，并创建一个异步线程过20s把状态改为半开，用随机数取值的方式，让少量的的流量进来尝试访问，如果访问成功则关闭断路器。然后还会有一个异步线程定时清除fegin报错的次数计数。不然一年访问失败三次也会开始断路器了
+</code></pre>
+<pre><code>就是调服务，然后多少秒内失败多少次，默认是3次，可以同过配置文件更改的，就会开启熔断器，开启之后会异步创建一个线程，去过20秒把断路器状态改成半开，然后让少量流量进来试探，如果服务正常了就关闭断路器
+</code></pre>
+<ul>
+<li><p>依赖</p>
+<ul>
+<li><pre class="line-numbers language-xml"><code class="language-xml">   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-netflix-hystrix<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>在使用Fegin的基础上</p>
+<ul>
+<li><p>写个.Hystrix包，然后继承Fegin的接口，带上@Component，，重写的方法中的内容，就是服务调用失败后熔断后走的内容</p>
+</li>
+<li><pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ShopfeginHystrix</span> <span class="token keyword">implements</span> <span class="token class-name">Shopfegin</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">shop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"备胎方法"</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>列如在Fegin的接口类中，在<strong>注解上指定fallback回调方法</strong></p>
+</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"shop-service"</span><span class="token punctuation">,</span>fallback <span class="token operator">=</span> ShopfeginHystrix<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Shopfegin</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/shop"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">shop</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>最后在配置类中开启熔断器</p>
+</li>
+<li><pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: cusomer-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: $&#123;spring.application.name&#125;:$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;
+    ip-address: true
+    hostname: localhost
+server:
+  port: 7091
+  #开启熔断
+feign:
+  hystrix:
+    enabled: true #cloud的F版以前，是默认开启的，现在需要手动，是因为有了微服务保护框架sen什么的，所以有选择了就自己开启
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置</p>
+</li>
+</ul>
+<p><img src="C:\Users\吕飞扬\AppData\Roaming\Typora\typora-user-images\image-20220911012910111.png" alt="image-20220911012910111"></p>
+<h1 id="5-admin监控"><a href="#5-admin监控" class="headerlink" title="5.admin监控"></a>5.admin监控</h1><p><strong>依赖：</strong>eureka依赖，admin依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>de.codecentric<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-admin-starter-server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对应springcloud2.3.12版本对应admin2.3.0版本</p>
+<pre class="line-numbers language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.version</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>java.version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-cloud.version</span><span class="token punctuation">></span></span>Hoxton.SR12<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-cloud.version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-boot-admin.version</span><span class="token punctuation">></span></span>2.3.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-boot-admin.version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$<span class="token entity" title="&#123;">&amp;#123;</span>spring-cloud.version<span class="token entity" title="&#125;">&amp;#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>de.codecentric<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-admin-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$<span class="token entity" title="&#123;">&amp;#123;</span>spring-boot-admin.version<span class="token entity" title="&#125;">&amp;#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><p>在启动类中加入注解@EnableAdminServer</p>
+</li>
+<li><p>把admin的springboot模块注册进eureka-server端</p>
+</li>
+<li><p>在yml文件中配置</p>
+<pre class="line-numbers language-yml"><code class="language-yml">management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>打开项目网页即可</p>
+</li>
+</ol>
+<h1 id="6-gateway网关"><a href="#6-gateway网关" class="headerlink" title="6.gateway网关"></a>6.gateway网关</h1><p><strong>依赖</strong>：eureka依赖（动态路由），gateway依赖</p>
+<ol>
+<li><p>首先加依赖时注意不要把web依赖加进来，因为gateway自带web并且和springboot-web有冲突</p>
+</li>
+<li><p><strong>静态路由</strong>——其次来分析yml配置文件</p>
+<ol>
+<li><p>​	</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+
+      routes:
+        - id: user-service-route
+          uri: http://localhost:8086
+          predicates:
+            - Path=/user/test
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>这里的网关配置主要是<strong>静态</strong>路由 如果这时候通过浏览器访问 <a target="_blank" rel="noopener" href="http://localhost/user/test">http://localhost/user/test</a> 这个路径会自动到网关里面跑成<a target="_blank" rel="noopener" href="http://localhost:8086/user/test">http://localhost:8086/user/test</a></li>
+<li>相当于一个拼接，用户访问时就可以不用输入端口号了</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="6-1动态路由"><a href="#6-1动态路由" class="headerlink" title="6.1动态路由"></a>6.1动态路由</h3><p>动态路由就是在静态路由的基础上，把gateway网关也注册进eureka-server端</p>
+<p>开启动态路由</p>
+<p>把uri改成 lb:&#x2F;&#x2F;服务名称</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+
+      routes:
+        - id: user-service-route
+#          uri: http://localhost:8086
+          uri: lb://user-service #lb://服务名称
+          predicates:
+            - Path=/user/test
+      discovery:
+        locator:
+          enabled: true #开启动态路由
+          lower-case-service-id: true #开启服务名称小写
+server:
+  port: 80
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+    ip-address: true
+    instance-id: $&#123;spring.application.name&#125;:$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>动态路由有什么用呢？<ul>
+<li>我们访问地址时可以通过http:&#x2F;&#x2F;服务名称&#x2F;接口路径 访问路由<ul>
+<li>通过lb(负载均衡) 服务名称，会自动获取服务名称的域名和端口号，在把后面的请求路径拼接上去，形成一个完整的路径</li>
+</ul>
+</li>
+<li>也就是<a target="_blank" rel="noopener" href="http://localhost/user-service/user/test%E8%BF%99%E6%A0%B7%E8%AE%BF%E9%97%AE%EF%BC%8C%E5%B9%B6%E4%B8%94%E4%B9%9F%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E5%8E%9F%E6%9D%A5%E7%9A%84http://localhost/user/test%E8%AE%BF%E9%97%AE">http://localhost/user-service/user/test这样访问，并且也可以通过原来的http://localhost/user/test访问</a></li>
+<li>我们在动态路由下面可以配置一些断言信息，比如说在什么时间之前，无法通过路由访问接口，或者必须带上一个指定参数访问路由才会转发到接口。</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-2全局过滤器"><a href="#6-2全局过滤器" class="headerlink" title="6.2全局过滤器"></a>6.2全局过滤器</h3><ol>
+<li>在gateway模块中定义一个filter类实现 GlobalFilter接口</li>
+<li>把类加入spring的ioc容器</li>
+</ol>
+<p>模拟拦截黑名单用户访问网关代码</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GateWayFilter</span> <span class="token keyword">implements</span> <span class="token class-name">GlobalFilter</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> ips <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token string">"127.0.0.1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Mono<span class="token operator">&lt;</span>Void<span class="token operator">></span> <span class="token function">filter</span><span class="token punctuation">(</span>ServerWebExchange exchange<span class="token punctuation">,</span> GatewayFilterChain chain<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        ServerHttpRequest request <span class="token operator">=</span> exchange<span class="token punctuation">.</span><span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       
+        String ip <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getURI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getHost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> headers <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAccessControlAllowHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ServerHttpResponse response <span class="token operator">=</span> exchange<span class="token punctuation">.</span><span class="token function">getResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        response<span class="token punctuation">.</span><span class="token function">getHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"content-type"</span><span class="token punctuation">,</span><span class="token string">"application/json"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ips<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            ObjectMapper mapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"msg"</span><span class="token punctuation">,</span><span class="token string">"你是黑名单用户"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"code"</span><span class="token punctuation">,</span><span class="token string">"438"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes<span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                 bytes <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">writeValueAsBytes</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">JsonProcessingException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            DataBuffer wrap <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">bufferFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">wrap</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">return</span> response<span class="token punctuation">.</span><span class="token function">writeWith</span><span class="token punctuation">(</span>Mono<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span>wrap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> chain<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>exchange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>这个resp和平常springweb中的resp返回JSON的方式有些不一样</p>
+<ul>
+<li><p>​    </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//第一步 获取resp并且把请求头改成json</span>
+ServerHttpResponse response <span class="token operator">=</span> exchange<span class="token punctuation">.</span><span class="token function">getResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ response<span class="token punctuation">.</span><span class="token function">getHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"content-type"</span><span class="token punctuation">,</span><span class="token string">"application/json"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//第二步 ObjectMapper类中的writeValueAsBytes把想返回的数据转为bytes数组</span>
+  ObjectMapper mapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes<span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                 bytes <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">writeValueAsBytes</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">JsonProcessingException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//第三步 创建一个buffer工厂使用wrap方法传入数组</span>
+          DataBuffer wrap <span class="token operator">=</span>response<span class="token punctuation">.</span><span class="token function">bufferFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">wrap</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//第四部返回数据</span>
+  <span class="token keyword">return</span> response<span class="token punctuation">.</span><span class="token function">writeWith</span><span class="token punctuation">(</span>Mono<span class="token punctuation">.</span><span class="token function">just</span><span class="token punctuation">(</span>wrap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-4断言工厂"><a href="#6-4断言工厂" class="headerlink" title="6.4断言工厂"></a>6.4断言工厂</h3><p>我们在配置文件中写的断言规则只是字符串，这些字符串会被Predicate Factory读取并处理，转变为路由判断的条件</p>
+<p>例如Path&#x3D;&#x2F;user&#x2F;**是按照路径匹配，这个规则是由</p>
+<p><code>org.springframework.cloud.gateway.handler.predicate.PathRoutePredicateFactory</code>类来</p>
+<p>处理的，像这样的断言工厂在SpringCloudGateway还有十几个:</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>After</td>
+<td>是某个时间点后的请求</td>
+<td>-  After&#x3D;2037-01-20T17:42:47.789-07:00[America&#x2F;Denver]</td>
+</tr>
+<tr>
+<td>Before</td>
+<td>是某个时间点之前的请求</td>
+<td>-  Before&#x3D;2031-04-13T15:14:47.433+08:00[Asia&#x2F;Shanghai]</td>
+</tr>
+<tr>
+<td>Between</td>
+<td>是某两个时间点之前的请求</td>
+<td>-  Between&#x3D;2037-01-20T17:42:47.789-07:00[America&#x2F;Denver],  2037-01-21T17:42:47.789-07:00[America&#x2F;Denver]</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>请求必须包含某些cookie</td>
+<td>- Cookie&#x3D;chocolate, ch.p</td>
+</tr>
+<tr>
+<td>Header</td>
+<td>请求必须包含某些header</td>
+<td>- Header&#x3D;X-Request-Id, \d+</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>请求必须是访问某个host（域名）</td>
+<td>-  Host&#x3D;<strong>.somehost.org,</strong>.anotherhost.org</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>请求方式必须是指定方式</td>
+<td>- Method&#x3D;GET,POST</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>请求路径必须符合指定规则</td>
+<td>- Path&#x3D;&#x2F;red&#x2F;{segment},&#x2F;blue&#x2F;**</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>请求参数必须包含指定参数</td>
+<td>- Query&#x3D;name, Jack或者-  Query&#x3D;name</td>
+</tr>
+<tr>
+<td>RemoteAddr</td>
+<td>请求者的ip必须是指定范围</td>
+<td>- RemoteAddr&#x3D;192.168.1.1&#x2F;24</td>
+</tr>
+<tr>
+<td>Weight</td>
+<td>权重处理</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>我们只需要掌握Path这种路由工程就可以了。</p>
+<h3 id="6-3跨域"><a href="#6-3跨域" class="headerlink" title="6.3跨域"></a>6.3跨域</h3><p>yml文件型</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  cloud:
+    gateway:
+      globalcors: # 全局的跨域处理
+        add-to-simple-url-handler-mapping: true # 因为ajax发起者会通过options请求来向服务器询问是否允许跨域，所以需要设置为true来解决options请求被拦截问题
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: # 允许哪些网站的跨域请求 
+              - "http://localhost:8090"
+            allowedMethods: # 允许的跨域ajax的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*" # 允许在请求中携带的头信息
+            allowCredentials: true # 是否允许携带cookie
+            maxAge: 360000 # 这次跨域检测的有效期，即一定时间内就不需要重复询问是否允许跨域了，直接请求即可。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h1><h1 id="1-安装与配置"><a href="#1-安装与配置" class="headerlink" title="1.安装与配置"></a>1.安装与配置</h1><ol>
+<li>打开nacos文件下的conf 找到spring配置文件，把mysql数据库的注释放开（33,36,39-41行），40和41改数据库账号</li>
+<li>打开startup.cmd文件编辑，把set MODE&#x3D;改成”standalone”<ol>
+<li>因为默认是集群</li>
+</ol>
+</li>
+<li>打开数据库把nacos中的sql文件，nacos.sql建立个表nacos导入</li>
+<li>启动</li>
+</ol>
+<h3 id="1-1Eureka和nacos的区别"><a href="#1-1Eureka和nacos的区别" class="headerlink" title="1.1Eureka和nacos的区别"></a>1.1Eureka和nacos的区别</h3><ul>
+<li>服务隔离性<ul>
+<li>eureka的server端部署多个项目时，如果有服务名称相同的情况，eureka的server端区分不了来自哪个项目的服务，负载均衡时可能会把其他项目中相同名字服务进行调用</li>
+<li>nacos有命名空间，如果命名空间不同，负载均衡是不会调用的，而且细分到了组，不是一个组的服务，哪怕名字相同，也不会进行调用</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2版本对应关系"><a href="#1-2版本对应关系" class="headerlink" title="1.2版本对应关系"></a>1.2版本对应关系</h3><p><img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220917151413870.png" alt="image-20220917151413870"></p>
+<p><img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220917151326361.png" alt="image-20220917151326361"></p>
+<h1 id="2-yml文件配置详解"><a href="#2-yml文件配置详解" class="headerlink" title="2.yml文件配置详解"></a>2.yml文件配置详解</h1><pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: nacos-clent-a #服务名称
+  cloud:
+    nacos:
+      server-addr: 192.168.139.1:8848 #server端地址
+      discovery:
+        group: a-client #组名称
+        namespace: c9894011-499b-469d-9676-a465aae7bd62 #命名空间id
+server:
+  port: 8081
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220917150434842.png" alt="image-20220917150434842"></p>
+<p><img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220917210223974.png" alt="image-20220917210223974"></p>
+<h3 id="2-1server端集群windos版本"><a href="#2-1server端集群windos版本" class="headerlink" title="2.1server端集群windos版本"></a>2.1server端集群windos版本</h3><p><img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220917210341641.png" alt="image-20220917210341641"></p>
+<p>复制三份nacos，默认集群启动，如果被设置成单机启动，需要用编辑器打开startup.cmd进行更改，然后打开application.propies文件把数据库配置好</p>
+<p>最后在conf目录中找到<img src="C:\Users\吕飞扬\AppData\Roaming\Typora\typora-user-images\image-20220917210534789.png" alt="image-20220917210534789"></p>
+<p>复制一份把example去掉，打开之后在写入nacos的ip与端口号，在把这三个nacos一一启动即可</p>
+<h1 id="3-入门nacos"><a href="#3-入门nacos" class="headerlink" title="3.入门nacos"></a>3.入门nacos</h1><p>nacos不需要像eureka一样写一个server端，它的文件即是一个server端</p>
+<p>创建client时,只需要配置server端的ip和端口号即可</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: nacos-clent-a #服务名称
+  cloud:
+    nacos:
+      server-addr: 192.168.139.1:8848 #server端地址
+      discovery:
+        group: a-client #组名称
+        namespace: c9894011-499b-469d-9676-a465aae7bd62 #命名空间id
+server:
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>命名空间一定要写，因为不同的命名空间的服务将完全隔离，调用不了</li>
+</ul>
+<p><strong>启动类注解不再是eureka的客户端注解，是nacos的@EnableDiscoveryClient</strong></p>
+<h2 id="3-1集成openFegin与gateway"><a href="#3-1集成openFegin与gateway" class="headerlink" title="3.1集成openFegin与gateway"></a>3.1集成openFegin与gateway</h2><ul>
+<li><p>openFegin</p>
+<ul>
+<li><p>和eureka一样</p>
+</li>
+<li><p>加入依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-openfeign<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>在启动类中加入注解@EnableFeignClients</p>
+</li>
+<li><p>创建Fegin类接口，接口上需要使用@FeignClient（“服务名称”）注解</p>
+<pre><code>@FeignClient(&quot;nacos-clent-a&quot;)
+public interface Testfegin &#123;
+    @GetMapping(&quot;/go&quot;)
+    public String test();
+&#125;
+</code></pre>
+</li>
+<li><p><strong>如果是分布式项目，抽取出去的fengin类，不需要是一个springboot项目，只需要是maven就行，加依赖，写@FeignClient注解的接口即可，而调用者需要加依赖并在启动类中添加</strong>@EnableFeignClients</p>
+</li>
+</ul>
+</li>
+<li><p>gateway</p>
+<ul>
+<li><p>加依赖，选择eureka一样的gateway依赖即可，<strong>注意不能加web依赖，因为会覆盖了gateway的web</strong></p>
+</li>
+<li></li>
+<li><pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: gatewayA
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: c9894011-499b-469d-9676-a465aae7bd62
+        group: a-client
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启动态路由
+          lower-case-service-id: true #开启服务名称小写
+      routes:
+        - id: nacos-client-b #服务名称
+          #          uri: http://localhost:8086
+          uri: lb://nacos-client-b
+          predicates:
+            - Path=/g
+
+server:
+  port: 80
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>和普通的nacos的client端一样，在加上配置以下动态路由即可，详情可以看之前写的eureka的笔记</p>
+<h3 id="3-2-1fengin包名不一致问题"><a href="#3-2-1fengin包名不一致问题" class="headerlink" title="3.2.1fengin包名不一致问题"></a>3.2.1fengin包名不一致问题</h3><p>因为抽取出去的Fegin不是一个springboot项目，所以如果包名和具有Fegin客户端注解的服务中的包名不同，则无法创建bean对象</p>
+<p><strong>所以最好统一包名</strong></p>
+<ul>
+<li><p>如果不统一也有三种解决办法</p>
+<ul>
+<li><p>第一种（不推荐）：更改springboot的包扫描范围</p>
+</li>
+<li><p>第二种：指定FeignCLient所在包</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@EnableFeignClients</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token string">"com.lfy.fegin"</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>第三种：指定FeginClient字节码(类名.class)</p>
+<pre><code>@EnableFeignClients(clients=&#123;userFegin.class&#125;)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-2Fegin性能优化，连接池配置、"><a href="#3-2-2Fegin性能优化，连接池配置、" class="headerlink" title="3.2.2Fegin性能优化，连接池配置、"></a>3.2.2Fegin性能优化，连接池配置、</h3><p>依赖</p>
+<pre class="line-numbers language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.github.openfeign<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>feign-httpclient<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>配置连接池</p>
+<pre class="line-numbers language-yml"><code class="language-yml">feign:
+  client:
+    default:
+      loggerLevel: BASIC
+  httpclient:
+    enabled: true #开启feign对连接池的支持
+    max-connections: 200 #最大连接数
+    max-connections-per-route: 50 %每个路径的最大连接数
+    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-2服务列表集群"><a href="#3-2服务列表集群" class="headerlink" title="3.2服务列表集群"></a>3.2服务列表集群</h2><p>和eureka一样，把<strong>两个相同的服务名称</strong>更改端口后注册进nacos的server端即可成为服务集群</p>
+<p><strong>但是有一点不同：</strong></p>
+<ul>
+<li><p>nacos的服务集群可以指定是哪个集群，他可以有多个集群分类，比如杭州集群、上海集群这种自定义集群名称</p>
+</li>
+<li><p><strong>如果不指定集群的话都会自动加入default的集群组</strong></p>
+</li>
+<li><p>在yml文件中指定</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: comsuer-service
+  cloud:
+    nacos:
+      discovery:
+        namespace: 45e839e9-904a-41aa-bbdb-a35fecbec674
+        server-addr: localhost:8848 #nacos 的server端地址
+        cluster-name: 福建 #集群名
+server:
+  port: 7002
+feign:
+  hystrix:
+    enabled: true #熔断开启
+regist-service: #服务名称
+  ribbon:
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule #优先访问相同集群名称的服务
+        
+        
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="3-2-1优先访问同集群分组的服务"><a href="#3-2-1优先访问同集群分组的服务" class="headerlink" title="3.2.1优先访问同集群分组的服务"></a>3.2.1优先访问同集群分组的服务</h3><p>上面提到nacos可以设置集群的分组，同一个集群组可以优先访问（<strong>比如现在有杭州和上海的集群，当同是杭州的消费者调用提供者时，会优先调用杭州的提供者，如果杭州的提供者服务挂了，在访问上海的提供者</strong>），只需要改一下负载均衡的配置为NacosRule</p>
+<pre class="line-numbers language-yml"><code class="language-yml">regist-service: #服务名称
+  ribbon:
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="4-热部署yml文件"><a href="#4-热部署yml文件" class="headerlink" title="4.热部署yml文件"></a>4.热部署yml文件</h1><p>在项目上线时，如果需要更改yml文件，需要把项目下线，重新打包发布，如果有多个拒载均衡的服务，则非常的麻烦，而<strong>nacos中可以动态的修改yml文件</strong></p>
+<ul>
+<li><p>创建bootstrap.yml</p>
+<ul>
+<li><pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: nacos-client-b
+  cloud:
+    nacos:
+      config:
+        username: nacos #账号
+        password: nacos #密码
+        file-extension: yml #文件格式，默认propties
+        server-addr: localhost:8848 #nacos的server端地址
+        prefix: nacos-client-b #文件名、
+        namespace:  #命名空间
+        group: #组
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>当项目初始化时，回去server端地址，找文件</li>
+<li>因为server端的配置文件也是有组和命名空间的，别忘了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在类上添加@RefreshScope注解，当nacos中更新配置文件，服务可以实时接收到</p>
+</li>
+<li><p>在使用时使用@value(“${key}”)即可</p>
+</li>
+</ul>
+<h3 id="4-1共享文件和active"><a href="#4-1共享文件和active" class="headerlink" title="4.1共享文件和active"></a>4.1共享文件和active</h3><pre class="line-numbers language-yml"><code class="language-yml">spring:
+  application:
+    name: nacos-client-b
+  cloud:
+    nacos:
+      config:
+        username: nacos #账号
+        password: nacos #密码
+        file-extension: yml #文件解析格式，默认propties
+        server-addr: localhost:8848 #nacos的server端地址
+        prefix: nacos-client-b #文件名
+        shared-configs:  #读取共享配置
+          - dataId: application-dev.yml
+            group: a_group #分组，不写默认为default
+            refresh: true #开启热部署
+  profiles:
+    active: dev
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>shared-configs可以读取共享的配置，就是读取多个配置文件，</p>
+</li>
+<li><p><strong>然后这里有个坑，如果加了文件后缀profiles: active</strong>则在nacos的文件一定要加上.yml后缀格式<img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220918165506397.png" alt="image-20220918165506397"></p>
+</li>
+<li><p><strong>他的原理是（重点，很坑）</strong></p>
+<pre><code>$&#123;spring.cloud.nacos.config.prefix&#125;-$&#123;spring.profiles.active&#125;.$&#123;spring.cloud.nacos.config.file-extension&#125;
+</code></pre>
+<ul>
+<li>如果说你没有写active会默认去掉 <strong>-</strong> 这个符号， 也不会在后面加**.yml** 所以写了active一定要在文件后面加上.yml</li>
+<li>如果没写active，比如就写了文件名和文件解析格式，他就会只找文件名匹配的，不会去加后缀之类的，这时候我们在nacos的文件中就可以不写.yml</li>
+</ul>
+</li>
+</ul>
+<p><strong>acticve</strong></p>
+<p>用来配置当前环境，比如上述代码中，会默认读取nacos-client-b.yml（<strong>后缀yml不写也行</strong>）文件，如果加上active属性，则还会读取nacos-client-b-dev.yml文件（<strong>配置文件必须写后缀yml</strong>）</p>
+<p> shared-configs则是用来读取共享的文件</p>
+<p><strong>快捷配置的局限性</strong>shared-dataids</p>
+<pre class="line-numbers language-yml"><code class="language-yml">spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        server-addr: localhost:8848
+        shared-dataids: t.yml,test.yml #读取的文件列表
+        namespace: gulismall
+        refreshable-dataids: t.yml,test.yml #哪些文件可以热更新
+        
+        //采用默认配置，直接读取多个文件，会根据命名空间自动匹配，虽然配置更简单，但是没法读取来自不同组的多个文件，不能单个进行定制化配置，有一定局限性，已经弃用。一般使用最新的shared-config
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-2文件优先级"><a href="#4-2文件优先级" class="headerlink" title="4.2文件优先级"></a>4.2文件优先级</h3><p>带服务环境的文件 –&gt;不带服务环境的文件–&gt;本地application.yml</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Lfy</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2022/10/02/springcloud/">http://example.com/2022/10/02/springcloud/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Lfy</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/java/">
+                                    <span class="chip bg-color">java</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                                    <span class="chip bg-color">分布式</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+    <div class="livere-card card" data-aos="fade-up">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" class="card-content" data-id="city" data-uid="MTAyMC81NzU2Ni8zNDAzMA">
+        <script type="text/javascript">
+            (function (d, s) {
+                let j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') {
+                    return;
+                }
+
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript。</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</div>
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/10/07/jin-jie-pian-diao-you/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="sql调优">
+                        
+                        <span class="card-title">sql调优</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                        <span class="chip bg-color">分布式</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%B0%83%E4%BC%98/">
+                        <span class="chip bg-color">调优</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/10/02/springcloud/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="SpringCloud">
+                        
+                        <span class="card-title">SpringCloud</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                        <span class="chip bg-color">分布式</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 扬 Blog<br />'
+            + '文章作者: Lfy<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+                            <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <span id="year">2022</span>
+            <a href="/about" target="_blank">Lfy</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/lvfeiyang111" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1316547530@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1316547530" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1316547530" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+        <div align=center> <a href="https://www.upyun.com/" target="_blank"> <img src="youpaiyunlog.png"
+            width="5%" /></a>
+        </div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+                                <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+                                    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+                                        <script src="/js/show.js"></script>
+                                        <script src="/libs/materialize/materialize.min.js"></script>
+                                        <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+                                        <script src="/libs/aos/aos.js"></script>
+                                        <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+                                        <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+                                        <script src="/js/matery.js"></script>
+
+                                        <!-- Baidu Analytics -->
+
+                                            <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+                                                
+                                                    <script src="/libs/others/clicklove.js" async="async"></script>
+                                                    
+                                                        
+                                                            <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+                                                            
+
+                                                                
+
+                                                                        
+
+                                                                                
+                                                                                        
+                                                                                            <script type="text/javascript" color="0,0,255" pointColor="0,0,255" opacity='0.7' zIndex="-1" count="99" src="/libs/background/canvas-nest.js"></script>
+                                                                                            
+
+                                                                                                
+
+                                                                                                            
+
+                                                                                                                    
+                                                                                                                        <script src="/libs/instantpage/instantpage.js" type="module"></script>
+                                                                                                                        
+
+                </body>
+
+</html>
