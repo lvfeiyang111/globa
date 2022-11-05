@@ -1,22 +1,25 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 
-
+    <!-- 这里 -->
     <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/f506cd0d.js","daovoice")
     daovoice('init', {
         app_id: "f506cd0d",
       });
       daovoice('update');
     </script>
-
+<!-- 这里 -->
  
   
+
 
  
 
 <head>
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+
     <meta charset="utf-8">
-    <meta name="keywords" content="分类: java, 扬 Blog">
+    <meta name="keywords" content="分类: java, lfy Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -28,7 +31,9 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类: java | 扬 Blog</title>
+    <title>分类: java | lfy Blog</title>
+  
+
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -38,11 +43,21 @@
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
-
     <script src="/libs/jquery/jquery.min.js"></script>
+
+
 
 <meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<style>
+            #daodream-container .daodream-powered-by span{
+            display: none;
+        }
+         .daodream-launcher-button {
+            margin-top: 350px;
+        }
+
+</style>
 
 
     
@@ -51,6 +66,30 @@
                 </style>
 
                 <body>
+                    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+  
+
                     <!-- <div id="DynamicBackground"><canvas></canvas><canvas></canvas><canvas></canvas></div>
                     <script src="/js/canvas_moving.js"></script>
                     <script src="../source/libs/jquery/jquery.min.js"></script> -->
@@ -63,10 +102,11 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">扬 Blog</span>
+                    <span class="logo-span">lfy Blog</span>
                 </a>
             </div>
             
+
 
 <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
 <ul class="right nav-menu">
@@ -89,17 +129,6 @@
       <i class="fas fa-tags" style="zoom: 0.6;"></i>
       
       <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/artitalk" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>artitalk</span>
     </a>
     
   </li>
@@ -162,7 +191,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">扬 Blog</div>
+        <div class="logo-name">lfy Blog</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -192,17 +221,6 @@
 			    <i class="fa-fw fas fa-tags"></i>
 			
 			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/artitalk" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			artitalk
 		</a>
           
         </li>
