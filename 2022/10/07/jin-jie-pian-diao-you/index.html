@@ -47,8 +47,7 @@
 
 
 
-<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 <style>
             #daodream-container .daodream-powered-by span{
             display: none;
@@ -455,6 +454,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -598,15 +600,18 @@
 <li><p>mysql客户端连接成功后，通过show [session|global] status 命令可以提供服务器状态信息。通过如下指令，可以查看当前数据库的INSERT,UPDATE,DELETE,SELECT的访问频次</p>
 </li>
 <li><p>第一个指令：查看SQL执行频次</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">show global status like &#x27;Com_______&#x27;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">show global status like &#39;Com_______&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>第二个指令：查看慢查询日志是否开启</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre class="line-numbers language-hljs sh">show variables like <span class="hljs-string"><code class="language-hljs sh">show variables like <span class="hljs-string">&#x27;slow_query_log&#x27;</span><br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">show variables like <span class="token string">'slow_query_log'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="慢查询日志（第二种工具）："><a href="#慢查询日志（第二种工具）：" class="headerlink" title="慢查询日志（第二种工具）："></a>慢查询日志（第二种工具）：</h5><ul>
 <li><p>慢查询日志记录了所有执行时间超过指定参数（lon_query_time,单位：秒，默认10秒）的所有SQL语句的日志。MYSQL的慢查询日志默认没有开启，需要在Mysql的配置文件（&#x2F;etc&#x2F;my.cnf）中配置如下信息：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre class="line-numbers language-hljs sh"><span class="hljs-comment">#开启Mysql慢日志查询开关</span><br>slow_query_log=1<br><span class="hljs-comment"><code class="language-hljs sh"><span class="hljs-comment">#开启Mysql慢日志查询开关</span><br>slow_query_log=1<br><span class="hljs-comment">#设置慢日志的时间为2秒，sql语句执行时间超过2秒，就会视为慢查询，记录慢查询日志</span><br>long_query_time=2<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#开启Mysql慢日志查询开关</span>
+<span class="token assign-left variable">slow_query_log</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token comment">#设置慢日志的时间为2秒，sql语句执行时间超过2秒，就会视为慢查询，记录慢查询日志</span>
+<span class="token assign-left variable">long_query_time</span><span class="token operator">=</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>配置完毕之后，通过以下指令重新启动MYSQL服务器进行测试，查看慢日志文件中记录的信息&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;localhost-slow.log</p>
 </li>
@@ -615,14 +620,19 @@
 <li><h5 id="profile（第三种工具）"><a href="#profile（第三种工具）" class="headerlink" title="profile（第三种工具）:"></a>profile（第三种工具）:</h5><ul>
 <li><p>show profiles能够在做SQL优化时帮助我们了解时间都耗费到了哪里，通过have_profiling参数，能够看到当前Mysql是否支持</p>
 </li>
-<li><h6 id="profile操作"><a href="#profile操作" class="headerlink" title="profile操作"></a>profile操作</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select @@have_profiling  #查看是否支持profile<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h6 id="profile操作"><a href="#profile操作" class="headerlink" title="profile操作"></a>profile操作</h6><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select @@have_profiling  #查看是否支持profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li><p>默认profiling是关闭的，可以通过set语句在session&#x2F;global级别开启profiling：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">set profiling =1;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">set profiling &#x3D;1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>通过如下指令查看执行耗时</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#查看每一条sql的耗时基本情况<br>show profiles;<br>#查看指定的query_id的sql语句的各个阶段耗时情况<br>show profile for query query_id;<br>#查看指定query_id的SQL语句CPU的使用情况<br>show profile cpu for query query_id;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#查看每一条sql的耗时基本情况
+show profiles;
+#查看指定的query_id的sql语句的各个阶段耗时情况
+show profile for query query_id;
+#查看指定query_id的SQL语句CPU的使用情况
+show profile cpu for query query_id;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -631,7 +641,8 @@
 <li><p>EXPLAIN或者DESC命令获取Mysql如何执行select语句的信息，包括在select语句执行过程中表如何连接和连接的顺序。</p>
 </li>
 <li><p>语法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#直接在select语句之前加上关键字explain/desc，意思就是在普通查询语句前面价格explain或者desc就行<br>EXPLAIN SELECT 字段列表 FROM 表名 WHERE 条件;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#直接在select语句之前加上关键字explain&#x2F;desc，意思就是在普通查询语句前面价格explain或者desc就行
+EXPLAIN SELECT 字段列表 FROM 表名 WHERE 条件;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>explain查询到的各字段含义：</p>
 <ul>
@@ -684,7 +695,9 @@
 <li><h5 id="字符串类型字段使用时，不加引号，索引将失效"><a href="#字符串类型字段使用时，不加引号，索引将失效" class="headerlink" title="字符串类型字段使用时，不加引号，索引将失效"></a>字符串类型字段使用时，不加引号，索引将失效</h5></li>
 <li><h5 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h5><ul>
 <li><p>如果仅仅是尾部模糊匹配，索引不会失效，如果是头部模糊匹配索引将失效</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">like &#x27;xxx%&#x27;  #索引不失效<br>like &#x27;%xxx&#x27;  #索引失效<br>like &#x27;%xxx%&#x27;  #索引失效<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">like &#39;xxx%&#39;  #索引不失效
+like &#39;%xxx&#39;  #索引失效
+like &#39;%xxx%&#39;  #索引失效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="or连接的条件"><a href="#or连接的条件" class="headerlink" title="or连接的条件:"></a>or连接的条件:</h5><ul>
@@ -700,13 +713,13 @@
 <li><p>SQL提示，是优化数据库的一个重要手段，简单来说，就是在SQL语句中加入一些认为的提示来达到优化操作的目的。</p>
 </li>
 <li><p>use index：告诉数据库建议使用哪个索引</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select * from xxx use index(index_name)<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select * from xxx use index(index_name)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>ignore index：告诉数据库不使用哪个索引</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select * from xxx ignore index(index_name)<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select * from xxx ignore index(index_name)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>force index ：告诉数据库必须使用这个索引</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select * from xxx force index(index_name)<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select * from xxx force index(index_name)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h5><ul>
@@ -720,14 +733,21 @@
 </ul>
 </li>
 <li><p>面试题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#一张表，有四个字段（id,username,passwdord,status）,由于数据量大，需要对以下的SQL语句进行优化，该如何进行？<br>select id,username,password from tb_user where username=&#x27;itcast&#x27;<br>#答：创建username和password的联合索引，这样提升了效率并且联合索引避免了回表查询的步骤，这就是（覆盖索引）<br><br>#如果只创建一个username的索引，那么password字段没有索引覆盖，则会发生回表查询<br>#MYSQL底层执行步骤则会是先去二级索引中根据username=&#x27;itcast&#x27;查询，并且在二级索引中拿到username和id的数据，但是这时候没有password这个字段的数据，然后底层会拿着id去聚集索引中根据id查询password的值在返回，这就是（回表查询）<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#一张表，有四个字段（id,username,passwdord,status）,由于数据量大，需要对以下的SQL语句进行优化，该如何进行？
+select id,username,password from tb_user where username&#x3D;&#39;itcast&#39;
+#答：创建username和password的联合索引，这样提升了效率并且联合索引避免了回表查询的步骤，这就是（覆盖索引）
+
+#如果只创建一个username的索引，那么password字段没有索引覆盖，则会发生回表查询
+#MYSQL底层执行步骤则会是先去二级索引中根据username&#x3D;&#39;itcast&#39;查询，并且在二级索引中拿到username和id的数据，但是这时候没有password这个字段的数据，然后底层会拿着id去聚集索引中根据id查询password的值在返回，这就是（回表查询）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><h5 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h5><ul>
 <li><p>当字段类型为字符串时，有时候需要索引很长的字符串，这会让索引变得很大，查询时浪费大量的磁盘IO，影响查询效率，此时可以只将字符串的一部分前缀，建立索引，这样可以大大节约索引空间，从而提高索引效率。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#语法<br>create index index_name on table_name(column(n))<br>#index_name索引名 table_name表名  column字段名  n前缀长度（提取n个字符构建索引）<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#语法
+create index index_name on table_name(column(n))
+#index_name索引名 table_name表名  column字段名  n前缀长度（提取n个字符构建索引）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>前缀长度</p>
 <ul>
@@ -736,7 +756,8 @@
 <p>​       唯一索引的选择性是1，也是效率最高的</p>
 <ul>
 <li><p>可以通过以下SQL语句来判断前缀长度设置多少比较好</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select count(distinct substring(字段名,1,xxx))/count(*) from 表名<br>#因为count(distinct 字段名)/count(*)如果字段设置了不能重复，这个查出来肯定是1，然后我们通过substring截取字符串，看截取多少的时候会发生数据重复，根据这个来建立前缀索引<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select count(distinct substring(字段名,1,xxx))&#x2F;count(*) from 表名
+#因为count(distinct 字段名)&#x2F;count(*)如果字段设置了不能重复，这个查出来肯定是1，然后我们通过substring截取字符串，看截取多少的时候会发生数据重复，根据这个来建立前缀索引<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>底层：</p>
 <ul>
@@ -791,7 +812,9 @@
 </ul>
 </li>
 <li><p>索引语法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create [unique] index xxx on xxx(xxx)<br>show index from xxx;<br>drop index xxx on xxx<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create [unique] index xxx on xxx(xxx)
+show index from xxx;
+drop index xxx on xxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>SQL性能分析</p>
 <ul>
@@ -808,7 +831,8 @@
 <li><p>insert优化：</p>
 <ul>
 <li><p>批量插入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">insert into 表名 values （xxx）,(xxxx)<br>#建议插入语句直接写一句话批量插入，减少与数据库的连接，单次建议1000条数据以下<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">insert into 表名 values （xxx）,(xxxx)
+#建议插入语句直接写一句话批量插入，减少与数据库的连接，单次建议1000条数据以下<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>手动提交事务</p>
 <ul>
@@ -827,7 +851,15 @@
 <li><p>如果一次性需要插入大批量数据，使用insert语句插入性能比较低，此时可以使用Mysql数据库提供的load指令进行插入，操作如下：</p>
 </li>
 <li><p><img src="C:\Users\吕飞扬\Desktop\SQL调优\img\C30A70BD28BD247EAFEEE9D91E340453.png" alt="C30A70BD28BD247EAFEEE9D91E340453"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#客户端连接服务端时，加上参数--local-infile<br>mysql--local-infile -u root -p<br><br>#设置全局参数local_infile为1，开启从本地加载文件导入数据的开关<br>set global local_infile=1;<br><br>#执行load指令将准备好的数据，加载到表结构中<br>load data local infile &#x27;/root/sql1.log&#x27; into table &#x27;tb_user&#x27; fields terminated by &#x27;,&#x27; lines terminated by &#x27;\n&#x27;<br>#load data local infile 文件路径 into table 表名 fields terminated by 文件中数据只用什么分隔 lines terminated by （每一行使用什么分隔）<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#客户端连接服务端时，加上参数--local-infile
+mysql--local-infile -u root -p
+
+#设置全局参数local_infile为1，开启从本地加载文件导入数据的开关
+set global local_infile&#x3D;1;
+
+#执行load指令将准备好的数据，加载到表结构中
+load data local infile &#39;&#x2F;root&#x2F;sql1.log&#39; into table &#39;tb_user&#39; fields terminated by &#39;,&#39; lines terminated by &#39;\n&#39;
+#load data local infile 文件路径 into table 表名 fields terminated by 文件中数据只用什么分隔 lines terminated by （每一行使用什么分隔）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -864,7 +896,7 @@
 <li><p>Using index：通过有序索引顺序扫描直接返回有序数据，这种情况即为using index ,不需要额外排序，操作效率高</p>
 </li>
 <li><p>就是说排序的时候，因为索引建立默认都是升序排，如果你进行排序使用一个升序一个降序，就会出现Using filesort，这时候你需要而外建立一个相应的索引才会走索引 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create index 索引名 on 表名（字段名 asc,字段名 desc）<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create index 索引名 on 表名（字段名 asc,字段名 desc）<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li><p>总结：</p>
@@ -888,22 +920,92 @@
 <li><p>通过覆盖索引和子查询的方式优化</p>
 <ul>
 <li><p>优化思路：一般分页查询时，通过创建覆盖索引能够比较好的提高性能，可以通过覆盖索引加子查询形式进行优化</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#先查询这张表的主键<br>select id from xxx order by id limit 200000,10<br>#把上面那张表看做另外一张表，进行一个连表查询<br>select a.* from xxx a join (select id from xxx order by id limit 200000,10 ) b on a.id=b.id<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#先查询这张表的主键
+select id from xxx order by id limit 200000,10
+#把上面那张表看做另外一张表，进行一个连表查询
+select a.* from xxx a join (select id from xxx order by id limit 200000,10 ) b on a.id&#x3D;b.id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <h4 id="3-6）count-优化"><a href="#3-6）count-优化" class="headerlink" title="3.6）count 优化"></a>3.6）count 优化</h4><ul>
-<li><pre class="line-numbers language-mysql"><code class="language-mysql">select count(*) from tb_user
-<figure class="highlight nestedtext"><table><tr><td class="code"><pre><code class="hljs nestedtext"><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">MyISam引擎把一个表的总行数存在了磁盘上，因此执行count（*）的时候会直接返回个数，效率很高</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">InnoDB引擎就很麻烦了，它执行count（*）需要把数据一行一行的从引擎里面读出来，然后累积数</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">优化思路</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">自己计数：利用redis，每当我们插入一条数据时，往redis里增加一个数，自己维护，一般没有很好的手段来优化count字段</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">count的几种用法</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">count()是一个聚合函数，对于返回的结果集，一行行的判断，如果count函数的参数不是null,累计值就加1，否则不加，最后返回累计值</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">用法：count（*）、count（主键）、count（字段）、count（1）</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">哪个效率高呢？</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">count（主键）：InnoDB引擎会遍历整张表，把每一行的主键id值都取出来，返回给服务层。服务层拿到主键后，直接按行进行累加（因为主键不可能为null）</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">count（字段）：没有not null约束，InnoDB会遍历整张表把每一行的字段值都取出来，返回给服务层，服务层判断是否为null，不为null,计数累加，如果有not null约束，和主键一样，直接遍历累加</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">count（1）：innoDB会遍历整张表，但不取值，服务层对于返回的每一行，放一个数字1进行，直接按行进行累加</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">count（*）：InnoDB并不会把全部字段取出来，而是专门做了优化，不取值，服务层直接按行进行累加。</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">所以效率最高的是count（*）其次是count（1）然后是count（主键）或带有not null的count(字段),最后是没有not null的count（字段）</span><br><br><span class="hljs-comment">#### 3.7）update 优化</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-string">InnoDB的行锁是针对索引加的锁，不是针对记录加的锁，并且该索引不能失效，否则就会从行锁升级成表锁</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">通俗点说，就是进行update 表名 set xxx=xxx where 条件   这个条件必须是有索引的，不然就会锁住整个表（从行锁升级成表锁）</span><br><br><span class="hljs-comment">#### 3.8）总结</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-string">插入数据的优化：</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">如果批量插入，最好使用load data local infile</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">主键优化：</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">页分裂</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">页合并</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">主键长度最好短，主键最好顺序插入，不然容易发生页分裂影响效率</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">推荐使用主键自增</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">order by优化：</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">using index：直接通过索引返回数据，效率高</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">using filesort：需要将返回的结果在排序缓冲区排序</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">尽量使用覆盖索引，并且索引在创建时默认为asc，如果查询时一个asc一个desc或者是desc需要指定索引创建时的排序方式</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">group by优化：</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">索引，多字段满足最左前缀法则</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">limit优化：</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">limit越往后性能越低，因为他会把所有的记录查询出来，然后在丢掉不用的。</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">覆盖索引+子查询</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">count优化</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">没什么优化手段，如果要优化只能用非关系数据库自己计数</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">count（）各种的性能对比</span><br><span class="hljs-bullet">-</span> <span class="hljs-string">update优化</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">一定要根据索引字段为条件进行更新，避免行锁升级成表锁</span><br><br><br><br><span class="hljs-comment"># 4.视图/存储过程/触发器</span><br><br><span class="hljs-comment">#### 4.1）视图</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-string">##### 介绍：</span><br><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">视图是一种虚拟存在的表，视图中的数据并不存在数据库中，行和列数据来自定义事务的查询中使用的表，并且是在使用视图时动态生成的。</span><br><br>    通俗的讲，视图只保存了查询的SQL逻辑，不保存查询结果。所以我们在创建视图的时候，主要的工作就落在创建这条SQL查询语句上。<br><br><span class="hljs-bullet">-</span> <span class="hljs-string">##### 创建：</span><br><br>  ```mysql<br>  create view 视图名称 as select 语句 [with cascaded check option]<br>  <span class="hljs-comment">#比如创建视图的select指定id<10，如果创建完之后通过视图添加数据一个id为11的数据，视图是不会显示这条数据的（主表中会显示），需要在创建的时候后面加上with cascaded check option来检查选项，如果在通过视图添加id>10的数据就会报错，不会往主表中加数据了  视图检查选项中看详情</span><br><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></td></tr></table></figure>
+<li><pre><code class="mysql">select count(*) from tb_user
+<pre class="line-numbers language-none"><code class="language-none">
+  - MyISam引擎把一个表的总行数存在了磁盘上，因此执行count（*）的时候会直接返回个数，效率很高
+  - InnoDB引擎就很麻烦了，它执行count（*）需要把数据一行一行的从引擎里面读出来，然后累积数
+  - 优化思路
+    - 自己计数：利用redis，每当我们插入一条数据时，往redis里增加一个数，自己维护，一般没有很好的手段来优化count字段
+  - count的几种用法
+    - count()是一个聚合函数，对于返回的结果集，一行行的判断，如果count函数的参数不是null,累计值就加1，否则不加，最后返回累计值
+    - 用法：count（*）、count（主键）、count（字段）、count（1）
+      - 哪个效率高呢？
+      - count（主键）：InnoDB引擎会遍历整张表，把每一行的主键id值都取出来，返回给服务层。服务层拿到主键后，直接按行进行累加（因为主键不可能为null）
+      - count（字段）：没有not null约束，InnoDB会遍历整张表把每一行的字段值都取出来，返回给服务层，服务层判断是否为null，不为null,计数累加，如果有not null约束，和主键一样，直接遍历累加
+      - count（1）：innoDB会遍历整张表，但不取值，服务层对于返回的每一行，放一个数字1进行，直接按行进行累加
+      - count（*）：InnoDB并不会把全部字段取出来，而是专门做了优化，不取值，服务层直接按行进行累加。
+      - 所以效率最高的是count（*）其次是count（1）然后是count（主键）或带有not null的count(字段),最后是没有not null的count（字段）
+
+#### 3.7）update 优化
+
+- InnoDB的行锁是针对索引加的锁，不是针对记录加的锁，并且该索引不能失效，否则就会从行锁升级成表锁
+  - 通俗点说，就是进行update 表名 set xxx&#x3D;xxx where 条件   这个条件必须是有索引的，不然就会锁住整个表（从行锁升级成表锁）
+
+#### 3.8）总结
+
+- 插入数据的优化：
+  - 如果批量插入，最好使用load data local infile
+- 主键优化：
+  - 页分裂
+  - 页合并
+  - 主键长度最好短，主键最好顺序插入，不然容易发生页分裂影响效率
+  - 推荐使用主键自增
+- order by优化：
+  - using index：直接通过索引返回数据，效率高
+  - using filesort：需要将返回的结果在排序缓冲区排序
+  - 尽量使用覆盖索引，并且索引在创建时默认为asc，如果查询时一个asc一个desc或者是desc需要指定索引创建时的排序方式
+- group by优化：
+  - 索引，多字段满足最左前缀法则
+- limit优化：
+  - limit越往后性能越低，因为他会把所有的记录查询出来，然后在丢掉不用的。
+  - 覆盖索引+子查询
+- count优化
+  - 没什么优化手段，如果要优化只能用非关系数据库自己计数
+  - count（）各种的性能对比
+- update优化
+  - 一定要根据索引字段为条件进行更新，避免行锁升级成表锁
+
+
+
+# 4.视图&#x2F;存储过程&#x2F;触发器
+
+#### 4.1）视图
+
+- ##### 介绍：
+
+  - 视图是一种虚拟存在的表，视图中的数据并不存在数据库中，行和列数据来自定义事务的查询中使用的表，并且是在使用视图时动态生成的。
+
+    通俗的讲，视图只保存了查询的SQL逻辑，不保存查询结果。所以我们在创建视图的时候，主要的工作就落在创建这条SQL查询语句上。
+
+- ##### 创建：
+
+  &#96;&#96;&#96;mysql
+  create view 视图名称 as select 语句 [with cascaded check option]
+  #比如创建视图的select指定id&lt;10，如果创建完之后通过视图添加数据一个id为11的数据，视图是不会显示这条数据的（主表中会显示），需要在创建的时候后面加上with cascaded check option来检查选项，如果在通过视图添加id&gt;10的数据就会报错，不会往主表中加数据了  视图检查选项中看详情<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </code></pre>
 </li>
-<li><h5 id="查询："><a href="#查询：" class="headerlink" title="查询："></a>查询：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#查看创建视图语句<br>show create view 视图名称；<br>#查看视图数据<br>select * from 视图名称；<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="查询："><a href="#查询：" class="headerlink" title="查询："></a>查询：</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#查看创建视图语句
+show create view 视图名称；
+#查看视图数据
+select * from 视图名称；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><h5 id="修改："><a href="#修改：" class="headerlink" title="修改："></a>修改：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#方式一<br>create view 视图名称[(列名列表)] as select语句<br>#方式二<br>alter view 视图名称[(列名列表)] as select语句<br>#其实就是创建一个新的视图，取和要修改的视图一样的名字，然后mysql会直接帮你覆盖原来名字的视图，起到修改作用<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="修改："><a href="#修改：" class="headerlink" title="修改："></a>修改：</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#方式一
+create view 视图名称[(列名列表)] as select语句
+#方式二
+alter view 视图名称[(列名列表)] as select语句
+#其实就是创建一个新的视图，取和要修改的视图一样的名字，然后mysql会直接帮你覆盖原来名字的视图，起到修改作用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><h5 id="删除："><a href="#删除：" class="headerlink" title="删除："></a>删除：</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">drop view 视图名称，视图名称<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="删除："><a href="#删除：" class="headerlink" title="删除："></a>删除：</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">drop view 视图名称，视图名称<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><h5 id="视图的检查选项"><a href="#视图的检查选项" class="headerlink" title="视图的检查选项"></a>视图的检查选项</h5><ul>
 <li><p>当使用with check option 子句创建视图时，Mysql会通过视图检查正在更改的每个行，例如：插入、更新、删除，以使其符合视图的定义。mysql允许基于另一个视图创建视图，它还会检查依赖视图中的规则以保持一致性。为了确定检查的范围，mysql提供了两个选项：cascaded和local,默认是cascaded</p>
@@ -949,7 +1051,10 @@
 </ul>
 </li>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#1.为了保证数据库表的安全性，开发人员在操作tb_user表时，只能看到用户的基本字段，屏蔽手机号和邮箱两个字段<br>create view tb_user_view as select id,name,profession,age,gender,status from tb_user<br>#2.查询每个学生所选修的课程（三张表联查），这个功能在很多业务中都有使用到，为了简化操作，定义一个视图<br>create view tb_three as select s.name as studentname,s.no,c.name as coursename from student_course sc,student s, course c where sc.id=s.id and s.id=c.id <br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#1.为了保证数据库表的安全性，开发人员在操作tb_user表时，只能看到用户的基本字段，屏蔽手机号和邮箱两个字段
+create view tb_user_view as select id,name,profession,age,gender,status from tb_user
+#2.查询每个学生所选修的课程（三张表联查），这个功能在很多业务中都有使用到，为了简化操作，定义一个视图
+create view tb_three as select s.name as studentname,s.no,c.name as coursename from student_course sc,student s, course c where sc.id&#x3D;s.id and s.id&#x3D;c.id <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h4 id="4-2）存储过程"><a href="#4-2）存储过程" class="headerlink" title="4.2）存储过程"></a>4.2）存储过程</h4><ul>
 <li><h5 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h5><ul>
@@ -963,74 +1068,183 @@
 <li>减少网络交互、提升效率</li>
 </ul>
 </li>
-<li><h5 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create procedure 存储过程名称(参数列表)<br>begin<br>    --SQL语句;<br>end;<br>#注意：在命令行中，执行创建存储过程的SQL时，需要通过关键字delimiter指定SQL语句的结束符<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create procedure 存储过程名称(参数列表)
+begin
+    --SQL语句;
+end;
+#注意：在命令行中，执行创建存储过程的SQL时，需要通过关键字delimiter指定SQL语句的结束符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><h5 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">call 名称(参数)<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">call 名称(参数)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li><h5 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select * from information_schema.routines where routine_schema=&#x27;xxx&#x27; #查询指定数据库的存储过程及状态信息 xxx是数据库名<br>show create procedure 存储过程名称  #查询某个存储过程的定义<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select * from information_schema.routines where routine_schema&#x3D;&#39;xxx&#39; #查询指定数据库的存储过程及状态信息 xxx是数据库名
+show create procedure 存储过程名称  #查询某个存储过程的定义<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
-<li><h5 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">drop procedure if exists 存储过程名字;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">drop procedure if exists 存储过程名字;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><ul>
 <li><p>系统变量是MYSQL服务器提供，不是用户定义的，属于服务器层面，分为全局变量GLOBAL、会话变量SESSION</p>
 </li>
 <li><p>查看系统变量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#查看所有的系统变量<br>show [session|global] variables<br>#可以通过like模糊匹配方式查找变量<br>show [session|global] varibales like &#x27;...&#x27;<br>#查看指定变量的值<br>select @@[session|global] 系统变量名<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#查看所有的系统变量
+show [session|global] variables
+#可以通过like模糊匹配方式查找变量
+show [session|global] varibales like &#39;...&#39;
+#查看指定变量的值
+select @@[session|global] 系统变量名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>设置系统变量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">set [session|global] 系统变量名=值;<br><br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">set [session|global] 系统变量名&#x3D;值;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>重新启动之后设置的值会恢复初始值，如果想永久修改，在&#x2F;etc&#x2F;my.cnf中配置</p>
 </li>
 </ul>
 </li>
-<li><h5 id="用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”-变量名“就可以使用，其作用域为当前连接"><a href="#用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”-变量名“就可以使用，其作用域为当前连接" class="headerlink" title="用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”@变量名“就可以使用，其作用域为当前连接"></a>用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”@变量名“就可以使用，其作用域为当前连接</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#赋值<br>set @var_name = expr 或 select 变量名 := 值<br>#通过查询出来的数据赋值给变量<br>select 字段名 into @var_name from 表名<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”-变量名“就可以使用，其作用域为当前连接"><a href="#用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”-变量名“就可以使用，其作用域为当前连接" class="headerlink" title="用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”@变量名“就可以使用，其作用域为当前连接"></a>用户自定义变量：是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用”@变量名“就可以使用，其作用域为当前连接</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#赋值
+set @var_name &#x3D; expr 或 select 变量名 :&#x3D; 值
+#通过查询出来的数据赋值给变量
+select 字段名 into @var_name from 表名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#使用<br>select @var_name;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#使用
+select @var_name;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><h5 id="局部变量：是根据需要定义的在局部生效的变量，访问之前，需要declare声明。可用作存储过程内的局部变量和输入参数，局部变量的范围是在其内声明的begin…end块。"><a href="#局部变量：是根据需要定义的在局部生效的变量，访问之前，需要declare声明。可用作存储过程内的局部变量和输入参数，局部变量的范围是在其内声明的begin…end块。" class="headerlink" title="局部变量：是根据需要定义的在局部生效的变量，访问之前，需要declare声明。可用作存储过程内的局部变量和输入参数，局部变量的范围是在其内声明的begin…end块。"></a>局部变量：是根据需要定义的在局部生效的变量，访问之前，需要declare声明。可用作存储过程内的局部变量和输入参数，局部变量的范围是在其内声明的begin…end块。</h5><ul>
 <li><p>声明</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">declare 变量名 变量类型<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">declare 变量名 变量类型<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>示例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create procedure p2()<br>begin<br>	declare stu_cont int default 0;<br>	select count (*) into stu_count from student;<br>	select stu_count;<br>end;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create procedure p2()
+begin
+	declare stu_cont int default 0;
+	select count (*) into stu_count from student;
+	select stu_count;
+end;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="if"><a href="#if" class="headerlink" title="if"></a>if</h5><ul>
-<li><pre class="line-numbers language-mysql"><code class="language-mysql">if 条件1 then 变量赋值语句
+<li><pre><code class="mysql">if 条件1 then 变量赋值语句
 elseif 条件 then 变量赋值语句
 else 条件 then 变量赋值语句
 end if;
 select xxx; #返回展示结果
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">    <br>  <br>- ##### 参数：<br><br>  - <span class="hljs-keyword">in</span>（默认）：该类参数作为输入，也就是需要调用时传入值<br><br>  - <span class="hljs-keyword">out</span>：该类参数作为输出，也就是该参数可以作为返回值<br><br>  - <span class="hljs-keyword">inout</span>：既可以作为输入参数，也可以作为输出参数<br><br>  - 语法：<br><br>    ```mysql<br>    create procedure 存储过程名称（<span class="hljs-keyword">in</span>/<span class="hljs-keyword">out</span>/<span class="hljs-keyword">inout</span>）<br>    begin<br>    	--SQL语句<br>    end;<br><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">    
+  
+- ##### 参数：
+
+  - in（默认）：该类参数作为输入，也就是需要调用时传入值
+
+  - out：该类参数作为输出，也就是该参数可以作为返回值
+
+  - inout：既可以作为输入参数，也可以作为输出参数
+
+  - 语法：
+
+    &#96;&#96;&#96;mysql
+    create procedure 存储过程名称（in&#x2F;out&#x2F;inout）
+    begin
+    	--SQL语句
+    end;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </code></pre>
 </li>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#一、根据传入参数score,判定当前分数对应的分数等级，并返回<br>#1. score>=85等级为优秀<br>#2. score>=60分且score<85分，等级为及格。<br>#3. score<60分，等级为不及格。<br>create procedure p4(in score int,out result varchar)<br>begin<br>	if score >=85 than<br>	set result:=&#x27;优秀&#x27;;<br>	elseif score >=60 than<br>	set result:=&#x27;及格&#x27;;<br>	else result:=&#x27;不及格&#x27;;<br>	end if;<br>end;<br>#调用p4<br>call p4(68,@result);<br>select @result;<br>#二、将传入的200分制的分数，进行换算，换成百分制，然后返回<br>create procedure p5(inout score double)<br>begin<br> set score:=score*0.5;<br>end;<br>#调用p5<br>set @score=78;<br>call p5(@score);<br>select @score;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#一、根据传入参数score,判定当前分数对应的分数等级，并返回
+#1. score&gt;&#x3D;85等级为优秀
+#2. score&gt;&#x3D;60分且score&lt;85分，等级为及格。
+#3. score&lt;60分，等级为不及格。
+create procedure p4(in score int,out result varchar)
+begin
+	if score &gt;&#x3D;85 than
+	set result:&#x3D;&#39;优秀&#39;;
+	elseif score &gt;&#x3D;60 than
+	set result:&#x3D;&#39;及格&#39;;
+	else result:&#x3D;&#39;不及格&#39;;
+	end if;
+end;
+#调用p4
+call p4(68,@result);
+select @result;
+#二、将传入的200分制的分数，进行换算，换成百分制，然后返回
+create procedure p5(inout score double)
+begin
+ set score:&#x3D;score*0.5;
+end;
+#调用p5
+set @score&#x3D;78;
+call p5(@score);
+select @score;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="case"><a href="#case" class="headerlink" title="case:"></a>case:</h5><ul>
 <li><p>语法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">case case_value<br>	when when_value1 then sql语句<br>	when when_value2 then sql语句<br>	else sql语句<br>end case<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">case case_value
+	when when_value1 then sql语句
+	when when_value2 then sql语句
+	else sql语句
+end case<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#根据传入的月份，判定月份所属的季节<br>#1-3月份为第一季度，4-6月份为第二季度，7-9月份为第三季度，10-12月份为第四季度<br>create procedure p6(in month int)<br>begin <br>	declare result varchar(10);<br>    case <br>    	when month>=1 and month<=3 then<br>    	set result:=&#x27;第一季度&#x27;;<br>    	when month>=4 and month <=6 then<br>		set result:=&#x27;第二季度&#x27;;<br>		when month>=7 and month <=9 then<br>		set result:=&#x27;第三季度&#x27;;<br>		when month>=10 and month <=12 then<br>		set result:=&#x27;第四季度&#x27;;<br>		else<br>			set result :=&#x27;非法参数&#x27;;<br>		end case;<br>	select concat(&#x27;你输入的月份为&#x27;，month,&#x27;所属季度为&#x27;，result);<br>	#concat函数是字符串拼接函数<br>end	<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#根据传入的月份，判定月份所属的季节
+#1-3月份为第一季度，4-6月份为第二季度，7-9月份为第三季度，10-12月份为第四季度
+create procedure p6(in month int)
+begin 
+	declare result varchar(10);
+    case 
+    	when month&gt;&#x3D;1 and month&lt;&#x3D;3 then
+    	set result:&#x3D;&#39;第一季度&#39;;
+    	when month&gt;&#x3D;4 and month &lt;&#x3D;6 then
+		set result:&#x3D;&#39;第二季度&#39;;
+		when month&gt;&#x3D;7 and month &lt;&#x3D;9 then
+		set result:&#x3D;&#39;第三季度&#39;;
+		when month&gt;&#x3D;10 and month &lt;&#x3D;12 then
+		set result:&#x3D;&#39;第四季度&#39;;
+		else
+			set result :&#x3D;&#39;非法参数&#39;;
+		end case;
+	select concat(&#39;你输入的月份为&#39;，month,&#39;所属季度为&#39;，result);
+	#concat函数是字符串拼接函数
+end	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
-<li><h5 id="while"><a href="#while" class="headerlink" title="while"></a>while</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#先判定条件，如果天剑为true则执行逻辑，否则，不执行逻辑，和java中的while相似<br>while 条件 do<br>	SQL逻辑<br>end while;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<li><h5 id="while"><a href="#while" class="headerlink" title="while"></a>while</h5><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#先判定条件，如果天剑为true则执行逻辑，否则，不执行逻辑，和java中的while相似
+while 条件 do
+	SQL逻辑
+end while;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#计算从1累加到n的值，n为传入的参数值<br>create procedure p7(in n int)<br>begin<br>	declare total int default 0;<br>	while n>0 do<br>	set total:=total+n;<br>	set n := n-1;<br>	end while;<br>	select total;<br>end;<br>call p7(100);<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#计算从1累加到n的值，n为传入的参数值
+create procedure p7(in n int)
+begin
+	declare total int default 0;
+	while n&gt;0 do
+	set total:&#x3D;total+n;
+	set n :&#x3D; n-1;
+	end while;
+	select total;
+end;
+call p7(100);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="repeat"><a href="#repeat" class="headerlink" title="repeat"></a>repeat</h5><ul>
 <li><p>repeat是有条件的循环控制语句，当满足条件的时候退出循环，具体语法为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#先执行一次逻辑，然后判定逻辑是否满足，如果满足，则退出，如果不满足，则继续下一次循环<br>repeat<br>	sql逻辑<br>	until 条件<br>end repeat;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#先执行一次逻辑，然后判定逻辑是否满足，如果满足，则退出，如果不满足，则继续下一次循环
+repeat
+	sql逻辑
+	until 条件
+end repeat;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#计算从1累加到n的值，n为传入的参数值<br>create procedure p8(in n int)<br>begin<br>  declare total int default 0;<br>  repeat<br>  set total := total +n;<br>  set n:=n-1;<br>  until n<=0;<br>  end repeat;<br>end;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#计算从1累加到n的值，n为传入的参数值
+create procedure p8(in n int)
+begin
+  declare total int default 0;
+  repeat
+  set total :&#x3D; total +n;
+  set n:&#x3D;n-1;
+  until n&lt;&#x3D;0;
+  end repeat;
+end;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h5><ul>
@@ -1039,37 +1253,121 @@ select xxx; #返回展示结果
 <li><p>leave：配合循环使用，退出循环。</p>
 </li>
 <li><p>iterate：必须用在循环中，作用是跳过当前循环剩下的语句，直接进入下一次循环。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">loop<br>	SQL逻辑<br>end loop <br><br>leave label; --退出指定标记的循环体<br>iterate label; --直接进入下一次循环<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">loop
+	SQL逻辑
+end loop 
+
+leave label; --退出指定标记的循环体
+iterate label; --直接进入下一次循环<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#计算从1累加到n的值，n为传入的参数值<br>create procedure p9(in n int)<br>begin <br>	declare total int default 0;<br>	sum:loop<br>		if n<=0 then<br>		 leave sum;<br>		end if;<br>		<br>		set total :=total +n;<br>		set n:=n-1;<br>	end loop sum;<br>	select total;<br>#计算从1到n之间的偶数累加的值，n为传入的参数值<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#计算从1累加到n的值，n为传入的参数值
+create procedure p9(in n int)
+begin 
+	declare total int default 0;
+	sum:loop
+		if n&lt;&#x3D;0 then
+		 leave sum;
+		end if;
+		
+		set total :&#x3D;total +n;
+		set n:&#x3D;n-1;
+	end loop sum;
+	select total;
+#计算从1到n之间的偶数累加的值，n为传入的参数值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><h5 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h5><ul>
 <li><p>游标是用来存储查询结果集的数据类型，在存储过程和函数中可以使用游标对结果进行循环的处理。游标的使用包括游标的声明、open、fetch和close </p>
 </li>
 <li><p>语法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#创建游标<br>declare 游标名称 cursor for 查询语句<br><br>#打开游标<br>open 游标名称;<br>#获取游标记录<br>fetch 游标名称 into 变量[，变量];<br>#关闭游标<br>close 游标名称;<br><br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#创建游标
+declare 游标名称 cursor for 查询语句
+
+#打开游标
+open 游标名称;
+#获取游标记录
+fetch 游标名称 into 变量[，变量];
+#关闭游标
+close 游标名称;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#根据传入的参数uage ,来查询用户表tb_user中，所有的用户年龄小于等于uage的用户姓名和专业，并将用户的姓名和专业插入到所创建的一张新表中<br>create peocedure p11(in uage int)<br>begin<br>#要先声明变量在声明游标，否则报错<br>	declare name varchar;<br>	declare upro varchar;<br>	declare u_cursor cursor for select name,profession from tb_user where age<=uage;<br>#声明条件处理程序,当满足状态码为02000时触发<br>	declare exit handler for SQLSTATE &#x27;02000&#x27; close u_cursor<br>	<br>	frop table if exists tb_user_pro;<br>	create table if ont exists tb_user_pro(<br>    	id int primary key,<br>      	name varchar,<br>        profession varchar<br>    );<br>    <br>    open u_cursor;<br>    while true do<br>    	fetch u_cursor into uname,upro;<br>    	insert into tb_user_pro values(null,uname,upro);<br>    end while;<br>    close u_cursor;<br>end<br><br>call p11(40)<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#根据传入的参数uage ,来查询用户表tb_user中，所有的用户年龄小于等于uage的用户姓名和专业，并将用户的姓名和专业插入到所创建的一张新表中
+create peocedure p11(in uage int)
+begin
+#要先声明变量在声明游标，否则报错
+	declare name varchar;
+	declare upro varchar;
+	declare u_cursor cursor for select name,profession from tb_user where age&lt;&#x3D;uage;
+#声明条件处理程序,当满足状态码为02000时触发
+	declare exit handler for SQLSTATE &#39;02000&#39; close u_cursor
+	
+	frop table if exists tb_user_pro;
+	create table if ont exists tb_user_pro(
+    	id int primary key,
+      	name varchar,
+        profession varchar
+    );
+    
+    open u_cursor;
+    while true do
+    	fetch u_cursor into uname,upro;
+    	insert into tb_user_pro values(null,uname,upro);
+    end while;
+    close u_cursor;
+end
+
+call p11(40)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><p>条件处理程序</p>
 <ul>
 <li><p>可以用来定义在流程控制结构执行过程中遇到的问题时响应的处理步骤。具体语法为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">declare handler_action handler for confition_value [condition_value...] statement;<br><br>handler_action<br> continue：继续执行当前程序<br> exit:终止执行当前程序<br>condition_value<br>	sqlstate sqlstate_value：状态码，如02000<br>	SQLWARNING:所有以01开头的SQLSTATE代码的简写<br>	not found ：所有以02开头的SQLSTATE代码的简写<br>	sqlexception：所有没有被SQLWARNING或NOT FOUND捕获的SQLSTATE代码的简写<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">declare handler_action handler for confition_value [condition_value...] statement;
+
+handler_action
+ continue：继续执行当前程序
+ exit:终止执行当前程序
+condition_value
+	sqlstate sqlstate_value：状态码，如02000
+	SQLWARNING:所有以01开头的SQLSTATE代码的简写
+	not found ：所有以02开头的SQLSTATE代码的简写
+	sqlexception：所有没有被SQLWARNING或NOT FOUND捕获的SQLSTATE代码的简写<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
 <h4 id="4-3）存储函数-用的少，因为他能的做到的存储过程都能"><a href="#4-3）存储函数-用的少，因为他能的做到的存储过程都能" class="headerlink" title="4.3）存储函数(用的少，因为他能的做到的存储过程都能)"></a>4.3）存储函数(用的少，因为他能的做到的存储过程都能)</h4><ul>
 <li><p>存储函数就是有返回值的存储过程，存储函数的参数只能是in类型的。具体语法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create function 存储函数名称（参数列表）<br>returns type [characteristic]<br>begin<br>	sql语句<br>	retuen ...<br>end;<br><br>characteristic说明：<br>DETERMINISTIC：相同的输入参数总是产生相同的结果<br>NO SQL：不包含SQL语句<br>READS SQL DATA：包含读取数据的语句，但不包含写入数据的语句。<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create function 存储函数名称（参数列表）
+returns type [characteristic]
+begin
+	sql语句
+	retuen ...
+end;
+
+characteristic说明：
+DETERMINISTIC：相同的输入参数总是产生相同的结果
+NO SQL：不包含SQL语句
+READS SQL DATA：包含读取数据的语句，但不包含写入数据的语句。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>案例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#从1到n的累加<br>create function fun1(n int)<br>return int deterministic<br>begin<br>	declare total int default 0;<br>	while n>0 do<br>	 set total:=total+n;<br>     set n：=n-1;<br>    end while;<br>    <br>     return total;<br>end;<br><br>select fun1(100);<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#从1到n的累加
+create function fun1(n int)
+return int deterministic
+begin
+	declare total int default 0;
+	while n&gt;0 do
+	 set total:&#x3D;total+n;
+     set n：&#x3D;n-1;
+    end while;
+    
+     return total;
+end;
+
+select fun1(100);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -1080,19 +1378,45 @@ select xxx; #返回展示结果
 </ul>
 </li>
 <li><p>语法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#创建<br>create trigger trigger_name <br>before/after insert/update/delete #before和after 指定sql执行前或执行后执行触发器<br>on tbl_name from each row #--行级触发器,监控表的name<br>begin<br>	sql<br>end;<br>#查看<br>show trigger;<br>#删除<br>drop trigger[数据库名] trigger_name;   不指定数据库名默认当前数据库<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#创建
+create trigger trigger_name 
+before&#x2F;after insert&#x2F;update&#x2F;delete #before和after 指定sql执行前或执行后执行触发器
+on tbl_name from each row #--行级触发器,监控表的name
+begin
+	sql
+end;
+#查看
+show trigger;
+#删除
+drop trigger[数据库名] trigger_name;   不指定数据库名默认当前数据库<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>案例<img src="C:\Users\吕飞扬\Desktop\SQL调优\img\IMG_7950.PNG" alt="IMG_7950"></p>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create trigger tb_user_insert_trigger<br>after insert on tb_user for each row<br>begin<br>	insert into user_logs(id,operation,operate_time,operate_id,operate_params) values<br>	(null,&#x27;insert&#x27;,now(),new.id,concat(&#x27;插入的数据内容为:id=&#x27;，new.id,&#x27;name=&#x27;,new.name,&#x27;phone=&#x27;,new.phone))<br>end;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create trigger tb_user_insert_trigger
+after insert on tb_user for each row
+begin
+	insert into user_logs(id,operation,operate_time,operate_id,operate_params) values
+	(null,&#39;insert&#39;,now(),new.id,concat(&#39;插入的数据内容为:id&#x3D;&#39;，new.id,&#39;name&#x3D;&#39;,new.name,&#39;phone&#x3D;&#39;,new.phone))
+end;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>修改数据的触发器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create trigger tb_user_update_trigger<br>after update on tb_user for each row<br>begin<br>	insert into user_logs(id,operation,operate_time,operate_id,operate_params) values<br>	(null,&#x27;update&#x27;,now(),new.id,concat(&#x27;更新之前的插入的数据内容为:id=&#x27;，old.id,&#x27;name=&#x27;,old.name,&#x27;phone=&#x27;,old.phone，<br>    									&#x27;更新之后的插入的数据内容为:id=&#x27;，new.id,&#x27;name=&#x27;,new.name,&#x27;phone=&#x27;,new.phone))<br>end;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create trigger tb_user_update_trigger
+after update on tb_user for each row
+begin
+	insert into user_logs(id,operation,operate_time,operate_id,operate_params) values
+	(null,&#39;update&#39;,now(),new.id,concat(&#39;更新之前的插入的数据内容为:id&#x3D;&#39;，old.id,&#39;name&#x3D;&#39;,old.name,&#39;phone&#x3D;&#39;,old.phone，
+    									&#39;更新之后的插入的数据内容为:id&#x3D;&#39;，new.id,&#39;name&#x3D;&#39;,new.name,&#39;phone&#x3D;&#39;,new.phone))
+end;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>删除数据的触发器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">create trigger tb_user_delete_trigger<br>after delete on tb_user for each row<br>begin<br>	insert into user_logs(id,operation,operate_time,operate_id,operate_params) values<br>	(null,&#x27;insert&#x27;,now(),old.id,concat(&#x27;删除数据内容为:id=&#x27;，old.id,&#x27;name=&#x27;,old.name,&#x27;phone=&#x27;,old.phone))<br>end;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create trigger tb_user_delete_trigger
+after delete on tb_user for each row
+begin
+	insert into user_logs(id,operation,operate_time,operate_id,operate_params) values
+	(null,&#39;insert&#39;,now(),old.id,concat(&#39;删除数据内容为:id&#x3D;&#39;，old.id,&#39;name&#x3D;&#39;,old.name,&#39;phone&#x3D;&#39;,old.phone))
+end;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h4 id="4-5）总结"><a href="#4-5）总结" class="headerlink" title="4.5）总结"></a>4.5）总结</h4><ul>
 <li><h5 id="视图view："><a href="#视图view：" class="headerlink" title="视图view："></a>视图view：</h5><ul>
@@ -1131,13 +1455,19 @@ select xxx; #返回展示结果
 </ul>
 </li>
 <li><p>对当前数据库加全局锁</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">#加锁<br>flush tables with read lock;<br>#备份<br>mysqldump -uroot -p1234 备份的数据库名>存放的路径/名字.sql<br>#注mysqldump命令不是mysql中使用的命令，直接在命令行中输入，不要在MYSQL中输入<br>#解锁<br>unlock tables;<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#加锁
+flush tables with read lock;
+#备份
+mysqldump -uroot -p1234 备份的数据库名&gt;存放的路径&#x2F;名字.sql
+#注mysqldump命令不是mysql中使用的命令，直接在命令行中输入，不要在MYSQL中输入
+#解锁
+unlock tables;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><p>因为全局锁是一个比较重的操作存在很多问题</p>
 <ul>
 <li><p>在innoDB引擎中，我们可以在备份时加上参数–single-transaction参数来完成不加锁的一致性数据备份</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">mysqldump --single-transaction -uroot -p1234 备份的数据库名>存放的路径/名字.sql<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysqldump --single-transaction -uroot -p1234 备份的数据库名&gt;存放的路径&#x2F;名字.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -1180,7 +1510,7 @@ select xxx; #返回展示结果
 <ul>
 <li>语法</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">select * from xxx where xxx= xxx lock inshare mode<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">select * from xxx where xxx&#x3D; xxx lock inshare mode<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li>与表锁共享锁（read）兼容，与表锁排它锁（write）互斥</li>
@@ -1381,7 +1711,7 @@ select xxx; #返回展示结果
 <ul>
 <li>-e参数：可以不用登录进数据库直接查询</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">mysql -h192.168.xxx.xxx -uroot -p123456 db01 -e "select * from xxx"<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql -h192.168.xxx.xxx -uroot -p123456 db01 -e &quot;select * from xxx&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
 <li><p>mysqladmin</p>
@@ -1389,7 +1719,7 @@ select xxx; #返回展示结果
 <li><p>它是一个执行管理操作客户端程序。可以用来检查服务器的配置和当前状态、创建并删除数据库等。</p>
 <ul>
 <li><p>mysqladmin –help：查看帮助文档</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre class="line-numbers language-hljs mysql"><code class="language-hljs mysql">mysqladmin [options] 指令<br><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysqladmin [options] 指令<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
