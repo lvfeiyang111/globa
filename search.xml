@@ -133,11 +133,11 @@
       
       <categories>
           
+          <category> java </category>
+          
           <category> nosql </category>
           
           <category> redis </category>
-          
-          <category> java </category>
           
       </categories>
       
