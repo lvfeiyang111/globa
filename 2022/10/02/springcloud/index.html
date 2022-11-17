@@ -777,28 +777,24 @@ restTemplate<span class="token punctuation">.</span><span class="token function"
 
 <ul>
 <li><p>依赖</p>
-<ul>
-<li>&#96;&#96;&#96;xml   <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-<pre class="line-numbers language-none"><code class="language-none">
-    
-
-在使用Fegin的基础上
-
-- 写个.Hystrix包，然后继承Fegin的接口，带上@Component，，重写的方法中的内容，就是服务调用失败后熔断后走的内容
-
-- &#96;&#96;&#96;java
-  @Component
-  public class ShopfeginHystrix implements Shopfegin &#123;
-  
-      @Override
-      public String shop() &#123;
-          return &quot;备胎方法&quot;;
-      &#125;
-  &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-netflix-hystrix<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
+<p>在使用Fegin的基础上</p>
+<ul>
+<li><p>写个.Hystrix包，然后继承Fegin的接口，带上@Component，，重写的方法中的内容，就是服务调用失败后熔断后走的内容</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ShopfeginHystrix</span> <span class="token keyword">implements</span> <span class="token class-name">Shopfegin</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">shop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"备胎方法"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 </li>
 <li><p>列如在Fegin的接口类中，在<strong>注解上指定fallback回调方法</strong></p>
 </li>
@@ -811,27 +807,34 @@ restTemplate<span class="token punctuation">.</span><span class="token function"
 
 <ul>
 <li><p>最后在配置类中开启熔断器</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> cusomer<span class="token punctuation">-</span>service
+<span class="token key atrule">eureka</span><span class="token punctuation">:</span>
+  <span class="token key atrule">client</span><span class="token punctuation">:</span>
+    <span class="token key atrule">service-url</span><span class="token punctuation">:</span>
+      <span class="token key atrule">defaultZone</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span>8761/eureka
+  <span class="token key atrule">instance</span><span class="token punctuation">:</span>
+    <span class="token key atrule">instance-id</span><span class="token punctuation">:</span> $<span class="token punctuation">&#123;</span>spring.application.name<span class="token punctuation">&#125;</span><span class="token punctuation">:</span>$<span class="token punctuation">&#123;</span>eureka.instance.hostname<span class="token punctuation">&#125;</span><span class="token punctuation">:</span>$<span class="token punctuation">&#123;</span>server.port<span class="token punctuation">&#125;</span>
+    <span class="token key atrule">ip-address</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> localhost
+<span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">7091</span>
+  <span class="token comment">#开启熔断</span>
+<span class="token key atrule">feign</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hystrix</span><span class="token punctuation">:</span>
+    <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment">#cloud的F版以前，是默认开启的，现在需要手动，是因为有了微服务保护框架sen什么的，所以有选择了就自己开启</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置</p>
 </li>
-<li><p>&#96;&#96;&#96;yml<br>spring:<br>  application:<br>name: cusomer-service<br>eureka:<br>  client:<br>service-url:<br>  defaultZone: <a target="_blank" rel="noopener" href="http://localhost:8761/eureka">http://localhost:8761/eureka</a><br>  instance:<br>instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}<br>ip-address: true<br>hostname: localhost<br>server:<br>  port: 7091<br>  #开启熔断<br>feign:<br>  hystrix:<br>enabled: true #cloud的F版以前，是默认开启的，现在需要手动，是因为有了微服务保护框架sen什么的，所以有选择了就自己开启</p>
-<pre class="line-numbers language-none"><code class="language-none">
-  配置
-
-![image-20220911012910111](C:\Users\吕飞扬\AppData\Roaming\Typora\typora-user-images\image-20220911012910111.png)
-
-
-
-
-
-# 5.admin监控
-
-**依赖：**eureka依赖，admin依赖
-
-&#96;&#96;&#96;xml
-        &lt;dependency&gt;
-            &lt;groupId&gt;de.codecentric&lt;&#x2F;groupId&gt;
-            &lt;artifactId&gt;spring-boot-admin-starter-server&lt;&#x2F;artifactId&gt;
-        &lt;&#x2F;dependency&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
+<p><img src="C:\Users\吕飞扬\AppData\Roaming\Typora\typora-user-images\image-20220911012910111.png" alt="image-20220911012910111"></p>
+<h1 id="5-admin监控"><a href="#5-admin监控" class="headerlink" title="5.admin监控"></a>5.admin监控</h1><p><strong>依赖：</strong>eureka依赖，admin依赖</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>de.codecentric<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-admin-starter-server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>对应springcloud2.3.12版本对应admin2.3.0版本</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.version</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>java.version</span><span class="token punctuation">></span></span>
@@ -1166,51 +1169,44 @@ public interface Testfegin &#123;
 <li><p>gateway</p>
 <ul>
 <li><p>加依赖，选择eureka一样的gateway依赖即可，<strong>注意不能加web依赖，因为会覆盖了gateway的web</strong></p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> gatewayA
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
+      <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span>
+      <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
+        <span class="token key atrule">username</span><span class="token punctuation">:</span> nacos
+        <span class="token key atrule">password</span><span class="token punctuation">:</span> nacos
+        <span class="token key atrule">namespace</span><span class="token punctuation">:</span> c9894011<span class="token punctuation">-</span>499b<span class="token punctuation">-</span>469d<span class="token punctuation">-</span>9676<span class="token punctuation">-</span>a465aae7bd62
+        <span class="token key atrule">group</span><span class="token punctuation">:</span> a<span class="token punctuation">-</span>client
+    <span class="token key atrule">gateway</span><span class="token punctuation">:</span>
+      <span class="token key atrule">discovery</span><span class="token punctuation">:</span>
+        <span class="token key atrule">locator</span><span class="token punctuation">:</span>
+          <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment">#开启动态路由</span>
+          <span class="token key atrule">lower-case-service-id</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment">#开启服务名称小写</span>
+      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>client<span class="token punctuation">-</span>b <span class="token comment">#服务名称</span>
+          <span class="token comment">#          uri: http://localhost:8086</span>
+          <span class="token key atrule">uri</span><span class="token punctuation">:</span> lb<span class="token punctuation">:</span>//nacos<span class="token punctuation">-</span>client<span class="token punctuation">-</span>b
+          <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> Path=/g
+
+<span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
 </li>
-<li></li>
-<li><pre><code class="yml">spring:
-  application:
-    name: gatewayA
-  cloud:
-    nacos:
-      server-addr: localhost:8848
-      discovery:
-        username: nacos
-        password: nacos
-        namespace: c9894011-499b-469d-9676-a465aae7bd62
-        group: a-client
-    gateway:
-      discovery:
-        locator:
-          enabled: true #开启动态路由
-          lower-case-service-id: true #开启服务名称小写
-      routes:
-        - id: nacos-client-b #服务名称
-          #          uri: http://localhost:8086
-          uri: lb://nacos-client-b
-          predicates:
-            - Path=/g
-
-server:
-  port: 80
-<pre class="line-numbers language-none"><code class="language-none">
-和普通的nacos的client端一样，在加上配置以下动态路由即可，详情可以看之前写的eureka的笔记
-
-### 3.2.1fengin包名不一致问题
-
-因为抽取出去的Fegin不是一个springboot项目，所以如果包名和具有Fegin客户端注解的服务中的包名不同，则无法创建bean对象
-
-**所以最好统一包名**
-
-- 如果不统一也有三种解决办法
-
-  - 第一种（不推荐）：更改springboot的包扫描范围
-
-  - 第二种：指定FeignCLient所在包
-
-    &#96;&#96;&#96;java
-    @EnableFeignClients(basePackages &#x3D; &quot;com.lfy.fegin&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</code></pre>
+</ul>
+<p>和普通的nacos的client端一样，在加上配置以下动态路由即可，详情可以看之前写的eureka的笔记</p>
+<h3 id="3-2-1fengin包名不一致问题"><a href="#3-2-1fengin包名不一致问题" class="headerlink" title="3.2.1fengin包名不一致问题"></a>3.2.1fengin包名不一致问题</h3><p>因为抽取出去的Fegin不是一个springboot项目，所以如果包名和具有Fegin客户端注解的服务中的包名不同，则无法创建bean对象</p>
+<p><strong>所以最好统一包名</strong></p>
+<ul>
+<li><p>如果不统一也有三种解决办法</p>
+<ul>
+<li><p>第一种（不推荐）：更改springboot的包扫描范围</p>
+</li>
+<li><p>第二种：指定FeignCLient所在包</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@EnableFeignClients</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token string">"com.lfy.fegin"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>第三种：指定FeginClient字节码(类名.class)</p>
 <pre class="line-numbers language-none"><code class="language-none">@EnableFeignClients(clients&#x3D;&#123;userFegin.class&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
@@ -1275,39 +1271,49 @@ server:
 <h1 id="4-热部署yml文件"><a href="#4-热部署yml文件" class="headerlink" title="4.热部署yml文件"></a>4.热部署yml文件</h1><p>在项目上线时，如果需要更改yml文件，需要把项目下线，重新打包发布，如果有多个拒载均衡的服务，则非常的麻烦，而<strong>nacos中可以动态的修改yml文件</strong></p>
 <ul>
 <li><p>创建bootstrap.yml</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>client<span class="token punctuation">-</span>b
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
+      <span class="token key atrule">config</span><span class="token punctuation">:</span>
+        <span class="token key atrule">username</span><span class="token punctuation">:</span> nacos <span class="token comment">#账号</span>
+        <span class="token key atrule">password</span><span class="token punctuation">:</span> nacos <span class="token comment">#密码</span>
+        <span class="token key atrule">file-extension</span><span class="token punctuation">:</span> yml <span class="token comment">#文件格式，默认propties</span>
+        <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span> <span class="token comment">#nacos的server端地址</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>client<span class="token punctuation">-</span>b <span class="token comment">#文件名、</span>
+        <span class="token key atrule">namespace</span><span class="token punctuation">:</span>  <span class="token comment">#命名空间</span>
+        <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token comment">#组</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
-<li>&#96;&#96;&#96;yml<br>spring:<br>  application:<br>name: nacos-client-b<br>  cloud:<br>nacos:<br>  config:<br>    username: nacos #账号<br>    password: nacos #密码<br>    file-extension: yml #文件格式，默认propties<br>    server-addr: localhost:8848 #nacos的server端地址<br>    prefix: nacos-client-b #文件名、<br>    namespace:  #命名空间<br>    group: #组<pre class="line-numbers language-none"><code class="language-none">
-    - 当项目初始化时，回去server端地址，找文件
-    - 因为server端的配置文件也是有组和命名空间的，别忘了
-
-- 在类上添加@RefreshScope注解，当nacos中更新配置文件，服务可以实时接收到
-
-- 在使用时使用@value(&quot;$&#123;key&#125;&quot;)即可
-
-
-
-### 4.1共享文件和active
-
-&#96;&#96;&#96;yml
-spring:
-  application:
-    name: nacos-client-b
-  cloud:
-    nacos:
-      config:
-        username: nacos #账号
-        password: nacos #密码
-        file-extension: yml #文件解析格式，默认propties
-        server-addr: localhost:8848 #nacos的server端地址
-        prefix: nacos-client-b #文件名
-        shared-configs:  #读取共享配置
-          - dataId: application-dev.yml
-            group: a_group #分组，不写默认为default
-            refresh: true #开启热部署
-  profiles:
-    active: dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>当项目初始化时，回去server端地址，找文件</li>
+<li>因为server端的配置文件也是有组和命名空间的，别忘了</li>
 </ul>
 </li>
+<li><p>在类上添加@RefreshScope注解，当nacos中更新配置文件，服务可以实时接收到</p>
+</li>
+<li><p>在使用时使用@value(“${key}”)即可</p>
+</li>
+</ul>
+<h3 id="4-1共享文件和active"><a href="#4-1共享文件和active" class="headerlink" title="4.1共享文件和active"></a>4.1共享文件和active</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>client<span class="token punctuation">-</span>b
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
+      <span class="token key atrule">config</span><span class="token punctuation">:</span>
+        <span class="token key atrule">username</span><span class="token punctuation">:</span> nacos <span class="token comment">#账号</span>
+        <span class="token key atrule">password</span><span class="token punctuation">:</span> nacos <span class="token comment">#密码</span>
+        <span class="token key atrule">file-extension</span><span class="token punctuation">:</span> yml <span class="token comment">#文件解析格式，默认propties</span>
+        <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> localhost<span class="token punctuation">:</span><span class="token number">8848</span> <span class="token comment">#nacos的server端地址</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> nacos<span class="token punctuation">-</span>client<span class="token punctuation">-</span>b <span class="token comment">#文件名</span>
+        <span class="token key atrule">shared-configs</span><span class="token punctuation">:</span>  <span class="token comment">#读取共享配置</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">dataId</span><span class="token punctuation">:</span> application<span class="token punctuation">-</span>dev.yml
+            <span class="token key atrule">group</span><span class="token punctuation">:</span> a_group <span class="token comment">#分组，不写默认为default</span>
+            <span class="token key atrule">refresh</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment">#开启热部署</span>
+  <span class="token key atrule">profiles</span><span class="token punctuation">:</span>
+    <span class="token key atrule">active</span><span class="token punctuation">:</span> dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
 <li><p>shared-configs可以读取共享的配置，就是读取多个配置文件，</p>
 </li>
 <li><p><strong>然后这里有个坑，如果加了文件后缀profiles: active</strong>则在nacos的文件一定要加上.yml后缀格式<img src="C:\Users\吕飞扬\Desktop\cloud-Nacos\assets\image-20220918165506397.png" alt="image-20220918165506397"></p>
@@ -1657,27 +1663,27 @@ spring:
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/02/springcloud/">
+                <a href="/2022/09/01/xian-cheng-chi-pei-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="SpringCloud">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="java线程池">
                         
-                        <span class="card-title">SpringCloud</span>
+                        <span class="card-title">java线程池</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spring全家桶之SpringCloud
+                            java线程池常用配置详解
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-01
                             </span>
                         <span class="publish-author">
                             
@@ -1691,16 +1697,19 @@ spring:
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
-                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
-                        <span class="chip bg-color">分布式</span>
+                    <a href="/tags/%E6%B5%81%E5%BC%8F%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">流式编程</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                        <span class="chip bg-color">线程池</span>
                     </a>
                     
                 </div>
@@ -1901,9 +1910,11 @@ spring:
                     class="white-color"></span>&nbsp;人
             </span>
             
+     
             <br>
             
             <br>
+            <span>备案号：<a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2022016727号</a></span>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
