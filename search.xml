@@ -80,11 +80,11 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> nosql </tag>
             
             <tag> redis </tag>
+            
+            <tag> java </tag>
             
             <tag> 分布式 </tag>
             
@@ -111,11 +111,11 @@
       
         <tags>
             
+            <tag> java </tag>
+            
             <tag> MySQL </tag>
             
             <tag> 框架 </tag>
-            
-            <tag> Java </tag>
             
         </tags>
       
@@ -144,11 +144,11 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> nosql </tag>
             
             <tag> redis </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -229,7 +229,7 @@
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> java </tag>
             
             <tag> 流式编程 </tag>
             
