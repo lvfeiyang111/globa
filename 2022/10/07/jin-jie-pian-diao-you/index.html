@@ -2334,12 +2334,12 @@ unlock tables;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                         <span class="chip bg-color">java</span>
                     </a>
                     
-                    <a href="/tags/nosql/">
-                        <span class="chip bg-color">nosql</span>
-                    </a>
-                    
                     <a href="/tags/redis/">
                         <span class="chip bg-color">redis</span>
+                    </a>
+                    
+                    <a href="/tags/nosql/">
+                        <span class="chip bg-color">nosql</span>
                     </a>
                     
                 </div>
@@ -2427,7 +2427,7 @@ unlock tables;<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 
         // we need a <pre> tag workaround.
         // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
             newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
         }
 
