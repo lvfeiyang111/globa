@@ -759,6 +759,48 @@ restTemplate<span class="token punctuation">.</span><span class="token function"
     <span class="token key atrule">max-connections-per-route</span><span class="token punctuation">:</span> 50 %每个路径的最大连接数
     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="2-4-fegin远程调用丢失请求头"><a href="#2-4-fegin远程调用丢失请求头" class="headerlink" title="2.4 fegin远程调用丢失请求头"></a>2.4 fegin远程调用丢失请求头</h3><p>添加配置类。按自己需要同步的请求头进行获取值，填充值</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">feign<span class="token punctuation">.</span></span><span class="token class-name">RequestInterceptor</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">feign<span class="token punctuation">.</span></span><span class="token class-name">RequestTemplate</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>context<span class="token punctuation">.</span>request<span class="token punctuation">.</span></span><span class="token class-name">RequestContextHolder</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>context<span class="token punctuation">.</span>request<span class="token punctuation">.</span></span><span class="token class-name">ServletRequestAttributes</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span><span class="token class-name">HttpServletRequest</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FeignConfig</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">RequestInterceptor</span> <span class="token function">requestInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RequestInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">RequestTemplate</span> requestTemplat<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">//获取刚进入的请求</span>
+                <span class="token class-name">ServletRequestAttributes</span> requestAttributes <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">ServletRequestAttributes</span><span class="token punctuation">)</span> <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">getRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//老请求</span>
+                <span class="token class-name">HttpServletRequest</span> request <span class="token operator">=</span> requestAttributes<span class="token punctuation">.</span><span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//同步请求头数据</span>
+                <span class="token class-name">String</span> header <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getHeader</span><span class="token punctuation">(</span><span class="token string">"Cookie"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//给新请求同步了老请求的请求头Cookie</span>
+                requestTemplat<span class="token punctuation">.</span><span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Cookie"</span><span class="token punctuation">,</span> header<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>RequestContextHolder内部使用threadlocal，单线程传输头，如果使用线程池异步会出现丢失请求头的情况</li>
+</ul>
+<h4 id="2-4-1）使用线程池异步丢失请求头"><a href="#2-4-1）使用线程池异步丢失请求头" class="headerlink" title="2.4.1）使用线程池异步丢失请求头"></a>2.4.1）使用线程池异步丢失请求头</h4><p>本质上因为使用的是threadlocal只能在当前线程进行传输，所以使用异步丢失请求头</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//异步外获取当前的 requestAttributes</span>
+<span class="token class-name">RequestAttributes</span> requestAttributes <span class="token operator">=</span> <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">getRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//在异步逻辑中加上这段代码</span>
+            <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">setRequestAttributes</span><span class="token punctuation">(</span>requestAttributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
 
 
@@ -1229,6 +1271,48 @@ public interface Testfegin &#123;
     <span class="token key atrule">max-connections</span><span class="token punctuation">:</span> <span class="token number">200</span> <span class="token comment">#最大连接数</span>
     <span class="token key atrule">max-connections-per-route</span><span class="token punctuation">:</span> 50 %每个路径的最大连接数
     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-fegin远程调用丢失请求头"><a href="#3-3-fegin远程调用丢失请求头" class="headerlink" title="3.3 fegin远程调用丢失请求头"></a>3.3 fegin远程调用丢失请求头</h3><p>添加配置类。按自己需要同步的请求头进行获取值，填充值</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">feign<span class="token punctuation">.</span></span><span class="token class-name">RequestInterceptor</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">feign<span class="token punctuation">.</span></span><span class="token class-name">RequestTemplate</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>context<span class="token punctuation">.</span>request<span class="token punctuation">.</span></span><span class="token class-name">RequestContextHolder</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>context<span class="token punctuation">.</span>request<span class="token punctuation">.</span></span><span class="token class-name">ServletRequestAttributes</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">javax<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>http<span class="token punctuation">.</span></span><span class="token class-name">HttpServletRequest</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FeignConfig</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">RequestInterceptor</span> <span class="token function">requestInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RequestInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">RequestTemplate</span> requestTemplat<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">//获取刚进入的请求</span>
+                <span class="token class-name">ServletRequestAttributes</span> requestAttributes <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">ServletRequestAttributes</span><span class="token punctuation">)</span> <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">getRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//老请求</span>
+                <span class="token class-name">HttpServletRequest</span> request <span class="token operator">=</span> requestAttributes<span class="token punctuation">.</span><span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//同步请求头数据</span>
+                <span class="token class-name">String</span> header <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getHeader</span><span class="token punctuation">(</span><span class="token string">"Cookie"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">//给新请求同步了老请求的请求头Cookie</span>
+                requestTemplat<span class="token punctuation">.</span><span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Cookie"</span><span class="token punctuation">,</span> header<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>RequestContextHolder内部使用threadlocal，单线程传输头，如果使用线程池异步会出现丢失请求头的情况</li>
+</ul>
+<h4 id="2-4-1）使用线程池异步丢失请求头-1"><a href="#2-4-1）使用线程池异步丢失请求头-1" class="headerlink" title="2.4.1）使用线程池异步丢失请求头"></a>2.4.1）使用线程池异步丢失请求头</h4><p>本质上因为使用的是threadlocal只能在当前线程进行传输，所以使用异步丢失请求头</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//异步外获取当前的 requestAttributes</span>
+<span class="token class-name">RequestAttributes</span> requestAttributes <span class="token operator">=</span> <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">getRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//在异步逻辑中加上这段代码</span>
+            <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">setRequestAttributes</span><span class="token punctuation">(</span>requestAttributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -1863,19 +1947,19 @@ public interface Testfegin &#123;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/10/07/jin-jie-pian-diao-you/">
+                <a href="/2022/10/07/vue-zhong-de-axios/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="sql调优">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="vue中的axios">
                         
-                        <span class="card-title">sql调优</span>
+                        <span class="card-title">vue中的axios</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            MySQL中级调优
+                            vue中的axios
                         
                     </div>
                     <div class="publish-info">
@@ -1886,8 +1970,8 @@ public interface Testfegin &#123;
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/vue/" class="post-category">
+                                    vue
                                 </a>
                             
                             
@@ -1897,16 +1981,8 @@ public interface Testfegin &#123;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
-                        <span class="chip bg-color">分布式</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        <span class="chip bg-color">数据库</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%B0%83%E4%BC%98/">
-                        <span class="chip bg-color">调优</span>
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>
@@ -1958,12 +2034,12 @@ public interface Testfegin &#123;
                         <span class="chip bg-color">java</span>
                     </a>
                     
-                    <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
-                        <span class="chip bg-color">线程池</span>
-                    </a>
-                    
                     <a href="/tags/%E6%B5%81%E5%BC%8F%E7%BC%96%E7%A8%8B/">
                         <span class="chip bg-color">流式编程</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                        <span class="chip bg-color">线程池</span>
                     </a>
                     
                 </div>
