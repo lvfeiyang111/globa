@@ -593,7 +593,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"MySQL","value":2},{"name":"java","value":6},{"name":"redis","value":1},{"name":"nosql","value":2},{"name":"vue","value":1},{"name":"redis","value":2}],
+                data: [{"name":"java","value":6},{"name":"MySQL","value":2},{"name":"nosql","value":2},{"name":"redis","value":1},{"name":"redis","value":2},{"name":"vue","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -617,7 +617,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["java","redis","分布式","nosql","流式编程","MySQL","框架","后端开发","lua","Java8"]
+                data: ["java","redis","分布式","nosql","流式编程","后端开发","MySQL","框架","线程池","数据库"]
             }
         ],
         yAxis: [
@@ -748,20 +748,14 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/MySQL/">
-                <span class="chip center-align waves-effect waves-light chip-default">MySQL</span>
-            </a>
-            
-            
-            
-            <a href="/tags/%E6%A1%86%E6%9E%B6/">
-                <span class="chip center-align waves-effect waves-light chip-default">框架</span>
-            </a>
-            
-            
-            
             <a href="/tags/java/">
                 <span class="chip center-align waves-effect waves-light chip-default">java</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">
+                <span class="chip center-align waves-effect waves-light chip-default">后端开发</span>
             </a>
             
             
@@ -778,14 +772,44 @@
             
             
             
-            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">
-                <span class="chip center-align waves-effect waves-light chip-default">后端开发</span>
+            <a href="/tags/MySQL/">
+                <span class="chip center-align waves-effect waves-light chip-default">MySQL</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                <span class="chip center-align waves-effect waves-light chip-default">框架</span>
             </a>
             
             
             
             <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
                 <span class="chip center-align waves-effect waves-light chip-default">分布式</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                <span class="chip center-align waves-effect waves-light chip-default">线程池</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%B5%81%E5%BC%8F%E7%BC%96%E7%A8%8B/">
+                <span class="chip center-align waves-effect waves-light chip-default">流式编程</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                <span class="chip center-align waves-effect waves-light chip-default">数据库</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E8%B0%83%E4%BC%98/">
+                <span class="chip center-align waves-effect waves-light chip-default">调优</span>
             </a>
             
             
@@ -808,32 +832,8 @@
             
             
             
-            <a href="/tags/%E6%B5%81%E5%BC%8F%E7%BC%96%E7%A8%8B/">
-                <span class="chip center-align waves-effect waves-light chip-default">流式编程</span>
-            </a>
-            
-            
-            
             <a href="/tags/vue/">
                 <span class="chip center-align waves-effect waves-light chip-default">vue</span>
-            </a>
-            
-            
-            
-            <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
-                <span class="chip center-align waves-effect waves-light chip-default">线程池</span>
-            </a>
-            
-            
-            
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                <span class="chip center-align waves-effect waves-light chip-default">数据库</span>
-            </a>
-            
-            
-            
-            <a href="/tags/%E8%B0%83%E4%BC%98/">
-                <span class="chip center-align waves-effect waves-light chip-default">调优</span>
             </a>
             
             
@@ -970,7 +970,7 @@
 
          <!-- 又拍云的位置 以div为一个部分 -->
          <div style="color: aliceblue; " align=center>本网站由 <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"> <img style="padding-top:15px;" src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/youpaiyunlogo.png"
-            width="3%" /></a>提供CDN加速/云存储服务
+            width="3%" /></a>提供CDN加速
 </div>
 
 

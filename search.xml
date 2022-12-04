@@ -20,11 +20,11 @@
       
         <tags>
             
+            <tag> 流式编程 </tag>
+            
             <tag> Java8 </tag>
             
             <tag> 新特性 </tag>
-            
-            <tag> 流式编程 </tag>
             
         </tags>
       
@@ -111,11 +111,11 @@
       
         <tags>
             
+            <tag> java </tag>
+            
             <tag> MySQL </tag>
             
             <tag> 框架 </tag>
-            
-            <tag> java </tag>
             
         </tags>
       
@@ -285,9 +285,9 @@
             
             <tag> java </tag>
             
-            <tag> 流式编程 </tag>
-            
             <tag> 线程池 </tag>
+            
+            <tag> 流式编程 </tag>
             
         </tags>
       
