@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
 
     <meta charset="utf-8">
-    <meta name="keywords" content="Mybatis中的Wrapper, Lfy&#39;s Blog">
+    <meta name="keywords" content="Nginx进阶篇, Lfy&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -31,7 +31,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Mybatis中的Wrapper | Lfy&#39;s Blog</title>
+    <title>Nginx进阶篇 | Lfy&#39;s Blog</title>
   
 
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Mybatis中的Wrapper</h1>
+                    <h1 class="description center-align post-title">Nginx进阶篇</h1>
                 </div>
             </div>
         </div>
@@ -432,16 +432,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/MySQL/">
-                                <span class="chip bg-color">MySQL</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%A1%86%E6%9E%B6/">
-                                <span class="chip bg-color">框架</span>
-                            </a>
-                        
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
                             </a>
                         
                     </div>
@@ -452,8 +444,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/MySQL/" class="post-category">
-                                MySQL
+                            <a href="/categories/Nginx/" class="post-category">
+                                Nginx
                             </a>
                         
                     </div>
@@ -465,7 +457,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-17
+                    2022-11-12
                 </div>
                 
 
@@ -489,241 +481,408 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-Wrapper"><a href="#1-Wrapper" class="headerlink" title="1.Wrapper"></a>1.Wrapper</h1><p>用于sql中where的查询条件</p>
-<p>实例</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token class-name">QueryWrapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token class-name">QueryWrapper</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">></span></span> wrapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">QueryWrapper</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//        组装条件</span>
-        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span><span class="token class-name">Object</span><span class="token punctuation">></span></span> map<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//map&lt;key,value> key列名，value查询的值</span>
-        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span><span class="token string">"吕飞扬"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span><span class="token string">"22"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        wrapper<span class="token punctuation">.</span><span class="token function">allEq</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//调用map自己的查询方法</span>
-        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">></span></span> students <span class="token operator">=</span> studentMapper<span class="token punctuation">.</span><span class="token function">selectList</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Student</span> student <span class="token operator">:</span> students<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>其实就是和Mybatis逆向工程差不多的东西，Wrapper是一个工具，用于封装条件，然后使用MP自带的查询，把Wrapper作为参数传进去就可以了</p>
-<h1 id="2-方法解读"><a href="#2-方法解读" class="headerlink" title="2.方法解读"></a>2.方法解读</h1><h4 id="2-1）select篇：QueryWrapper"><a href="#2-1）select篇：QueryWrapper" class="headerlink" title="2.1）select篇：QueryWrapper"></a>2.1）select篇：QueryWrapper</h4><ul>
-<li><h5 id="allEq-：基于map的相等"><a href="#allEq-：基于map的相等" class="headerlink" title="allEq()：基于map的相等"></a>allEq()：基于map的相等</h5><ul>
-<li>参数map（），用于封装查询条件</li>
-<li>如果Map对象中有key的value是null，则需要传入第二个参数boolean<ul>
-<li>这个参数是用于判断是否考察是否要将null作为条件</li>
-<li>true：处理空值，where条件加入字段is null</li>
-<li>false：忽略空值,不作为where条件</li>
-</ul>
+                <h1 id="1-扩容"><a href="#1-扩容" class="headerlink" title="1.扩容"></a>1.扩容</h1><h3 id="1-1集群化：会话管理"><a href="#1-1集群化：会话管理" class="headerlink" title="1.1集群化：会话管理"></a>1.1集群化：会话管理</h3><h4 id="Nginx高级负载均衡"><a href="#Nginx高级负载均衡" class="headerlink" title="Nginx高级负载均衡"></a>Nginx高级负载均衡</h4><p><strong>ip_hash</strong></p>
+<ul>
+<li><p>场景：中小型项目（单体架构）搭建集群 会有一个会话问题。也就是session存在于某一台服务器内。无法做到集群共享session。如果说加SpirngSession这种框架需要更改代码。而Nginx提供了会话保持ip_hash方案。让不更改代码也可以进行会话保持</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">upstream</span> lfy</span> <span class="token punctuation">&#123;</span>
+<span class="token directive"><span class="token keyword">ip_hash</span></span><span class="token punctuation">;</span> <span class="token comment">#ip_hash会让每个客户端随机固定访问一个服务器。不会再像之前进行轮循访问从而保持了会话</span>
+<span class="token directive"><span class="token keyword">server</span> 192.168.44.102</span> <span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">server</span> 192.168.44.103</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  
+  
+ <span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">&#123;</span>
+     <span class="token directive"><span class="token keyword">listen</span>       <span class="token number">80</span></span><span class="token punctuation">;</span>
+     <span class="token directive"><span class="token keyword">server_name</span>  www.lvfeiy.top</span><span class="token punctuation">;</span>
+  
+     <span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">&#123;</span>
+  <span class="token directive"><span class="token keyword">proxy_pass</span> http://lfy</span><span class="token punctuation">;</span>
+  
+   	<span class="token comment"># root   html;</span>
+     <span class="token punctuation">&#125;</span>
+ 
+ 
+ 
+    <span class="token directive"><span class="token keyword">location</span> ~*/(css|img|js)</span> <span class="token punctuation">&#123;</span>
+  
+     <span class="token directive"><span class="token keyword">root</span>   /usr/local/nginx/html</span><span class="token punctuation">;</span>
+  
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>总结：如果想快速搭建集群，也不想改代码。可以通过此方式保持会话。只需要加一台服务器即可</p>
 </li>
 </ul>
-</li>
-<li><h5 id="last-拼接sql语句"><a href="#last-拼接sql语句" class="headerlink" title="last:拼接sql语句"></a>last:拼接sql语句</h5><ul>
-<li>可以在QueryWrapper调用方法之后在调用last(SQL语句片段)</li>
-</ul>
-</li>
-<li><h5 id="eq-：-x3D"><a href="#eq-：-x3D" class="headerlink" title="eq()：&#x3D;"></a>eq()：&#x3D;</h5><ul>
-<li>参数（“列名”，“值”）</li>
-<li>查询条件相等的</li>
-</ul>
-</li>
-<li><h5 id="ne-：！-x3D"><a href="#ne-：！-x3D" class="headerlink" title="ne()：！&#x3D;"></a>ne()：！&#x3D;</h5><ul>
-<li>参数（“列名”，“值”）</li>
-<li>查询条件不相等的</li>
-</ul>
-</li>
-<li><h5 id="gt-gt"><a href="#gt-gt" class="headerlink" title="gt(): &gt;"></a>gt(): &gt;</h5><ul>
-<li>参数（“列名”，“值”）</li>
-</ul>
-</li>
-<li><h5 id="ge-gt-x3D"><a href="#ge-gt-x3D" class="headerlink" title="ge(): &gt;&#x3D;"></a>ge(): &gt;&#x3D;</h5><ul>
-<li>参数（“列名”，“值”）</li>
-</ul>
-</li>
-<li><h5 id="lt-lt"><a href="#lt-lt" class="headerlink" title="lt(): &lt;"></a>lt(): &lt;</h5><ul>
-<li>参数（“列名”，“值”）</li>
-</ul>
-</li>
-<li><h5 id="le-lt-x3D"><a href="#le-lt-x3D" class="headerlink" title="le(): &lt;&#x3D;"></a>le(): &lt;&#x3D;</h5><ul>
-<li>参数（“列名”，“值”）</li>
-</ul>
-</li>
-<li><h5 id="between-在（？-and-？）"><a href="#between-在（？-and-？）" class="headerlink" title="between(): 在（？ and ？）"></a>between(): 在（？ and ？）</h5><ul>
-<li>参数（“列名”，“初始值”，“结束值”）</li>
-<li>包含等于</li>
-<li>where 列名&gt;&#x3D;初始值 and 列名&lt;&#x3D;结束值</li>
-</ul>
-</li>
-<li><h5 id="nobetween-不在（？and？）"><a href="#nobetween-不在（？and？）" class="headerlink" title="nobetween(): 不在（？and？）"></a>nobetween(): 不在（？and？）</h5><ul>
-<li>参数（“列名”，“初始值”，“结束值”）</li>
-<li>where 列名&lt;初始值 and 列名&gt;结束值</li>
-</ul>
-</li>
-<li><h5 id="like-：匹配值"><a href="#like-：匹配值" class="headerlink" title="like()：匹配值"></a>like()：匹配值</h5><ul>
-<li>参数（“列名”，“值”）</li>
-<li>like ‘%值%’</li>
-</ul>
-</li>
-<li><h5 id="notlike-：不匹配值"><a href="#notlike-：不匹配值" class="headerlink" title="notlike()：不匹配值"></a>notlike()：不匹配值</h5><ul>
-<li>参数（“列名”，“值”）</li>
-<li>not like ‘%值%’</li>
-</ul>
-</li>
-<li><h5 id="likeLeft"><a href="#likeLeft" class="headerlink" title="likeLeft"></a>likeLeft</h5><ul>
-<li>like ‘%值’</li>
-</ul>
-</li>
-<li><h5 id="likerRight"><a href="#likerRight" class="headerlink" title="likerRight"></a>likerRight</h5><ul>
-<li>like ‘值%’</li>
-</ul>
-</li>
-<li><h5 id="is-null"><a href="#is-null" class="headerlink" title="is null"></a>is null</h5><ul>
-<li>参数（“列名”）</li>
-</ul>
-</li>
-<li><h5 id="is-not-null"><a href="#is-not-null" class="headerlink" title="is not null"></a>is not null</h5><ul>
-<li>参数（“列名”）</li>
-</ul>
-</li>
-<li><h5 id="in"><a href="#in" class="headerlink" title="in"></a>in</h5><ul>
-<li>参数（“列名”，“值”，“值”，…..）</li>
-</ul>
-</li>
-<li><h5 id="not-in"><a href="#not-in" class="headerlink" title="not in"></a>not in</h5><ul>
-<li>参数（“列名”，“值”，“值”，…….）</li>
-</ul>
-</li>
-<li><h5 id="inSql：子查询"><a href="#inSql：子查询" class="headerlink" title="inSql：子查询"></a>inSql：子查询</h5><ul>
-<li>参数（“列名”，“sql语句”）</li>
-<li>where 列名 in sql语句结果</li>
-</ul>
-</li>
-<li><h5 id="notInSql：子查询"><a href="#notInSql：子查询" class="headerlink" title="notInSql：子查询"></a>notInSql：子查询</h5><ul>
-<li>参数（“列名”，“sql语句”）</li>
-<li>where 列名 not in sql语句结果</li>
-</ul>
-</li>
-<li><h5 id="groupBy：自己写吧，没必要用MP框架写这个"><a href="#groupBy：自己写吧，没必要用MP框架写这个" class="headerlink" title="groupBy：自己写吧，没必要用MP框架写这个"></a>groupBy：自己写吧，没必要用MP框架写这个</h5></li>
-<li><h5 id="OderByAsc：按字段升序"><a href="#OderByAsc：按字段升序" class="headerlink" title="OderByAsc：按字段升序"></a>OderByAsc：按字段升序</h5><ul>
-<li>参数（“列名”，……）</li>
-</ul>
-</li>
-<li><h5 id="OderByDesc：按字段降序"><a href="#OderByDesc：按字段降序" class="headerlink" title="OderByDesc：按字段降序"></a>OderByDesc：按字段降序</h5><ul>
-<li>参数（“列名”，……）</li>
-</ul>
-</li>
-<li><h5 id="orderBy-："><a href="#orderBy-：" class="headerlink" title="orderBy()："></a>orderBy()：</h5><ul>
-<li>参数<ul>
-<li>boolean condition：条件内容是否加入到sql语句的后面。</li>
-<li>boolean isAsc：升序true 降序 false</li>
-<li>colums：“列名”</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h5 id="exists：拼接sql"><a href="#exists：拼接sql" class="headerlink" title="exists：拼接sql"></a>exists：拼接sql</h5><ul>
-<li><p>参数（“SQL语句”）</p>
-</li>
-<li><p>实例</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">qw<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token string">"select * from student where age > 20"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>hash    $request_uri</strong></p>
+<p>场景：资源分配不平均。当资源很大时，不能做到集群每个服务器都存在这个资源。可以使用此hash来让请求固定到一台服务器</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">upstream</span> lfy</span> <span class="token punctuation">&#123;</span>
+<span class="token directive"><span class="token keyword">hash</span>    <span class="token variable">$request_uri</span></span><span class="token punctuation">;</span> 
+<span class="token directive"><span class="token keyword">server</span> 192.168.44.102</span> <span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">server</span> 192.168.44.103</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>判断子查询条件是否成立</li>
+<li>如果不知道会固定到哪台服务器。可以先进行访问测试。看看hash指向哪台服务器。然后把资源放到对应的服务器即可</li>
 </ul>
-</li>
+<h1 id="2-KeepAlive"><a href="#2-KeepAlive" class="headerlink" title="2.KeepAlive"></a>2.KeepAlive</h1><p>在http协议header中可以看到当前连接状态</p>
+<h4 id="测试工具charles"><a href="#测试工具charles" class="headerlink" title="测试工具charles"></a>测试工具charles</h4><p><strong>下载地址</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.charlesproxy.com/assets/release/4.6.2/charles-proxy-4.6.2-win64.msi?k=fc1457e312">https://www.charlesproxy.com/assets/release/4.6.2/charles-proxy-4.6.2-win64.msi?k=fc1457e312</a></p>
+<p><strong>官网</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.charlesproxy.com/">https://www.charlesproxy.com</a></p>
+<h4 id="什么时候使用？"><a href="#什么时候使用？" class="headerlink" title="什么时候使用？"></a>什么时候使用？</h4><p>明显的预知用户会在当前连接上有下一步操作</p>
+<p>复用连接，有效减少握手次数，尤其是https建立一次连接开销会更大</p>
+<h4 id="什么时候不用？"><a href="#什么时候不用？" class="headerlink" title="什么时候不用？"></a>什么时候不用？</h4><p>访问内联资源一般用缓存，不需要keepalive</p>
+<p>长时间的tcp连接容易导致系统资源无效占用</p>
+<h3 id="2-1）对客户端使用keepalive"><a href="#2-1）对客户端使用keepalive" class="headerlink" title="2.1）对客户端使用keepalive"></a>2.1）对客户端使用keepalive</h3><p><strong>keepalive_time</strong> </p>
+<p>限制keepalive保持连接的最大时间</p>
+<p>1.19.10新功能</p>
+<p><strong>keepalive_timeout</strong></p>
+<p>用于设置Nginx服务器与客户端保持连接的超时时间</p>
+<p>用于踢出不活动连接</p>
+<p>keepalive_timeout &#x3D; 0 即关闭</p>
+<p><strong>send_timeout</strong></p>
+<ul>
+<li>send_timeout 10;  10秒</li>
+<li>send_timeout 10 10; 同时下发一个header 告诉浏览器</li>
 </ul>
-</li>
-<li><h5 id="not-exists-和上面的相反"><a href="#not-exists-和上面的相反" class="headerlink" title="not exists: 和上面的相反"></a>not exists: 和上面的相反</h5></li>
-</ul>
-<h3 id="2-2）分页"><a href="#2-2）分页" class="headerlink" title="2.2）分页"></a>2.2）分页</h3><ol>
-<li><h5 id="配置分页插件，实现物理分页，默认是内存分页"><a href="#配置分页插件，实现物理分页，默认是内存分页" class="headerlink" title="配置分页插件，实现物理分页，默认是内存分页"></a>配置分页插件，实现物理分页，默认是内存分页</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java">
-<span class="token annotation punctuation">@Configuration</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Config</span><span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token keyword">public</span> <span class="token class-name">PaginationInterceptor</span> <span class="token function">paginationInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">PaginationInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>两次向客户端写操作之间的间隔 如果大于这个时间则关闭连接 默认60s</p>
+<p><strong>此处有坑</strong>，注意耗时的同步操作有可能会丢弃用户连接</p>
+<p>该设置表示Nginx服务器与客户端连接后，某次会话中服务器等待客户端响应超过10s，就会自动关闭连接。</p>
+<p><strong>keepalive_request</strong></p>
+<p>默认1000</p>
+<p>单个连接中可处理的请求数</p>
+<p><strong>keepalive_disable</strong></p>
+<p>不对某些浏览器建立长连接</p>
+<p>默认msie6</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">http</span></span> <span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">include</span>       mime.types</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">default_type</span>  application/octet-stream</span><span class="token punctuation">;</span>
+
+
+    <span class="token directive"><span class="token keyword">sendfile</span>        <span class="token boolean">on</span></span><span class="token punctuation">;</span>
+
+
+    <span class="token directive"><span class="token keyword">keepalive_timeout</span>  <span class="token number">65</span> <span class="token number">65</span></span><span class="token punctuation">;</span> <span class="token comment">#超过这个时间 没有活动，会让keepalive失效 </span>
+    <span class="token directive"><span class="token keyword">keepalive_time</span> <span class="token number">1h</span></span><span class="token punctuation">;</span> <span class="token comment"># 一个tcp连接总时长，超过之后 强制失效</span>
+  
+    <span class="token directive"><span class="token keyword">send_timeout</span> <span class="token number">60</span></span><span class="token punctuation">;</span><span class="token comment"># 默认60s  此处有坑！！ 系统中 若有耗时操作，超过 send_timeout 强制断开连接。 注意：准备过程中，不是传输过程</span>
+
+
+    <span class="token directive"><span class="token keyword">keepalive_requests</span> <span class="token number">1000</span></span><span class="token punctuation">;</span>  <span class="token comment">#一个tcp复用中 可以并发接收的请求个数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="2-2）对后端服务器使用keepalive"><a href="#2-2）对后端服务器使用keepalive" class="headerlink" title="2.2）对后端服务器使用keepalive"></a>2.2）对后端服务器使用keepalive</h3><p>首先需要配置使用http1.1协议。以便建立更高效的传输，默认使用http1.0，在http1.0中需要配置header才能</p>
+<p>在Upstream中所配置的上游服务器默认都是用短连接，即每次请求都会在完成之后断开</p>
+<h4 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h4><h5 id="upstream中配置"><a href="#upstream中配置" class="headerlink" title="upstream中配置"></a>upstream中配置</h5><p>配置</p>
+<p><strong>keepalive 100;</strong></p>
+<p>向上游服务器的保留连接数</p>
+<p>**keepalive_timeout  **</p>
+<p>连接保留时间</p>
+<p> **keepalive_requests ** </p>
+<p>一个tcp复用中 可以并发接收的请求个数</p>
+<h5 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h5><pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">http</span></span> <span class="token punctuation">&#123;</span>
+
+    <span class="token directive"><span class="token keyword">access_log</span>  /var/log/nginx/access.log  main</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">sendfile</span>        <span class="token boolean">on</span></span><span class="token punctuation">;</span> <span class="token comment">#数据0拷贝</span>
+    <span class="token comment">#=======客户端配置===========</span>
+    <span class="token directive"><span class="token keyword">keepalive_timeout</span>  <span class="token number">65</span> <span class="token number">65</span></span><span class="token punctuation">;</span> <span class="token comment">#超过这个时间 没有活动，会让keepalive失效 </span>
+    <span class="token directive"><span class="token keyword">keepalive_time</span> <span class="token number">1h</span></span><span class="token punctuation">;</span> <span class="token comment"># 一个tcp连接总时长，超过之后 强制失效</span>
+    <span class="token directive"><span class="token keyword">send_timeout</span> <span class="token number">60</span></span><span class="token punctuation">;</span><span class="token comment"># 默认60s  此处有坑！！ 系统中 若有耗时操作，超过 send_timeout 强制断开连接。 注意：准备过程中，不是传输过程</span>
+    <span class="token directive"><span class="token keyword">keepalive_requests</span> <span class="token number">1000</span></span><span class="token punctuation">;</span>  <span class="token comment">#一个tcp复用中 可以并发接收的请求个数</span>
+    
+    <span class="token comment">#======后端配置==================</span>
+    <span class="token directive"><span class="token keyword">upstream</span> lfy</span><span class="token punctuation">&#123;</span>
+        <span class="token directive"><span class="token keyword">keepalive</span> <span class="token number">100</span></span><span class="token punctuation">;</span> <span class="token comment">#向后端服务器的保留连接数</span>
+        <span class="token directive"><span class="token keyword">keepalive_timeout</span> <span class="token number">65</span></span><span class="token punctuation">;</span> <span class="token comment">#连接保留时间，默认65</span>
+        <span class="token directive"><span class="token keyword">keepalive_requests</span> <span class="token number">100</span></span><span class="token punctuation">;</span> <span class="token comment">#一个tcp复用中 可以并发接收的请求个数</span>
+        <span class="token directive"><span class="token keyword">proxy_http_version</span> 1.1</span><span class="token punctuation">;</span> <span class="token comment">#http版本默认1.0,配置1.1的性能更好</span>
+        <span class="token directive"><span class="token keyword">server</span> test.lvfeiy.top weight=9</span><span class="token punctuation">;</span> <span class="token comment">#weight负载均衡权重值</span>
+        <span class="token directive"><span class="token keyword">server</span> test.lvfeiy2.top weight=1</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><h5 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testpage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">//创建qw</span>
-        <span class="token class-name">QueryWrapper</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">></span></span> wq <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">QueryWrapper</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//创建page</span>
-        <span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">></span></span> page <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//指定分页数据</span>
-        page<span class="token punctuation">.</span><span class="token function">setCurrent</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//第一页</span>
-        page<span class="token punctuation">.</span><span class="token function">setSize</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//每页记录数</span>
-        <span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">></span></span> result <span class="token operator">=</span> studentMapper<span class="token punctuation">.</span><span class="token function">selectPage</span><span class="token punctuation">(</span>page<span class="token punctuation">,</span> wq<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//获取分页后的记录</span>
-        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Student</span><span class="token punctuation">></span></span> students <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getRecords</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"当前页分隔线============================="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Student</span> student <span class="token operator">:</span> students<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>student<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"当前页分隔线============================="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//有多少页</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"有多少页"</span><span class="token operator">+</span>result<span class="token punctuation">.</span><span class="token function">getPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//总记录数</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"总记录数"</span><span class="token operator">+</span>result<span class="token punctuation">.</span><span class="token function">getTotal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//当前页码</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"当前页码"</span><span class="token operator">+</span>result<span class="token punctuation">.</span><span class="token function">getCurrent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//每页的记录数</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"每页的记录数"</span><span class="token operator">+</span>result<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token directive"><span class="token keyword">server</span></span><span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">listen</span>       <span class="token number">80</span></span><span class="token punctuation">;</span> <span class="token comment">#监听的端口号</span>
+    <span class="token directive"><span class="token keyword">server_name</span>  www.lvfeiy.top</span><span class="token punctuation">;</span><span class="token comment">#当前这台虚拟主机的主机名，通常是域名</span>
+    <span class="token directive"><span class="token keyword">location</span> /</span><span class="token punctuation">&#123;</span>
+        <span class="token directive"><span class="token keyword">proxy_pass</span> http://lfy
+        proxy_set_header Connection <span class="token string">""</span></span><span class="token punctuation">;</span> <span class="token comment">#默认使用http1.0协议，需要在request中增加”Connection： keep-alive“ header才能够支持，而HTTP1.1默认支持。 </span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span>
 
-
-
-<h1 id="3-创建对象时自动赋值"><a href="#3-创建对象时自动赋值" class="headerlink" title="3.创建对象时自动赋值"></a>3.创建对象时自动赋值</h1><h3 id="3-1）实体类"><a href="#3-1）实体类" class="headerlink" title="3.1）实体类"></a>3.1）实体类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token annotation punctuation">@NoArgsConstructor</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dept</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Dept</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token number">1L</span><span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@TableId</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"id"</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token class-name">IdType</span><span class="token punctuation">.</span><span class="token constant">AUTO</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> <span class="token class-name">Long</span> id<span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">String</span> mobile<span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token class-name">Integer</span> manager<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@TableField</span><span class="token punctuation">(</span>fill <span class="token operator">=</span> <span class="token class-name">FieldFill</span><span class="token punctuation">.</span><span class="token constant">INSERT</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> <span class="token class-name">Date</span> create_time<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@TableField</span><span class="token punctuation">(</span>fill <span class="token operator">=</span> <span class="token class-name">FieldFill</span><span class="token punctuation">.</span><span class="token constant">INSERT_UPDATE</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> <span class="token class-name">Date</span> update_time<span class="token punctuation">;</span>
-
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token directive"><span class="token keyword">proxy_http_version</span> 1.1</span><span class="token punctuation">;</span>
+配置http版本号
+默认使用http1.0协议，需要在request中增加”Connection： <span class="token directive"><span class="token keyword">keep-alive“</span> header才能够支持，而HTTP1.1默认支持。
+proxy_set_header Connection <span class="token string">""</span></span><span class="token punctuation">;</span>
+清空close信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>在属性上面添加 <strong>@TableField(fill &#x3D; FieldFill.INSERT_UPDATE)<strong>用来指定什么时候</strong>触发自动填充值</strong></li>
-</ul>
-<h3 id="3-2）配置类"><a href="#3-2）配置类" class="headerlink" title="3.2）配置类"></a>3.2）配置类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyBatisConfig</span> <span class="token keyword">implements</span> <span class="token class-name">MetaObjectHandler</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">insertFill</span><span class="token punctuation">(</span><span class="token class-name">MetaObject</span> metaObject<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setFieldValByName</span><span class="token punctuation">(</span><span class="token string">"create_time"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>metaObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">updateFill</span><span class="token punctuation">(</span><span class="token class-name">MetaObject</span> metaObject<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-
-        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setFieldValByName</span><span class="token punctuation">(</span><span class="token string">"update_time"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>metaObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><a href=""></a>实现MetaObjectHandler接口重写更新和创建的方法</p>
-<ul>
-<li>两个方法用于创建和更新时触发</li>
-<li><strong>方法中参数为  字段名，填充值，metaObject</strong></li>
-</ul>
+<li><p>因为配置了http1.1的版本，所以要建立长链接要清空Connection，因为默认使用的http协议是1.0版本的，1.0版本不支持长链接 里面Connection 的值是close；</p>
 </li>
+<li><p>nginx会将浏览器发送过来的请求头全部清空。转发后端收到的请求头是空的 可以使用proxy_set_header Host $host; 来把客户端的请求头重新设置进去发送给后端的请求头就会带有客户端中带的请求头</p>
+</li>
+</ul>
+<h1 id="3-关于请求头丢失"><a href="#3-关于请求头丢失" class="headerlink" title="3.关于请求头丢失"></a>3.关于请求头丢失</h1><h4 id="setHeader"><a href="#setHeader" class="headerlink" title="setHeader"></a>setHeader</h4><p><strong>获取真实用户电脑ip</strong></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+<span class="token comment">#经过nginx反向代理之后的请求在后端服务器中会显示nginx的ip而原客户端ip会丢失，所以需要手动填充</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>获取真实用户请求的域名</strong></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">http</span></span><span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">upstream</span> lfy</span><span class="token punctuation">&#123;</span>
+        server 111.11.11.1
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token directive"><span class="token keyword">server</span></span><span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">location</span> /</span><span class="token punctuation">&#123;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+        proxy_pass http://lfy
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">#Host在后端服务器获取时会显示lfy而不是真实的域名，需要手动填充Host。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h1 id="4-Gzip"><a href="#4-Gzip" class="headerlink" title="4.Gzip"></a>4.Gzip</h1><p>作用域 <code>http, server, location</code></p>
+<p><strong>gzip on;</strong></p>
+<p>开关，默认关闭</p>
+<p><strong>gzip_buffers 32 4k|16 8k</strong></p>
+<p>缓冲区大小</p>
+<p><strong>gzip_comp_level</strong> 1；</p>
+<p>压缩等级 1-9，数字越大压缩比越高</p>
+<p><strong>gzip_http_version 1.1;</strong></p>
+<p>使用gzip的最小版本</p>
+<p><strong>gzip_min_length</strong></p>
+<p>设置将被gzip压缩的响应的最小长度。 长度仅由“Content-Length”响应报头字段确定。</p>
+<p><strong>gzip_proxied 多选</strong></p>
+<p>off 为不做限制</p>
+<p>作为反向代理时，针对上游服务器返回的头信息进行压缩</p>
+<p>expired - 启用压缩，如果header头中包含 “Expires” 头信息<br>no-cache - 启用压缩，如果header头中包含 “Cache-Control:no-cache” 头信息<br>no-store - 启用压缩，如果header头中包含 “Cache-Control:no-store” 头信息<br>private - 启用压缩，如果header头中包含 “Cache-Control:private” 头信息<br>no_last_modified - 启用压缩,如果header头中不包含 “Last-Modified” 头信息<br>no_etag - 启用压缩 ,如果header头中不包含 “ETag” 头信息<br>auth - 启用压缩 , 如果header头中包含 “Authorization” 头信息<br>any - 无条件启用压缩</p>
+<p><strong>gzip_vary on;</strong></p>
+<p>增加一个header，适配老的浏览器 <code>Vary: Accept-Encoding</code></p>
+<p><strong>gzip_types</strong></p>
+<p>哪些mime类型的文件进行压缩</p>
+<p><strong>gzip_disable</strong></p>
+<p>禁止某些浏览器使用gzip</p>
+<p><strong>完整实例</strong></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">gzip</span> <span class="token boolean">on</span></span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_buffers</span> <span class="token number">16</span> <span class="token number">8k</span></span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_comp_level</span> <span class="token number">6</span></span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_http_version</span> 1.1</span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_min_length</span> <span class="token number">256</span></span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_proxied</span> any</span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_vary</span> <span class="token boolean">on</span></span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_types</span> text/plain application/x-javascript text/css application/xml</span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_types</span>
+  text/xml application/xml application/atom+xml application/rss+xml application/xhtml+xml image/svg+xml
+  text/javascript application/javascript application/x-javascript
+  text/x-json application/json application/x-web-app-manifest+json
+  text/css text/plain text/x-component
+  font/opentype application/x-font-ttf application/vnd.ms-fontobject
+  image/x-icon</span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">gzip_disable</span> <span class="token string">"MSIE [1-6]\.(?!.*SV1)"</span></span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">HTTP/1.1</span> <span class="token number">200</span>
+Server: nginx/1.21.6
+Date: Wed, <span class="token number">18</span> May <span class="token number">2022</span> 17:42:35 GMT
+Content-Type: text/html</span><span class="token punctuation">;</span>charset=utf-8
+Content-Length: 7832
+Connection: keep-alive
+Keep-Alive: timeout=65<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="ngx-http-gunzip-module"><a href="#ngx-http-gunzip-module" class="headerlink" title="ngx_http_gunzip_module"></a>ngx_http_gunzip_module</h3><p>帮助不支持gzip的客户端解压本地文件</p>
+<h4 id="http-gzip-static-module"><a href="#http-gzip-static-module" class="headerlink" title="http_gzip_static_module"></a>http_gzip_static_module</h4><p>需要重新编译nginx</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./configure --with-http_gzip_static_module<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">gzip_static</span> <span class="token boolean">on</span></span><span class="token punctuation">;</span> <span class="token comment">#on开启 off关闭 always不考虑对方客户端是否支持gzip强制发送gzip格式。on的话会判断对方客户端是否支持gzip，不支持就发送源文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<ul>
+<li>需要将文件提前压缩。</li>
+<li>如果是on的话需要保留源文件和gzip格式的文件。如果是always的话可以把源文件全部删除，只保留gzip文件 ，配合gunzip使用。</li>
+</ul>
+<h1 id="5-合并客户端请求"><a href="#5-合并客户端请求" class="headerlink" title="5.合并客户端请求"></a>5.合并客户端请求</h1><p>Concat模块</p>
+<p>Tengine</p>
+<p>Nginx官方介绍</p>
+<p><a target="_blank" rel="noopener" href="https://www.nginx.com/resources/wiki/modules/concat/">https://www.nginx.com/resources/wiki/modules/concat/</a></p>
+<p>git地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alibaba/nginx-http-concat">https://github.com/alibaba/nginx-http-concat</a></p>
+<ul>
+<li>安装</li>
+</ul>
+<p>下载源码解压缩编译安装</p>
+<ul>
+<li>配置</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">concat on;
+concat_max_files 30;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>??xxx1.css,xxx2.css<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+
+
+<h1 id="6-多级缓存"><a href="#6-多级缓存" class="headerlink" title="6.多级缓存"></a>6.多级缓存</h1><p><strong>缓存有两类</strong></p>
+<ol>
+<li>内存缓存：最快</li>
+<li>磁盘缓存（disk cache）:轻微延迟</li>
 </ol>
+<h3 id="6-1强制缓存与协商缓存"><a href="#6-1强制缓存与协商缓存" class="headerlink" title="6.1强制缓存与协商缓存"></a>6.1<strong>强制缓存与协商缓存</strong></h3><ul>
+<li><p><strong>协商缓存(默认开启)</strong></p>
+<ul>
+<li>第一次请求加载页面时，nginx会下发两个头参数，last-modified代表文件最后修改的时间，etag表示文件哈希值</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">last-modified: Mon, 16 Jan 2023 06:39:53 GMT
+etag: W&#x2F;&quot;7faa2292953c2f78f0f88c35c123c841&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
+<p>​       当文件进行修改时，最后修改时间和文件哈希值都会发生改变</p>
+<ul>
+<li>然后在次刷新时，浏览器会带上两个头，去nginx中比对，如果说哈希值和最后修改时间都没发生变化，说明文件没有发生修改，就直接从本地文件中加载缓存。</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">if-modified-since: Mon, 16 Jan 2023 06:39:53 GMT
+if-none-match: W&#x2F;&quot;7faa2292953c2f78f0f88c35c123c841&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><strong>关闭协商缓存</strong></p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">location</span> /</span><span class="token punctuation">&#123;</span>
+	<span class="token directive"><span class="token keyword">etag</span> <span class="token boolean">off</span></span><span class="token punctuation">;</span>
+	<span class="token directive"><span class="token keyword">if_modifed_since</span> <span class="token boolean">off</span></span><span class="token punctuation">;</span> <span class="token comment">#或add_header Last-Modifed "";</span>
+	
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p><strong>强制缓存</strong></p>
+</li>
+</ul>
+<h5 id="cache-control"><a href="#cache-control" class="headerlink" title="cache-control"></a><strong>cache-control</strong></h5><p>http1.1的规范，使用max-age表示文件可以在浏览器中缓存的时间以秒为单位</p>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">location</span> /</span><span class="token punctuation">&#123;</span>
+	<span class="token directive"><span class="token keyword">add_header</span> cache-control <span class="token string">"max-stale:300"</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>类型</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>响应头</td>
+<td>响应的数据可以被缓存，客户端和代理层都可以缓存</td>
+</tr>
+<tr>
+<td>private</td>
+<td>响应头</td>
+<td>可私有缓存，客户端可以缓存，代理层不能缓存（CDN，proxy_pass）</td>
+</tr>
+<tr>
+<td>no-cache</td>
+<td>请求头</td>
+<td>可以使用本地缓存，但是必须发送请求到服务器回源验证</td>
+</tr>
+<tr>
+<td>no-store</td>
+<td>请求和响应</td>
+<td>应禁用缓存</td>
+</tr>
+<tr>
+<td>max-age</td>
+<td>请求和响应</td>
+<td>文件可以在浏览器中缓存的时间以秒为单位</td>
+</tr>
+<tr>
+<td>s-maxage</td>
+<td>请求和响应</td>
+<td>用户代理层缓存，CDN下发，当客户端数据过期时会重新校验</td>
+</tr>
+<tr>
+<td>max-stale</td>
+<td>请求和响应</td>
+<td>缓存最大使用时间，如果缓存过期，但还在这个时间范围内则可以使用缓存数据</td>
+</tr>
+<tr>
+<td>min-fresh</td>
+<td>请求和响应</td>
+<td>缓存最小使用时间，</td>
+</tr>
+<tr>
+<td>must-revalidate</td>
+<td>请求和响应</td>
+<td>当缓存过期后，必须回源重新请求资源。比no-cache更严格。因为HTTP 规范是允许客户端在某些特殊情况下直接使用过期缓存的，比如校验请求发送失败的时候。那么带有must-revalidate的缓存必须校验，其他条件全部失效。</td>
+</tr>
+<tr>
+<td>proxy-revalidate</td>
+<td>请求和响应</td>
+<td>和must-revalidate类似，只对CDN这种代理服务器有效，客户端遇到此头，需要回源验证</td>
+</tr>
+<tr>
+<td>stale-while-revalidate</td>
+<td>响应</td>
+<td>表示在指定时间内可以先使用本地缓存，后台进行异步校验</td>
+</tr>
+<tr>
+<td>stale-if-error</td>
+<td>响应</td>
+<td>在指定时间内，重新验证时返回状态码为5XX的时候，可以用本地缓存</td>
+</tr>
+<tr>
+<td>only-if-cached</td>
+<td>响应</td>
+<td>那么只使用缓存内容，如果没有缓存 则504 getway timeout</td>
+</tr>
+</tbody></table>
+<p>在浏览器和服务器端验证文件是否过期的时候，浏览器在二次请求的时候会携带IF-Modified-Since属性</p>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><h5 id="cache-control-expires-强制缓存"><a href="#cache-control-expires-强制缓存" class="headerlink" title="cache-control expires 强制缓存"></a>cache-control expires 强制缓存</h5><p>页面首次打开，直接读取缓存数据，刷新，会向服务器发起请求</p>
+<h5 id="etag-lastmodify-协商缓存"><a href="#etag-lastmodify-协商缓存" class="headerlink" title="etag lastmodify  协商缓存"></a>etag lastmodify  协商缓存</h5><p>当哈希值和最后修改时间，没发生变化 返回304 不发送数据</p>
+<h4 id="浏览器缓存原则"><a href="#浏览器缓存原则" class="headerlink" title="浏览器缓存原则"></a>浏览器缓存原则</h4><ul>
+<li><p>多级集群负载时last-modified（文件最后修改时间）必须保持一致</p>
+</li>
+<li><p>还有一些场景下我们希望禁用浏览器缓存。比如轮训api上报数据数据</p>
+</li>
+<li><p>浏览器缓存很难彻底禁用，大家的做法是加版本号，随机数等方法。</p>
+</li>
+<li><p>只缓存200响应头的数据，像3XX这类跳转的页面不需要缓存。</p>
+</li>
+<li><p>对于js，css这类可以缓存很久的数据，可以通过加版本号的方式更新内容</p>
+</li>
+<li><p>不需要强一致性的数据，可以缓存几秒</p>
+</li>
+<li><p>异步加载的接口数据，可以使用ETag来校验。</p>
+</li>
+<li><p>在服务器添加Server头，有利于排查错误</p>
+</li>
+<li><p>分为手机APP和Client以及是否遵循http协议</p>
+</li>
+<li><p>在没有联网的状态下可以展示数据</p>
+</li>
+<li><p>流量消耗过多</p>
+</li>
+<li><p>提前下发  避免秒杀时同时下发数据造成流量短时间暴增</p>
+</li>
+<li><p>兜底数据 在服务器崩溃和网络不可用的时候展示</p>
+</li>
+<li><p>临时缓存  退出即清理</p>
+</li>
+<li><p>固定缓存  展示框架这种，可能很长时间不会更新，可用随客户端下发</p>
+<ul>
+<li><strong>首页</strong>有的时候可以看做是框架 应该禁用缓存，以保证加载的资源都是最新的</li>
+</ul>
+</li>
+<li><p>父子连接 页面跳转时有一部分内容不需要重新加载，可用从父菜单带过来</p>
+</li>
+<li><p>预加载     某些逻辑可用判定用户接下来的操作，那么可用异步加载那些资源</p>
+</li>
+<li><p>漂亮的加载过程 异步加载 先展示框架，然后异步加载内容，避免主线程阻塞</p>
+</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
                 
             </div>
             <hr/>
@@ -749,7 +908,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.lvfeiy.top/2022/10/17/mybati-plus/">http://www.lvfeiy.top/2022/10/17/mybati-plus/</a>
+                    <a href="http://www.lvfeiy.top/2022/11/12/nginx-jin-jie-pian/">http://www.lvfeiy.top/2022/11/12/nginx-jin-jie-pian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -787,16 +946,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/MySQL/">
-                                    <span class="chip bg-color">MySQL</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%A1%86%E6%9E%B6/">
-                                    <span class="chip bg-color">框架</span>
-                                </a>
-                            
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
                                 </a>
                             
                         </div>
@@ -1242,65 +1393,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/29/redisson-fen-bu-shi-suo/">
+                <a href="/2022/11/12/nginx-jin-jie-pian/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/hh.png" class="responsive-img" alt="redisson分布式锁">
                         
-                        <span class="card-title">redisson分布式锁</span>
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Nginx进阶篇">
+                        
+                        <span class="card-title">Nginx进阶篇</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            分布式锁框架redisson
+                            Nginx进阶篇
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
-                                </a>
-                            
-                            <a href="/categories/java/nosql/" class="post-category">
-                                    nosql
-                                </a>
-                            
-                            <a href="/categories/java/nosql/redis/" class="post-category">
-                                    redis
+                            <a href="/categories/Nginx/" class="post-category">
+                                    Nginx
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/nosql/">
-                        <span class="chip bg-color">nosql</span>
-                    </a>
-                    
-                    <a href="/tags/redis/">
-                        <span class="chip bg-color">redis</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
-                        <span class="chip bg-color">分布式</span>
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
@@ -1314,31 +1448,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/17/lua-yuan-zi-shan-chu-token/">
+                <a href="/2022/11/12/nginx/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="redis原子删除token">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Nginx">
                         
-                        <span class="card-title">redis原子删除token</span>
+                        <span class="card-title">Nginx</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            redis的lua脚本
+                            Nginx基础篇
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/redis/" class="post-category">
-                                    redis
+                            <a href="/categories/Nginx/" class="post-category">
+                                    Nginx
                                 </a>
                             
                             
@@ -1348,16 +1482,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/redis/">
-                        <span class="chip bg-color">redis</span>
-                    </a>
-                    
-                    <a href="/tags/lua/">
-                        <span class="chip bg-color">lua</span>
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>

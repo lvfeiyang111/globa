@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/css/loading.css">
 
     <meta charset="utf-8">
-    <meta name="keywords" content="Docker(上), Lfy&#39;s Blog">
+    <meta name="keywords" content="Docker(下), Lfy&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -31,7 +31,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Docker(上) | Lfy&#39;s Blog</title>
+    <title>Docker(下) | Lfy&#39;s Blog</title>
   
 
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Docker(上)</h1>
+                    <h1 class="description center-align post-title">Docker(下)</h1>
                 </div>
             </div>
         </div>
@@ -489,376 +489,326 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="0-安装Docker"><a href="#0-安装Docker" class="headerlink" title="0.安装Docker"></a>0.安装Docker</h1><p>Docker 分为 CE 和 EE 两大版本。CE 即社区版（免费，支持周期 7 个月），EE 即企业版，强调安全，付费使用，支持周期 24 个月。</p>
-<p>Docker CE 分为 <code>stable</code> <code>test</code> 和 <code>nightly</code> 三个更新频道。</p>
-<p>官方网站上有各种环境下的 <a target="_blank" rel="noopener" href="https://docs.docker.com/install/">安装指南</a>，这里主要介绍 Docker CE 在 CentOS上的安装。</p>
-<h1 id="0-1-CentOS7安装Docker"><a href="#0-1-CentOS7安装Docker" class="headerlink" title="0.1.CentOS7安装Docker"></a>0.1.CentOS7安装Docker</h1><p>Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10， CentOS 7 满足最低内核的要求，所以我们在CentOS 7安装Docker。</p>
-<h2 id="0-1-1-卸载（可选）"><a href="#0-1-1-卸载（可选）" class="headerlink" title="0.1.1.卸载（可选）"></a>0.1.1.卸载（可选）</h2><p>如果之前安装过旧版本的Docker，可以使用下面命令卸载：</p>
-<pre class="line-numbers language-none"><code class="language-none">yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-selinux \
-                  docker-engine-selinux \
-                  docker-engine \
-                  docker-ce<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="1-DockerFile"><a href="#1-DockerFile" class="headerlink" title="1.DockerFile"></a>1.DockerFile</h1><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FROM</td>
+<td>基础镜像，当前新镜像是基于哪个镜像的，指定一个已经存在的镜像作为模板，第一条必须是FROM</td>
+</tr>
+<tr>
+<td>MAINTAINER</td>
+<td>镜像维护者的姓名和邮箱地址</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>容器构建时需要运行的命令，两种格式，shell格式、exec格式。RUN是在docker build时运行。相当于在容器内运行终端命令</td>
+</tr>
+<tr>
+<td>EXPOSE</td>
+<td>当前容器对外暴露的端口</td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>在创建容器后，终端进入容器的默认目录，一个落脚点</td>
+</tr>
+<tr>
+<td>USER</td>
+<td>指定该镜像以什么样的身份去执行，如果不指定，默认root</td>
+</tr>
+<tr>
+<td>ENV</td>
+<td>用来在构建镜像的过程中定义环境变量，可以用$+变量名取值</td>
+</tr>
+<tr>
+<td>ADD</td>
+<td>将宿主机目录下的文件拷贝进镜像且会自动处理URL和解压tar压缩包</td>
+</tr>
+<tr>
+<td>COPY</td>
+<td>类似ADD，拷贝文件到镜像中</td>
+</tr>
+<tr>
+<td>VOLUME</td>
+<td>容器数据卷，用于数据保存和持久化工作 相当于 -v</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>指定容器启动后要干的事情，可以存在多个cmd指令，但是只有最后一个生效。RUN是在build运行，CMD是在run的时候运行</td>
+</tr>
+<tr>
+<td>ENTRYPOINT</td>
+<td>跟cmd差不多 但是当指定了ENTRYPOINT之后CMD的含义就发生了变化，不再是直接运行命令，而是将CMD的内容作为参数传递给ENTRYPOINT</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>ENTRYPOINT</strong></p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token comment">#例如</span>
+<span class="token instruction"><span class="token keyword">ENTRYPOINT</span> [<span class="token string">"nginx"</span>,<span class="token string">"-c"</span>]</span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"/etc/nginx/nginx.cnf"</span>]</span>
+<span class="token comment">#衍生出来的命令是 nginx -c /etc/nginx/nginx.cnf</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>示例</strong></p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token comment">#基础镜像</span>
+<span class="token instruction"><span class="token keyword">FROM</span> centos:7.5 </span>
+<span class="token comment">#姓名和邮箱</span>
+<span class="token instruction"><span class="token keyword">MAINTAINER</span> lfy&lt;1316547530@qq.com> </span>
+<span class="token comment">#定义一个路径变量</span>
+<span class="token instruction"><span class="token keyword">ENV</span> MYPATH /usr/local 、</span>
+<span class="token comment">#进入容器默认目录</span>
+<span class="token instruction"><span class="token keyword">WORKDIR</span> <span class="token variable">$MYPATH</span>  </span>
+<span class="token instruction"><span class="token keyword">RUN</span> yum -y install vim  #容器build时，下载vim</span>
+<span class="token instruction"><span class="token keyword">RUN</span> yum -y install net-tools</span>
+<span class="token instruction"><span class="token keyword">RUN</span> yum -y install glibc.1686</span>
+<span class="token instruction"><span class="token keyword">RUN</span> mkdir /usr/local/java </span>
+<span class="token comment">#提交下载jdk到宿主机中，ADD添加进容器目录里</span>
+<span class="token instruction"><span class="token keyword">ADD</span> jdk-8u144-linux-x64.tar.gz /usr/local/java </span>
+<span class="token comment">#配置java环境变量</span>
+<span class="token instruction"><span class="token keyword">ENV</span> JAVA_HOME /usr/local/java/jdk1.8.0_171</span>
+<span class="token instruction"><span class="token keyword">ENV</span> JRE_HOME <span class="token variable">$JAVA_HOME</span>/jre</span>
+<span class="token instruction"><span class="token keyword">ENV</span> CLASSPATH <span class="token variable">$JAVA_HOME</span>/lib/dt.jar:JAVA_HOME/lib/tools.jar:<span class="token variable">$JRE_HOME</span>/lib:<span class="token variable">$CLASSPATH</span></span>
+<span class="token instruction"><span class="token keyword">ENV</span> PATH <span class="token variable">$JAVA_HOME</span>/bin:<span class="token variable">$PATH</span></span>
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="部署java微服务实例"><a href="#部署java微服务实例" class="headerlink" title="部署java微服务实例"></a>部署java微服务实例</h3><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">FROM</span> openjdk:8</span>
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 8080</span>
+<span class="token instruction"><span class="token keyword">MAINTAINER</span> lfy</span>
+<span class="token comment">#挂载容器卷，只写一个就是默认挂载到/var/lib/docker目录下</span>
+<span class="token instruction"><span class="token keyword">VOLUME</span> /tmp</span>
+<span class="token comment">#把当前目录的app.jar包 添加进容器根目录</span>
+<span class="token instruction"><span class="token keyword">ADD</span> app.jar /app.jar</span>
+<span class="token comment">#修改访问时间，可写可不写</span>
+<span class="token instruction"><span class="token keyword">RUN</span> bash -c <span class="token string">'touch /app.jar'</span></span>
+<span class="token instruction"><span class="token keyword">ENTRYPOINT</span> [<span class="token string">"java"</span>,<span class="token string">"-jar"</span>,<span class="token string">"/app.jar"</span>]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
-<h2 id="0-1-2-安装docker"><a href="#0-1-2-安装docker" class="headerlink" title="0.1.2.安装docker"></a>0.1.2.安装docker</h2><p>首先需要大家虚拟机联网，安装yum工具</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> <span class="token parameter variable">-y</span> yum-utils <span class="token punctuation">\</span>
-           device-mapper-persistent-data <span class="token punctuation">\</span>
-           lvm2 --skip-broken<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="2-虚悬镜像"><a href="#2-虚悬镜像" class="headerlink" title="2.虚悬镜像"></a>2.虚悬镜像</h1><p>错版镜像，构建时出现错误会产生虚悬镜像，特点是名字和tag都是<none>。需要及时删除</p>
+<p>查看虚悬镜像</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> image <span class="token function">ls</span> <span class="token parameter variable">-f</span> <span class="token assign-left variable">dangling</span><span class="token operator">=</span>true<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>删除虚悬镜像</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> image prune 		<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
-<p>然后更新本地镜像源：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置docker镜像源</span>
-yum-config-manager <span class="token punctuation">\</span>
-    --add-repo <span class="token punctuation">\</span>
-    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-    
-<span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token string">'s/download.docker.com/mirrors.aliyun.com\/docker-ce/g'</span> /etc/yum.repos.d/docker-ce.repo
+<h1 id="3-网络"><a href="#3-网络" class="headerlink" title="3.网络"></a>3.网络</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> network connect <span class="token comment">#将某个容器连接到一个docker网络</span>
+<span class="token function">docker</span> network create <span class="token comment">#创建一个docker局域网络</span>
+<span class="token function">docker</span> network disconnect <span class="token comment">#将某个容器退出某个局域网络</span>
+<span class="token function">docker</span> network inspect <span class="token comment">#显示某个局域网络信息</span>
+<span class="token function">docker</span> network <span class="token function">ls</span>  <span class="token comment">#显示所有docker局域网络</span>
+<span class="token function">docker</span> network prune <span class="token comment">#删除所有未引用的docker局域网络</span>
+<span class="token function">docker</span> network <span class="token function">rm</span>  <span class="token comment">#删除docker网络</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-yum makecache fast<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-<p>然后输入命令：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> <span class="token parameter variable">-y</span> docker-ce<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>docker-ce为社区免费版本。稍等片刻，docker即可安装成功。</p>
-<h2 id="0-1-3-启动docker"><a href="#0-1-3-启动docker" class="headerlink" title="0.1.3.启动docker"></a>0.1.3.启动docker</h2><p>Docker应用需要用到各种端口，逐一去修改防火墙设置。非常麻烦，因此建议大家直接关闭防火墙！</p>
-<p>启动docker前，一定要关闭防火墙后！！</p>
-<p>启动docker前，一定要关闭防火墙后！！</p>
-<p>启动docker前，一定要关闭防火墙后！！</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 关闭</span>
-systemctl stop firewalld
-<span class="token comment"># 禁止开机启动防火墙</span>
-systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>通过命令启动docker：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start <span class="token function">docker</span>  <span class="token comment"># 启动docker服务</span>
-
-systemctl stop <span class="token function">docker</span>  <span class="token comment"># 停止docker服务</span>
-
-systemctl restart <span class="token function">docker</span>  <span class="token comment"># 重启docker服务</span>
-
-systemctl status <span class="token function">docker</span> <span class="token comment">#查看docker是否启动</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>然后输入命令，可以查看docker版本：</p>
-<pre class="line-numbers language-none"><code class="language-none">docker -v<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h2 id="0-1-4-配置镜像加速"><a href="#0-1-4-配置镜像加速" class="headerlink" title="0.1.4.配置镜像加速"></a>0.1.4.配置镜像加速</h2><p>docker官方镜像仓库网速较差，我们需要设置国内镜像服务：</p>
-<p>参考阿里云的镜像加速文档：<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors</a></p>
-<h1 id="1-容器命令"><a href="#1-容器命令" class="headerlink" title="1.容器命令"></a>1.容器命令</h1><h3 id="1-1-启动"><a href="#1-1-启动" class="headerlink" title="1.1.启动"></a>1.1.启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">--name</span> mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/log:/var/log/mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/data:/var/lib/mysql<span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/conf:/etc/mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token punctuation">\</span>
-<span class="token parameter variable">-d</span> mysql:5.7
-
-
-
-<span class="token comment">#每个docker容器里面其实就是一个linux系统</span>
-<span class="token comment">#通过 docker exce -it 可以进入容器中的 /mydata/mysql/log 查看日志等，但是为了方便修改，所以有了文件映射，也就是 -v参数</span>
-<span class="token comment">#不建议在docker中部署有状态服务，列如redis，mysql。因为容器一但删除，将会造成数据丢失。所以一定要做好容器卷映射进行备份</span>
-<span class="token parameter variable">-v</span> 文件映射
-<span class="token parameter variable">-e</span> 设置容器内部属性
-<span class="token parameter variable">-d</span> 后台运行
-<span class="token parameter variable">--name</span> 取名
-<span class="token parameter variable">-p</span> 端口映射
-<span class="token parameter variable">--privileged</span><span class="token operator">=</span>true <span class="token comment">#让容器内的root拥有真正的root权限</span>
---volumes-from 容器名 <span class="token comment">#继承另一个容器的映射文件，两个容器共享使用同一份映射文件。数据互相传递</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="1-2-常用命令"><a href="#1-2-常用命令" class="headerlink" title="1.2.常用命令"></a>1.2.常用命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#镜像</span>
-<span class="token function">docker</span> pull xxx <span class="token comment">#从dockerhub拉取镜像</span>
-<span class="token function">docker</span> search xxx <span class="token comment">#在dockerhub查看镜像有版本</span>
-<span class="token function">docker</span> rmi 镜像名 <span class="token comment">#删除镜像</span>
-<span class="token comment">#容器</span>
-<span class="token function">docker</span> start 容器名 <span class="token comment">#启动容器</span>
-<span class="token function">docker</span> stop 容器名 <span class="token comment">#停止</span>
-<span class="token function">docker</span> <span class="token function">rm</span> 容器名 <span class="token comment">#删除容器</span>
-<span class="token function">docker</span> restart 容器名 <span class="token comment">#重启容器</span>
-<span class="token function">docker</span> inspect 容器id  <span class="token comment">#查看容器内部细节</span>
-<span class="token function">docker</span> <span class="token function">top</span> 容器id  <span class="token comment">#查看容器内运行的进程</span>
-<span class="token function">docker</span> <span class="token function">cp</span> 容器id:容器内路径 目标主机路径 <span class="token comment">#复制容器内文件到外部</span>
-<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> 容器名 <span class="token function">bash</span> <span class="token comment">#进入容器内部，并且exit退出时保持容器运行</span>
-
-<span class="token comment">#打包以及生成镜像</span>
-<span class="token comment">#=================================================================================================</span>
-<span class="token function">docker</span> <span class="token builtin class-name">export</span> 容器id <span class="token operator">></span> 名字.tar <span class="token comment">#导出容器为一个tar包，对应import</span>
-<span class="token function">cat</span> 名字.tar <span class="token operator">|</span> <span class="token function">docker</span> <span class="token function">import</span> - 自定义用户名/镜像名:镜像版本号 <span class="token comment">#将一个export导出的tar包转换为镜像</span>
-
-<span class="token function">docker</span> commit <span class="token parameter variable">-a</span><span class="token operator">=</span><span class="token string">"作者信息"</span> <span class="token parameter variable">-m</span><span class="token operator">=</span><span class="token string">"提交的描述信息"</span> 容器id 容器名:版本号 <span class="token comment">#提交容器镜像为一个镜像</span>
-
-<span class="token function">docker</span> save <span class="token parameter variable">-o</span> xxx.tar 镜像名 <span class="token comment">#将指定镜像导出为一个tar包。</span>
-<span class="token function">docker</span> load <span class="token parameter variable">-i</span> xxx.tar <span class="token comment">#解析tar包到本地镜像库</span>
-
-<span class="token comment">#export和commit、save的区别。</span>
-<span class="token comment">#export只会保留最新的一层docker镜像层，无法做到回滚，优点是导出后的镜像小。常用于构建基础镜像</span>
-<span class="token comment">#commit会在docker镜像层中添加当前容器作为新的镜像层，并保留原有的读写层，可以根据镜像层回滚。常用于保存容器镜像</span>
-<span class="token comment">#save 会保留原有的读写镜像层，可以回滚，常用于备份镜像</span>
-<span class="token comment">#总结：export不能根据镜像层回滚，commit和save可以进行回滚，但是镜像大小比export大。</span>
-<span class="token comment">#=================================================================================================</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl <span class="token builtin class-name">enable</span> <span class="token function">docker</span> //开机自启<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h1 id="2-搭建私有镜像仓库"><a href="#2-搭建私有镜像仓库" class="headerlink" title="2.搭建私有镜像仓库"></a>2.搭建私有镜像仓库</h1><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull registry 	<span class="token comment">#拉取私有仓库镜像</span>
-<span class="token function">docker</span> run <span class="token parameter variable">--name</span> registry <span class="token parameter variable">-p5000:5000</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">-v</span> /mydata/registry/:/tmp/registry <span class="token parameter variable">--privileged</span><span class="token operator">=</span>true registry <span class="token comment">#运行</span>
-<span class="token function">docker</span> tag redis <span class="token number">172.31</span>.171.217:5000/redis:1.0 <span class="token comment">#打个标签将镜像更改为指定格式，docker tag 要上传的镜像:版本号 本机host:5000/自定义名:版本号</span>
-<span class="token comment">#docker默认不允许使用https的方式添加镜像，通过配置取消这个限制</span>
-<span class="token comment">#===========</span>
-<span class="token function">vim</span> /etc/docker/daemon.json 
-<span class="token punctuation">&#123;</span>
-<span class="token string">"registry-mirrors"</span>:<span class="token punctuation">[</span><span class="token string">"https://aa25jngu..mirror.aliyuncs.com"</span><span class="token punctuation">]</span>,<span class="token comment">#配置源</span>
-<span class="token string">"insecure-registries"</span>:<span class="token punctuation">[</span><span class="token string">"172.31.171.217:5000"</span><span class="token punctuation">]</span> <span class="token comment">#添加可信任地址</span>
-<span class="token punctuation">&#125;</span>
-systemctl restart <span class="token function">docker</span> 重启docker
-<span class="token comment">#=============</span>
-<span class="token function">docker</span> push <span class="token number">172.31</span>.171.217:5000/redis:1.0  <span class="token comment">#推送，已经打包好了标签直接 docker push 加镜像名即可</span>
-<span class="token function">curl</span> <span class="token parameter variable">-XGET</span> http://172.31.171.217:5000/v2/_catalog <span class="token comment">#查看仓库是否推送成功</span>
-<span class="token function">docker</span> pull <span class="token number">172.31</span>.171.217:5000/redis:1.0  <span class="token comment">#拉取</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-
-
-
-
-<h1 id="3-示例"><a href="#3-示例" class="headerlink" title="3.示例"></a>3.示例</h1><h2 id="3-1mysql"><a href="#3-1mysql" class="headerlink" title="3.1mysql"></a>3.1mysql</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">--name</span> mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">--privileged</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/log:/var/log/mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/data:/var/lib/mysql <span class="token punctuation">\</span> 
-<span class="token parameter variable">-v</span> /mydata/mysql/conf:/etc/mysql <span class="token punctuation">\</span> 
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token punctuation">\</span>
-<span class="token parameter variable">-d</span> mysql:5.7
-
-<span class="token comment">#参数说明======</span>
-<span class="token parameter variable">-p</span> <span class="token number">3307</span>:3306：将容器的 <span class="token number">3306</span> 端口映射到主机的 <span class="token number">3307</span> 端口
-<span class="token parameter variable">-v</span> /mydata/mysql/conf:/etc/mysql：将配置文件夹挂在到主机
-<span class="token parameter variable">-v</span> /mydata/mysql/log:/var/log/mysql：将日志文件夹挂载到主机
-<span class="token parameter variable">-v</span> /mydata/mysql/data:/var/lib/mysql/：将数据文件夹挂载到主机，这个数据就是表和库
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span>：初始化 root的密码为123456
-<span class="token comment">#============</span>
-
-<span class="token comment">#解决中文乱码====</span>
-<span class="token comment">#在映射文件中conf目录中，创建一个配置文件，比如my.cnf。最好先创建好了文件，在让容器运行</span>
-<span class="token function">vim</span> my.cnf
-<span class="token comment">#输入</span>
-<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
-character-set-server<span class="token operator">=</span>utf8 
-<span class="token punctuation">[</span>client<span class="token punctuation">]</span>
-default-character-set<span class="token operator">=</span>utf8 
-<span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>
-default-character-set<span class="token operator">=</span>utf8
-<span class="token comment">#==============</span>
-<span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="3-2主从复制版mysql"><a href="#3-2主从复制版mysql" class="headerlink" title="3.2主从复制版mysql"></a>3.2<strong>主从复制版mysql</strong></h3><p><strong>主节点容器配置</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">3307</span>:3306 <span class="token parameter variable">--name</span> mysql-master <span class="token punctuation">\</span>
-<span class="token parameter variable">--privileged</span><span class="token operator">=</span>true <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/master/log:/var/log/mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/master/data:/var/lib/mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/mysql/master/conf:/etc/mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token punctuation">\</span>
-<span class="token parameter variable">-d</span> mysql:5.7
-
-修改 master 基本配置
-<span class="token function">vim</span> /mydata/mysql/master/conf/my.cnf
-<span class="token punctuation">[</span>client<span class="token punctuation">]</span>
-default-character-set<span class="token operator">=</span>utf8
-<span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>
-default-character-set<span class="token operator">=</span>utf8
-<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
-<span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET collation_connection = utf8_unicode_ci'</span> 
-<span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET NAMES utf8'</span> 
-character-set-server<span class="token operator">=</span>utf8
-collation-server<span class="token operator">=</span>utf8_unicode_ci
-skip-character-set-client-handshake
-skip-name-resolve
-<span class="token comment">#注意：skip-name-resolve 一定要加，不然连接 mysql 会超级慢</span>
-<span class="token comment">#添加 master 主从复制部分配置</span>
-<span class="token assign-left variable">server_id</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#server_id,同一局域网需要唯一</span>
-log-bin<span class="token operator">=</span>mysql-bin <span class="token comment">#开启二进制日志功能</span>
-read-only<span class="token operator">=</span><span class="token number">0</span> <span class="token comment">#</span>
-<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>mixed <span class="token comment">#指定二进制格式 </span>
-<span class="token assign-left variable">expire_logs_days</span><span class="token operator">=</span><span class="token number">7</span> <span class="token comment">#二进制日志过期时间，默认为0表示不自动清理</span>
-<span class="token comment">#binlog-do-db=lfy #可以指定需要同步的库，也可以直接不指定</span>
-<span class="token assign-left variable">slave_skip_errors</span><span class="token operator">=</span><span class="token number">1062</span> <span class="token comment">#跳过主从复制中遇到的所有错误或指定类型错误，避免slave复制中断，1062是主键重复错误</span>
-<span class="token comment">#不同步的库</span>
-replicate-ignore-db<span class="token operator">=</span>mysql 
-replicate-ignore-db<span class="token operator">=</span>sys
-replicate-ignore-db<span class="token operator">=</span>information_schema
-replicate-ignore-db<span class="token operator">=</span>performance_schema
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<p><strong>网络模式</strong></p>
 <ul>
-<li><p>启动如果报错</p>
-<pre class="line-numbers language-log" data-language="log"><code class="language-log"><span class="token date number">2023-01-25</span> <span class="token time number">13:11:12+00:00</span> <span class="token punctuation">[</span><span class="token level error important">ERROR</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>Entrypoint<span class="token punctuation">]</span><span class="token operator">:</span> mysqld failed while attempting to check config
-        <span class="token property">command was:</span> mysqld <span class="token operator">-</span><span class="token operator">-</span>verbose <span class="token operator">-</span><span class="token operator">-</span>help <span class="token operator">-</span><span class="token operator">-</span>log<span class="token operator">-</span>bin<span class="token operator">-</span>index<span class="token operator">=</span><span class="token operator">/</span>tmp<span class="token operator">/</span>tmp<span class="token punctuation">.</span>qD54ZxZd8y
-        <span class="token property">mysqld:</span> Can't read dir of <span class="token string">'/etc/mysql/conf.d/'</span> <span class="token operator">(</span>Errcode<span class="token operator">:</span> <span class="token number">2</span> <span class="token operator">-</span> No such file or directory<span class="token operator">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>在本机conf目录下加上 conf.d和conf.mysql.d两个目录。配置文件放conf.d目录下</p>
+<li>**bridge(默认)**：使用–network bridge指定，默认使用docker0<ul>
+<li>默认为该模式，相当于VMware 中的nat 模式，容器使用独立network Namespace ，并连接到docker0 虚拟网卡。通过docker0 网桥以及iptables nat 表配置与宿主机通信，此模式会为每一个容器分配Network Namespace、设置IP等，并将一个主机上的Docker 容器连接到一个虚拟网桥上。</li>
+<li>docker0上面的每个veth匹配某个容器实例内部的eth0，两两配对，一一匹配，</li>
+</ul>
+</li>
+<li><strong>host</strong>：使用–network host指定<ul>
+<li>容器不会虚拟出自己的网卡，配置主机的IP等，而是使用宿主机的IP和端口</li>
+<li>docker启动指定–network&#x3D;host或-net&#x3D;host，如果还指定了端口，就会出现警告，并且通过-p设置映射不会起到任何作用，端口号会以主机端口号为主，重复时递增</li>
+</ul>
+</li>
+<li><strong>none</strong>：使用–network none指定<ul>
+<li>该模式关闭了容器的网络功能</li>
+</ul>
+</li>
+<li><strong>container</strong>：使用–network container:NAME 或容器id指定<ul>
+<li>创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP，端口范围</li>
+<li>当被继承的容器关闭时，继承他的容器将会没有</li>
+</ul>
 </li>
 </ul>
-<p><strong>从容器配置</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启动slave  省略</span>
-修改配置
-<span class="token function">vim</span> /mydata/mysql/slave/conf/my.cnf
-<span class="token punctuation">[</span>client<span class="token punctuation">]</span>
-default-character-set<span class="token operator">=</span>utf8
-<span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>
-default-character-set<span class="token operator">=</span>utf8
-<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>
-<span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET collation_connection = utf8_unicode_ci'</span> 
-<span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET NAMES utf8'</span> 
-character-set-server<span class="token operator">=</span>utf8
-collation-server<span class="token operator">=</span>utf8_unicode_ci
-skip-character-set-client-handshake
-skip-name-resolve
-<span class="token comment">#注意：skip-name-resolve 一定要加，不然连接 mysql 会超级慢</span>
-<span class="token comment">#添加 slave 主从复制部分配置</span>
-<span class="token assign-left variable">server_id</span><span class="token operator">=</span><span class="token number">2</span> <span class="token comment">#server_id,同一局域网需要唯一</span>
-log-bin<span class="token operator">=</span>mysql-bin <span class="token comment">#开启二进制日志功能</span>
-read-only<span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#设置为只读，除了拥有super权限的用户除外</span>
-<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>mixed <span class="token comment">#指定二进制格式 </span>
-<span class="token assign-left variable">expire_logs_days</span><span class="token operator">=</span><span class="token number">7</span> <span class="token comment">#二进制日志过期时间，默认为0表示不自动清理</span>
-<span class="token comment">#binlog-do-db=lfy #可以指定需要同步的库，也可以直接不指定</span>
-<span class="token assign-left variable">log_slave_updates</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#将复制事件写进日志中</span>
-<span class="token assign-left variable">relay_log</span><span class="token operator">=</span>mall-mysql-relay-bin <span class="token comment">#配置中继日志</span>
-<span class="token assign-left variable">slave_skip_errors</span><span class="token operator">=</span><span class="token number">1062</span> <span class="token comment">#跳过主从复制中遇到的所有错误或指定类型错误，避免slave复制中断，1062是主键重复错误</span>
-<span class="token comment">#不同步的库</span>
-replicate-ignore-db<span class="token operator">=</span>mysql 
-replicate-ignore-db<span class="token operator">=</span>sys
-replicate-ignore-db<span class="token operator">=</span>information_schema
-replicate-ignore-db<span class="token operator">=</span>performance_schema<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">--privileged</span><span class="token operator">=</span>true  <span class="token parameter variable">-v</span> xxx:xxx <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 <span class="token parameter variable">-d</span> xxx <span class="token comment">#默认bridge</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">--network</span> <span class="token function">host</span> <span class="token parameter variable">--privileged</span><span class="token operator">=</span>true <span class="token parameter variable">-v</span> xxx:xxx <span class="token parameter variable">-d</span> xxx <span class="token comment">#host</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">--network</span> none <span class="token parameter variable">--privileged</span><span class="token operator">=</span>true <span class="token parameter variable">-v</span> xxx:xxx <span class="token parameter variable">-d</span> xxx <span class="token comment">#none</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">--network</span> container:需要共用网桥的容器名 <span class="token parameter variable">--privileged</span><span class="token operator">=</span>true <span class="token parameter variable">-v</span> xxx:xxx <span class="token parameter variable">-d</span> xxx <span class="token comment">#container</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>创建授权连接的账号</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
-<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> mysql /bin/bash
-<span class="token comment">#2、进入 mysql 内部 （mysql –uroot -p）</span>
-<span class="token comment">#1）、授权 root 可以远程访问（ 主从无关，为了方便我们远程连接 mysql）</span>
-grant all privileges on *.* to <span class="token string">'root'</span>@<span class="token string">'%'</span> identified by <span class="token string">'123456'</span> with grant option<span class="token punctuation">;</span>
-flush privileges<span class="token punctuation">;</span>
-<span class="token comment">#2）、添加用来同步的用户</span>
-GRANT REPLICATION SLAVE ON *.* to <span class="token string">'lfyslave'</span>@<span class="token string">'%'</span> identified by <span class="token string">'123456'</span><span class="token punctuation">;</span>
-<span class="token comment">#3、查看 master 状态</span>
-show master status<span class="token punctuation">;</span> 
-<span class="token comment">#记住这个状态的日志文件，需要给从节点进行指定日志，从节点根据日志来复制主节点的数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>docker 容器的内部网络是有可能会发生改变的。</strong></p>
+<p><strong>场景：</strong>比如启动了一个容器a，ip为127.0.0.2 这个容器宕机了，在他宕机期间又启动了另外一个容器b，这个容器也被分配成了127.0.0.2。等容器a恢复启动后，docker会改变他的ip。这时候127.0.0.2就成了容器b的ip了。</p>
+<p><strong>解决：</strong>自定义网络，<strong>让容器加入同一个自定义网络</strong>。容器IP变动时可以通过服务名直接网络通信而不收影响</p>
+<ul>
+<li>现在link已经过时。推荐使用同一自定义网络搭建集群，并且使用服务名直接网络通信。</li>
+</ul>
+<h3 id="3-2自定义网络示例"><a href="#3-2自定义网络示例" class="headerlink" title="3.2自定义网络示例"></a>3.2自定义网络示例</h3><p>自定义网络本身就维护好了主机名和ip的对应关系（ip和域名都能通）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"> <span class="token comment"># 不指定网络驱动时默认创建的bridge网络</span>
+ <span class="token function">docker</span> network create <span class="token builtin class-name">test</span>
+ <span class="token comment"># 查看网络内部信息</span>
+ <span class="token function">docker</span> network inspect <span class="token builtin class-name">test</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> tommcat <span class="token parameter variable">-net</span><span class="token operator">=</span>test <span class="token parameter variable">-p</span> <span class="token number">8080</span>:8080 <span class="token parameter variable">-d</span> tomcat:8.5
+<span class="token function">docker</span> run <span class="token parameter variable">--name</span> tomcat2 <span class="token parameter variable">-net</span><span class="token operator">=</span>test <span class="token parameter variable">-p</span> <span class="token number">8081</span>:8080 <span class="token parameter variable">-d</span> tomcat:8.5
+<span class="token comment">#进入容器测试</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> tomcat <span class="token function">bash</span>
+<span class="token function">ping</span> tomcat2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>配置 slaver 同步 master 数据</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#1、进入 slaver 容器</span>
-<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> mysql-slaver-01 /bin/bash
-<span class="token comment">#2、进入 mysql 内部（mysql –uroot -p）</span>
-<span class="token comment">#1）、授权 root 可以远程访问（ 主从无关，为了方便我们远程连接 mysql）</span>
-grant all privileges on *.* to <span class="token string">'root'</span>@<span class="token string">'%'</span> identified by <span class="token string">'123456'</span> with grant option<span class="token punctuation">;</span>
-flush privileges<span class="token punctuation">;</span>
+<ul>
+<li><p>create可选参数</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token parameter variable">--driver</span> bridge            网络模式默认为桥接模式
+<span class="token parameter variable">--subnet</span>   <span class="token number">192.168</span>.0.0/16            子网掩码  后16位可为任意值，大概支持 <span class="token number">65535</span> 个IP
+<span class="token parameter variable">--gateway</span> <span class="token number">192.168</span>.0.1                网关IP 
+<span class="token comment"># docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 test</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p><strong>java通过服务名连接服务说明</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">spring<span class="token operator">:</span>
+  datasource<span class="token operator">:</span>
+    driver<span class="token operator">-</span><span class="token keyword">class</span><span class="token operator">-</span>name<span class="token operator">:</span> <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>mysql<span class="token punctuation">.</span>cj<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span></span>Driver</span>
+    url<span class="token operator">:</span> jdbc<span class="token operator">:</span>mysql<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>mysql<span class="token operator">:</span><span class="token number">3306</span><span class="token operator">/</span>test<span class="token operator">?</span>useUnicode<span class="token operator">=</span><span class="token boolean">true</span><span class="token operator">&amp;</span>characterEncoding<span class="token operator">=</span><span class="token constant">UTF</span><span class="token operator">-</span><span class="token number">8</span><span class="token operator">&amp;</span>serverTimezone<span class="token operator">=</span><span class="token constant">GMT</span><span class="token operator">%</span><span class="token number">2</span><span class="token constant">B8</span>
+    username<span class="token operator">:</span> root
+    password<span class="token operator">:</span> <span class="token number">123456</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment">#2）、设置主库连接。master_connect_retry连接重试(秒),master_log_file从节点根据哪个日志进行复制，master_log_pos从节点从哪里开始复制</span>
-change master to <span class="token assign-left variable">master_host</span><span class="token operator">=</span><span class="token string">'ip'</span>,master_user<span class="token operator">=</span><span class="token string">'lfyslave'</span>,master_password<span class="token operator">=</span><span class="token string">'123456'</span>,master_log_file<span class="token operator">=</span><span class="token string">'mysql-bin.000001'</span>,master_log_pos<span class="token operator">=</span><span class="token number">0</span>,master_port<span class="token operator">=</span><span class="token number">3307</span>,master_connect_retry<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">;</span>
+<ul>
+<li>通过服务名mysql：端口号。<strong>坑：是容器内部服务运行的端口号，不是向外暴露的端口号！</strong></li>
+<li>同理，使用nginx反向代理时，在同一个docker自定义网络，也可以使用服务名来代替ip进行反向代理。不过不建议。</li>
+</ul>
+<h1 id="4-Docker-compose容器编排"><a href="#4-Docker-compose容器编排" class="headerlink" title="4.Docker-compose容器编排"></a>4.Docker-compose容器编排</h1><ol>
+<li>Docker Compose是一个工具，用于定义和运行多容器应用程序的工具；</li>
+<li>Docker Compose通过yml文件定义多容器的docker应用；</li>
+<li>Docker Compose通过一条命令根据yml文件的定义去创建或管理多容器；</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">compose文件格式版本</th>
+<th align="left">docker版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">3.4</td>
+<td align="left">17.09.0+</td>
+</tr>
+<tr>
+<td align="left">3.3</td>
+<td align="left">17.06.0+</td>
+</tr>
+<tr>
+<td align="left">3.2</td>
+<td align="left">17.04.0+</td>
+</tr>
+<tr>
+<td align="left">3.1</td>
+<td align="left">1.13.1+</td>
+</tr>
+<tr>
+<td align="left">3.0</td>
+<td align="left">1.13.0+</td>
+</tr>
+<tr>
+<td align="left">2.3</td>
+<td align="left">17.06.0+</td>
+</tr>
+<tr>
+<td align="left">2.2</td>
+<td align="left">1.13.0+</td>
+</tr>
+<tr>
+<td align="left">2.1</td>
+<td align="left">1.12.0+</td>
+</tr>
+<tr>
+<td align="left">2.0</td>
+<td align="left">1.10.0+</td>
+</tr>
+<tr>
+<td align="left">1.0</td>
+<td align="left">1.9.1.+</td>
+</tr>
+</tbody></table>
+<h3 id="4-1安装"><a href="#4-1安装" class="headerlink" title="4.1安装"></a>4.1安装</h3><ul>
+<li>下载</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#github版本</span>
+<span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token string">"https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token parameter variable">-s</span><span class="token variable">)</span></span>-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token parameter variable">-m</span><span class="token variable">)</span></span>"</span> <span class="token parameter variable">-o</span> /usr/local/bin/docker-compose 
+<span class="token comment">#国内高速版本</span>
+<span class="token function">curl</span> <span class="token parameter variable">-L</span> https://get.daocloud.io/docker/compose/releases/download/v2.4.1/docker-compose-<span class="token variable"><span class="token variable">`</span><span class="token function">uname</span> <span class="token parameter variable">-s</span><span class="token variable">`</span></span>-<span class="token variable"><span class="token variable">`</span><span class="token function">uname</span> <span class="token parameter variable">-m</span><span class="token variable">`</span></span> <span class="token operator">></span> /usr/local/bin/docker-compos<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment">#3）、启动从库同步</span>
-start slave<span class="token punctuation">;</span>
+<ul>
+<li>加执行权限</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> u+x /usr/local/bin/docker-compose<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<span class="token comment">#4）、查看从库状态</span>
-show slave status<span class="token punctuation">\</span>G
+<ul>
+<li>查看版本</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker-compose</span> <span class="token parameter variable">--version</span>	<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>常见问题，当在slave中进行写操作时会造成数据不一致导致的错误</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#1、先停掉slave</span>
-mysql<span class="token operator">></span> stop slave<span class="token punctuation">;</span>
-<span class="token comment">#2、跳过错误步数，后面步数可变</span>
-mysql<span class="token operator">></span> <span class="token builtin class-name">set</span> global <span class="token assign-left variable">sql_slave_skip_counter</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token comment">#3、再启动slave</span>
-mysql<span class="token operator">></span> start slave<span class="token punctuation">;</span>
-<span class="token comment">#4、查看同步状态</span>
-mysql<span class="token operator">></span> show slave status<span class="token punctuation">\</span>G<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>最好创建一个只有读权限的用户用于连接从节点</strong></p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#1、进入 slaver 容器
-docker exec -it mysql-slaver-01 &#x2F;bin&#x2F;bash
-#2、进入 mysql 内部（mysql –uroot -p）
-create user &#39;lfy&#39;@&#39;%&#39; identified by &#39;123456&#39;;
-grant select on *.* to &#39;lfy&#39;@&#39;%&#39;; #给lfy用户select的权限，%表示任意ip可连接 *.*表示给于所有库中所有表，如果指定表例如可以指定mysql.user表
- grant SHOW VIEW on mysql.user to &#39;lfy&#39;@&#39;%&#39;;
-
-#1）、授权 lfy 可以远程访问
-grant all privileges on *.* to &#39;lfy&#39;@&#39;%&#39; identified by &#39;123456&#39; with grant option;
-flush privileges;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> mr <span class="token parameter variable">-p</span> <span class="token number">6379</span>:6379 <span class="token parameter variable">-v</span> /mydata/redis/data:/data <span class="token parameter variable">-v</span> /mydata/redis/conf/redis.conf:/etc/redis/redis.conf <span class="token parameter variable">-d</span> redis redis-server /etc/redis/redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-
-
-
-
-<h2 id="nacos"><a href="#nacos" class="headerlink" title="nacos"></a>nacos</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">8848</span>:8848 <span class="token punctuation">\</span>
-<span class="token parameter variable">--name</span> nacos2.0.3 <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MODE</span><span class="token operator">=</span>standalone <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">SPRING_DATASOURCE_PLATFORM</span><span class="token operator">=</span>mysql <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_SERVICE_HOST</span><span class="token operator">=</span><span class="token number">192.168</span>.159.136  <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_SERVICE_PORT</span><span class="token operator">=</span><span class="token number">3306</span> <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_SERVICE_DB_NAME</span><span class="token operator">=</span>nacos <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_SERVICE_USER</span><span class="token operator">=</span>root <span class="token punctuation">\</span>
-<span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_SERVICE_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/nacos/conf:/home/nacos/conf <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/nacos/logs/logs:/home/nacos/logs <span class="token punctuation">\</span>
-<span class="token parameter variable">-v</span> /mydata/nacos/data/data:/home/nacos/data <span class="token punctuation">\</span>
-nacos/nacos-server:v2.0.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-none"><code class="language-none">docker  run --name nacos -p 8848:8848 \
---privileged&#x3D;true \
---restart&#x3D;always \
--e JVM_XMS&#x3D;128m \
--e JVM_XMX&#x3D;128m \
--e MODE&#x3D;standalone \
--e PREFER_HOST_MODE&#x3D;hostname \
--v &#x2F;mydata&#x2F;nacos&#x2F;logs:&#x2F;home&#x2F;nacos&#x2F;logs \
--v &#x2F;mydata&#x2F;nacos&#x2F;conf&#x2F;application.properties:&#x2F;home&#x2F;nacos&#x2F;conf&#x2F;application.properties \
--d nacos&#x2F;nacos-server:v2.0.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>卸载</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> /usr/local/bin/docker-cpmpose<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
-<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull nginx:1.10
-<span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">80</span>:80 <span class="token parameter variable">--name</span> nginx <span class="token parameter variable">-d</span> nginx:1.10
+<h3 id="4-2命令"><a href="#4-2命令" class="headerlink" title="4.2命令"></a>4.2命令</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker-compose</span> <span class="token parameter variable">-h</span> <span class="token comment">#查看帮助</span>
+<span class="token function">docker-compose</span> up <span class="token comment">#启动所有docker-compose</span>
+*docker-compose up <span class="token parameter variable">-d</span> <span class="token comment">#后台启动所有docker-compose</span>
+*docker-compose down <span class="token comment">#停止并删除容器、网络、卷、镜像</span>
+<span class="token function">docker-compose</span> <span class="token builtin class-name">exec</span> yml里面的服务id <span class="token comment">#进入容器</span>
+<span class="token function">docker-compose</span> <span class="token function">ps</span>   <span class="token comment"># 展示当前docker-compose编排过的所有容器</span>
+<span class="token function">docker-compose</span> <span class="token function">top</span>  <span class="token comment">#展示当前docker-compose编排过的容器进程</span>
+<span class="token function">docker-compose</span> logs yml里的服务di <span class="token comment">#查看日志</span>
+<span class="token function">docker-compose</span> config <span class="token comment">#检查配置</span>
+*docker-compose config <span class="token parameter variable">-q</span> <span class="token comment">#有问题才有输出，检查docker-compose文件格式语法是否有错误</span>
+<span class="token function">docker-compose</span> restart <span class="token comment">#重启</span>
+<span class="token function">docker-compose</span> start   <span class="token comment">#启动</span>
+<span class="token function">docker-compose</span> stop    <span class="token comment">#停止</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment">#创建文件夹用于映射并且复制出来nginx容器里的文件</span>
-<span class="token builtin class-name">cd</span> /mydata
-<span class="token function">mkdir</span> nginx
-<span class="token builtin class-name">cd</span> nginx
-<span class="token function">docker</span> container <span class="token function">cp</span> nginx:/etc/nginx conf <span class="token comment">#把配置文件复制出来一份 改名为conf</span>
-
-<span class="token comment">#docker stop nginx   docker rm nginx 删除前面创建出来的容器重新创建</span>
-<span class="token function">docker</span> run <span class="token parameter variable">--name</span> nginx <span class="token parameter variable">-p</span> <span class="token number">80</span>:80 <span class="token parameter variable">-v</span> /mydata/nginx/html:/usr/share/nginx/html <span class="token parameter variable">-v</span> /mydata/nginx/logs:/var/log/nginx <span class="token parameter variable">-v</span> /mydata/nginx/conf:/etc/nginx <span class="token parameter variable">-d</span> nginx:1.10
-
-之后到映射文件的html文件中，创建一个index.html就可以通过ip访问了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
+<h3 id="4-3示例"><a href="#4-3示例" class="headerlink" title="4.3示例"></a>4.3示例</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">
 
-<p>4.DockerFile</p>
+<span class="token comment">##参数说明</span>
+ 
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3'</span>					<span class="token comment">#compose编排版本为3'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>						<span class="token string">'//服务:'</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>						<span class="token string">'//服务名称'</span>
+    <span class="token key atrule">images</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.10			'//镜像'	
+    <span class="token key atrule">hostname</span><span class="token punctuation">:</span> nginx				'//容器主机名'
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> nginx		'//容器名'
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>						<span class="token string">'//提供端口:'</span>
+      <span class="token punctuation">-</span> 1216<span class="token punctuation">:</span>80					'//对外提供（暴露）的端口'
+      <span class="token punctuation">-</span> 1217<span class="token punctuation">:</span><span class="token number">443</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>					<span class="token string">'//指定网络'</span>
+      <span class="token punctuation">-</span> test					'//网络名称（群集名称需一致）'
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>					<span class="token string">'//数据卷'</span>
+      <span class="token punctuation">-</span> ./wwwroot<span class="token punctuation">:</span>/usr/local/nginx/html		'//将宿主机该仓库内文件与nginx首页文件相关联（容器）'
+   <span class="token key atrule">myapp</span><span class="token punctuation">:</span>
+     <span class="token key atrule">container_name</span><span class="token punctuation">:</span> app
+     <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+       <span class="token punctuation">-</span> 8080<span class="token punctuation">:</span><span class="token number">8080</span>
+     <span class="token key atrule">build</span><span class="token punctuation">:</span> <span class="token comment">#启动服务时，先将build中指定的dockerfile打包成镜像，再运行该镜像</span>
+       <span class="token key atrule">context</span><span class="token punctuation">:</span> jenkins<span class="token punctuation">-</span>demo <span class="token comment">#指定上下文目录dockerfile所在目录[相对、绝对路径都可以]</span>
+       <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile <span class="token comment">#文件名称[在指定的context的目录下指定那个Dockerfile文件名称]</span>
+     <span class="token key atrule">networks</span><span class="token punctuation">:</span>					
+       <span class="token punctuation">-</span> test		
+     <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+       <span class="token punctuation">-</span> nginx    <span class="token comment">#指定先让nginx和mysql容器运行在运行app容器</span>
+       <span class="token punctuation">-</span> mysql
+    <span class="token key atrule">mysql</span><span class="token punctuation">:</span>
+      <span class="token key atrule">images</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">5.7</span>
+      <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+        <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> <span class="token string">'123456'</span>
+      <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> 3306<span class="token punctuation">:</span><span class="token number">3306</span>
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> /mydata/mysql/db<span class="token punctuation">:</span>/var/lib/mysql
+      <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> test
+      <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>default<span class="token punctuation">-</span>authentication<span class="token punctuation">-</span>plugin=mysql_native_password <span class="token comment">#解决外部无法访问</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>		<span class="token string">'//对外公开需要声明networks群集名称'</span>
+  test<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -885,7 +835,7 @@ nacos/nacos-server:v2.0.3<span aria-hidden="true" class="line-numbers-rows"><spa
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.lvfeiy.top/2022/08/17/3.ji-ben-cao-zuo-rong-qi-2/">http://www.lvfeiy.top/2022/08/17/3.ji-ben-cao-zuo-rong-qi-2/</a>
+                    <a href="http://www.lvfeiy.top/2022/08/17/zui-xin-fu-xi-xia/">http://www.lvfeiy.top/2022/08/17/zui-xin-fu-xi-xia/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1382,19 +1332,19 @@ nacos/nacos-server:v2.0.3<span aria-hidden="true" class="line-numbers-rows"><spa
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/08/17/zui-xin-fu-xi-xia/">
+                <a href="/2022/08/17/docker-chuang-jian-fen-bu-shi-ji-qun-pian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Docker(下)">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Docker(集群案例)">
                         
-                        <span class="card-title">Docker(下)</span>
+                        <span class="card-title">Docker(集群案例)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            docker进阶(下)
+                            docker集群案例
                         
                     </div>
                     <div class="publish-info">
@@ -1436,7 +1386,7 @@ nacos/nacos-server:v2.0.3<span aria-hidden="true" class="line-numbers-rows"><spa
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2022/08/17/3.ji-ben-cao-zuo-rong-qi-2/">
@@ -1470,7 +1420,6 @@ nacos/nacos-server:v2.0.3<span aria-hidden="true" class="line-numbers-rows"><spa
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
