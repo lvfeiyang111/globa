@@ -589,6 +589,9 @@
 <span class="token instruction"><span class="token keyword">ENTRYPOINT</span> [<span class="token string">"java"</span>,<span class="token string">"-jar"</span>,<span class="token string">"/app.jar"</span>]</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><strong>运行dockerfile</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> build <span class="token parameter variable">-t</span> name:版本 <span class="token parameter variable">-f</span> dockerfile的路径  如果是当前目录下，可以使用 <span class="token builtin class-name">.</span> 来代替-f<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 
 
 <h1 id="2-虚悬镜像"><a href="#2-虚悬镜像" class="headerlink" title="2.虚悬镜像"></a>2.虚悬镜像</h1><p>错版镜像，构建时出现错误会产生虚悬镜像，特点是名字和tag都是<none>。需要及时删除</p>
