@@ -666,27 +666,77 @@ map<span class="token punctuation">.</span><span class="token function">put</spa
 <li><p>Collectors.toSet()：转换成Set集合</p>
 </li>
 <li><p>Collectors.toList()：转换成List集合</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> collect <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">distinct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sorted</span><span class="token punctuation">(</span><span class="token class-name">Comparator</span><span class="token punctuation">.</span><span class="token function">comparingInt</span><span class="token punctuation">(</span>sorce <span class="token operator">-></span> sorce<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Integer</span> a <span class="token operator">:</span> collect
-             <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>Collectors.toMap(参数1指定key,参数2指定value)：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">collectMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span>author<span class="token punctuation">></span></span> authors <span class="token operator">=</span> <span class="token function">getAuthors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> collect <span class="token operator">=</span> authors<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toMap</span><span class="token punctuation">(</span>author <span class="token operator">-></span> author<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> author <span class="token operator">-></span> author<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> mapkey <span class="token operator">=</span> collect<span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token operator">:</span>mapkey
-         <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>key<span class="token operator">+</span><span class="token string">"==========="</span><span class="token operator">+</span>collect<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li><pre><code class="java">    public static void test2(List&lt;Integer&gt; list)&#123;
+        List&lt;Integer&gt; collect = list.stream().distinct().sorted(Comparator.comparingInt(sorce -&gt; sorce)).collect(Collectors.toList());
+        for (Integer a : collect
+             ) &#123;
+            System.out.println(a);
+        &#125;
+    &#125;
+<pre class="line-numbers language-none"><code class="language-none">
+- Collectors.toMap(参数1指定key,参数2指定value)：
+
+  &#96;&#96;&#96;java
+      public static void collectMap()&#123;
+          List&lt;author&gt; authors &#x3D; getAuthors();
+          Map&lt;String, Integer&gt; collect &#x3D; authors.stream().collect(Collectors.toMap(author -&gt; author.getName(), author -&gt; author.getAge()));
+          Set&lt;String&gt; mapkey &#x3D; collect.keySet();
+          for (String key:mapkey
+               ) &#123;
+              System.out.println(key+&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;+collect.get(key));
+          &#125;
+      &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+- 注意了map的key是不能重复的
+</code></pre>
+</li>
+<li><p>Collectors.toCollention()</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">TreeSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">DomianThread</span><span class="token punctuation">></span></span> collect2 <span class="token operator">=</span> domianThreads<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toCollection</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token keyword">new</span> <span class="token class-name">TreeSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token class-name">Comparator</span><span class="token punctuation">.</span><span class="token function">comparingInt</span><span class="token punctuation">(</span><span class="token class-name">DomianThread</span><span class="token operator">::</span><span class="token function">getSort</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
-<li>注意了map的key是不能重复的</li>
+<li>可以转换为TreeMap，根据实体中的某个字段值排序并去重。</li>
+</ul>
+</li>
+<li><p><strong>Collectors.groupingBy分组（指定分组属性，分组类型）</strong></p>
+<ul>
+<li><p><strong>分组属性</strong></p>
+<ul>
+<li>如果集合中是是对象，可以以对象属性为分组属性</li>
+<li>如果集合中是基本类型，可以用Function.identity() 集合自身为分组属性</li>
+</ul>
+</li>
+<li><p><strong>分组类型</strong>可选</p>
+<ul>
+<li><p>Collectors.joining(“连接符号”) 以xxx连接分组之后的属性   </p>
+</li>
+<li><p>Collectors.summingLong(“属性值”) 属性累加值     		</p>
+</li>
+<li><p>Collectors.averagingInt(“属性值”)  统计属性的平均值</p>
+</li>
+<li><p>Collectors.counting()统计分组之后的属性个数</p>
+</li>
+<li><p>Collectors.mapping(“属性值”，Collectors.toList()) 转变分组结果 。简而言之就是分组后Map还想进一步的处理value。第一个参数等同于map()，第二个参数等同于在写了一次collect</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;转换分组结果为Name的List集合
+groupingBy(Employee::getCity, Collectors.mapping(Employee::getName, Collectors.toList())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>Collectors.toList() 直接以list返回分组结果</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">SkuSaleAttrValueEntity</span><span class="token punctuation">></span><span class="token punctuation">></span></span> collect <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">SkuSaleAttrValueEntity</span><span class="token operator">::</span><span class="token function">getAttrId</span><span class="token punctuation">,</span> <span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><p>基本属性分组示例</p>
+<ul>
+<li>Function.identity() 集合本身</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">      <span class="token comment">//基本属性 统计值</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> strings <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token string">"apple"</span><span class="token punctuation">,</span> <span class="token string">"banana"</span><span class="token punctuation">,</span> <span class="token string">"banana"</span><span class="token punctuation">,</span> <span class="token string">"orange"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//Collectors.groupingBy(Function.identity(),Collectors.counting()) 以集合自身为key，以统计值为value</span>
+ <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">></span></span> collect<span class="token operator">=</span>strings<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">groupingBy</span><span class="token punctuation">(</span><span class="token class-name">Function</span><span class="token punctuation">.</span><span class="token function">identity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">counting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>collect<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
