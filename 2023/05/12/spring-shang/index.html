@@ -503,7 +503,7 @@
 <li>找“二级缓存”，有就返回，没有就找“三级缓存”；</li>
 <li>找“三级缓存”，找到了，就获取对象，放到“二级缓存”，从“三级缓存”移除。</li>
 </ul>
-<h2 id="1-3-原理执行流程"><a href="#1-3-原理执行流程" class="headerlink" title="1.3 原理执行流程"></a>1.3 原理执行流程</h2><p>我把“情况 2”执行的流程分解为下面 3 步，是不是和“套娃”很像 ？</p>
+<h2 id="3-1-原理执行流程"><a href="#3-1-原理执行流程" class="headerlink" title="3.1 原理执行流程"></a>3.1 原理执行流程</h2><p>我把“情况 2”执行的流程分解为下面 3 步，是不是和“套娃”很像 ？</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%281%29.png" alt="图片"></p>
 <p>整个执行逻辑如下：</p>
 <ol>
@@ -515,7 +515,7 @@
 <li><strong>将 A 放入“一级缓存”。</strong></li>
 </ol>
 <p>为什么要用 3 级缓存 ？我们先看源码执行流程，后面我会给出答案。</p>
-<h1 id="2-源码解读"><a href="#2-源码解读" class="headerlink" title="2. 源码解读"></a>2. 源码解读</h1><blockquote>
+<h1 id="3-2源码解读"><a href="#3-2源码解读" class="headerlink" title="3.2源码解读"></a>3.2源码解读</h1><blockquote>
 <p>注意：Spring 的版本是 <strong>5.2.15.RELEASE</strong>，否则和我的代码不一样！！！</p>
 </blockquote>
 <p>上面的知识，网上其实都有，下面才是我们的重头戏，让你跟着楼仔，走一遍代码流程。</p>
@@ -540,12 +540,12 @@
 
 
 
-<h2 id="2-1-代码入口"><a href="#2-1-代码入口" class="headerlink" title="2.1 代码入口"></a>2.1 代码入口</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%282%29.png" alt="图片"></p>
+<h2 id="3-2-1代码入口"><a href="#3-2-1代码入口" class="headerlink" title="3.2.1代码入口"></a>3.2.1代码入口</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%282%29.png" alt="图片"></p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%282%29.png" alt="图片"></p>
 <p>这里需要多跑几次，把前面的 beanName 跳过去，只看 louzai1。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%284%29.png" alt="图片"></p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2836%29.png" alt="图片"></p>
-<h2 id="2-2-第一层"><a href="#2-2-第一层" class="headerlink" title="2.2 第一层"></a>2.2 第一层</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2837%29.png" alt="图片"></p>
+<h2 id="3-2-2-第一层"><a href="#3-2-2-第一层" class="headerlink" title="3.2.2 第一层"></a>3.2.2 第一层</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2837%29.png" alt="图片"></p>
 <p>进入 doGetBean()，从 getSingleton() 没有找到对象，进入创建 Bean 的逻辑。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%286%29.png" alt="图片"></p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%287%29.png" alt="图片"></p>
@@ -570,32 +570,32 @@
 <p>正式获取 louzai2 的 bean。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2819%29.png" alt="图片"></p>
 <p><strong>到这里，第一层套娃基本结束，因为 louzai1 依赖 louzai2，下面我们进入第二层套娃。</strong></p>
-<h2 id="2-3-第二层"><a href="#2-3-第二层" class="headerlink" title="2.3 第二层"></a>2.3 第二层</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2820%29.png" alt="图片"></p>
+<h2 id="3-2-3-第二层"><a href="#3-2-3-第二层" class="headerlink" title="3.2.3 第二层"></a>3.2.3 第二层</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2820%29.png" alt="图片"></p>
 <p>获取 louzai2 的 bean，从 doGetBean()，到 doResolveDependency()，和第一层的逻辑完全一样，找到 louzai2 依赖的对象名 louzai1。</p>
 <p>前面的流程全部省略，直接到 doResolveDependency()。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2821%29.png" alt="图片"></p>
 <p>正式获取 louzai1 的 bean。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2822%29.png" alt="图片"></p>
 <p><strong>到这里，第二层套娃结束，因为 louzai2 依赖 louzai1，所以我们进入第三层套娃。</strong></p>
-<h2 id="2-4-第三层"><a href="#2-4-第三层" class="headerlink" title="2.4 第三层"></a>2.4 第三层</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2823%29.png" alt="图片"></p>
+<h2 id="3-2-4-第三层"><a href="#3-2-4-第三层" class="headerlink" title="3.2.4 第三层"></a>3.2.4 第三层</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2823%29.png" alt="图片"></p>
 <p>获取 louzai1 的 bean，在第一层和第二层中，我们每次都会从 getSingleton() 获取对象，但是由于之前没有初始化 louzai1 和 louzai2 的三级缓存，所以获取对象为空。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2824%29.png" alt="图片"></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/sXFqMxQoVLHqKibakH9hO9wuncU5q2bNOxKSlncPw1azxuls349583gZsC1L88jTcE6sDpia4eCIyNOYF2N9RFbA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2838%29.png" alt="图片"></p>
 <p><strong>敲重点！敲重点！！敲重点！！！</strong></p>
 <p>到了第三层，由于第三级缓存有 louzai1 数据，这里使用三级缓存中的工厂，为 louzai1 创建一个代理对象，塞入二级缓存。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2825%29.png" alt="图片"></p>
 <p>这里就拿到了 louzai1 的代理对象，解决了 louzai2 的依赖关系，返回到第二层。</p>
-<h2 id="2-5-返回第二层"><a href="#2-5-返回第二层" class="headerlink" title="2.5 返回第二层"></a>2.5 返回第二层</h2><p>返回第二层后，louzai2 初始化结束，这里就结束了么？二级缓存的数据，啥时候会给到一级呢？</p>
+<h2 id="3-2-5-返回第二层"><a href="#3-2-5-返回第二层" class="headerlink" title="3.2.5 返回第二层"></a>3.2.5 返回第二层</h2><p>返回第二层后，louzai2 初始化结束，这里就结束了么？二级缓存的数据，啥时候会给到一级呢？</p>
 <p>甭着急，看这里，还记得在 doGetBean() 中，我们会通过 createBean() 创建一个 louzai2 的 bean，当 louzai2 的 bean 创建成功后，我们会执行 getSingleton()，它会对 louzai2 的结果进行处理。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2826%29.png" alt="图片"></p>
 <p>我们进入 getSingleton()，会看到下面这个方法。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2827%29.png" alt="图片"></p>
 <p>这里就是处理 louzai2 的 一、二级缓存的逻辑，将二级缓存清除，放入一级缓存。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2828%29.png" alt="图片"></p>
-<h2 id="2-6-返回第一层"><a href="#2-6-返回第一层" class="headerlink" title="2.6 返回第一层"></a>2.6 返回第一层</h2><p>同 2.5，louzai1 初始化完毕后，会把 louzai1 的二级缓存清除，将对象放入一级缓存。</p>
+<h2 id="3-2-6-返回第一层"><a href="#3-2-6-返回第一层" class="headerlink" title="3.2.6 返回第一层"></a>3.2.6 返回第一层</h2><p>同 2.5，louzai1 初始化完毕后，会把 louzai1 的二级缓存清除，将对象放入一级缓存。</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%2829%29.png" alt="图片"></p>
 <p>到这里，所有的流程结束，我们返回 louzai1 对象。</p>
-<h1 id="3-原理深度解读"><a href="#3-原理深度解读" class="headerlink" title="3. 原理深度解读"></a>3. 原理深度解读</h1><h1 id="3-1-什么要有-3-级缓存-？"><a href="#3-1-什么要有-3-级缓存-？" class="headerlink" title="3.1 什么要有 3 级缓存 ？"></a>3.1 什么要有 3 级缓存 ？</h1><p>这是一道非常经典的面试题，前面已经告诉大家详细的执行流程，包括源码解读，但是没有告诉大家为什么要用 3 级缓存？</p>
+<h1 id="4-原理深度解读"><a href="#4-原理深度解读" class="headerlink" title="4. 原理深度解读"></a>4. 原理深度解读</h1><h1 id="4-1-什么要有-3-级缓存-？"><a href="#4-1-什么要有-3-级缓存-？" class="headerlink" title="4.1 什么要有 3 级缓存 ？"></a>4.1 什么要有 3 级缓存 ？</h1><p>这是一道非常经典的面试题，前面已经告诉大家详细的执行流程，包括源码解读，但是没有告诉大家为什么要用 3 级缓存？</p>
 <p><strong>这里是重点！敲黑板！！！</strong></p>
 <p>我们先说“一级缓存”的作用，变量命名为 singletonObjects，结构是 Map&lt;String, Object&gt;，它就是一个单例池，将初始化好的对象放到里面，给其它线程使用，<strong>如果没有第一级缓存，程序不能保证 Spring 的单例属性。</strong></p>
 <p>“二级缓存”先放放，我们直接看“三级缓存”的作用，变量命名为 singletonFactories，结构是 Map&lt;String, ObjectFactory&lt;?&gt;&gt;，Map 的 Value 是一个对象的代理工厂，所以“三级缓存”的作用，其实就是用来存放对象的代理工厂。</p>
@@ -618,7 +618,7 @@
 </ul>
 <p><strong>那“二级缓存”的作用就清楚了，就是用来存放对象工厂生成的对象，这个对象可能是原对象，也可能是个代理对象。</strong></p>
 <p>我再问一个问题，为什么要这样设计呢？把二级缓存干掉不行么 ？我们继续往下看。</p>
-<h1 id="3-2-能干掉第-2-级缓存么-？"><a href="#3-2-能干掉第-2-级缓存么-？" class="headerlink" title="3.2 能干掉第 2 级缓存么 ？"></a>3.2 能干掉第 2 级缓存么 ？</h1><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<h1 id="4-2-能干掉第-2-级缓存么-？"><a href="#4-2-能干掉第-2-级缓存么-？" class="headerlink" title="4.2 能干掉第 2 级缓存么 ？"></a>4.2 能干掉第 2 级缓存么 ？</h1><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
 
     <span class="token annotation punctuation">@Autowired</span>
@@ -659,7 +659,7 @@
 <p>看到问题没？<strong>你通过 A 的工厂的代理对象，生成了两个不同的对象 A1 和 A2</strong>，所以为了避免这种问题的出现，我们搞个二级缓存，把 A1 存下来，下次再获取时，直接从二级缓存获取，无需再生成新的代理对象。</p>
 <p><strong>所以“二级缓存”的目的是为了避免因为 AOP 创建多个对象，其中存储的是半成品的 AOP 的单例 bean。</strong></p>
 <p>如果没有 AOP 的话，我们其实只要 1、3 级缓存，就可以满足要求。</p>
-<h1 id="4-写在最后"><a href="#4-写在最后" class="headerlink" title="4. 写在最后"></a>4. 写在最后</h1><p>我们再回顾一下 3 级缓存的作用：</p>
+<h1 id="5-写在最后"><a href="#5-写在最后" class="headerlink" title="5. 写在最后"></a>5. 写在最后</h1><p>我们再回顾一下 3 级缓存的作用：</p>
 <ul>
 <li>一级缓存：<strong>为“Spring 的单例属性”而生</strong>，就是个单例池，用来存放已经初始化完成的单例 Bean；</li>
 <li>二级缓存：<strong>为“解决 AOP”而生</strong>，存放的是半成品的 AOP 的单例 Bean；</li>
