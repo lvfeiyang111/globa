@@ -519,6 +519,27 @@
 <p>注意：Spring 的版本是 <strong>5.2.15.RELEASE</strong>，否则和我的代码不一样！！！</p>
 </blockquote>
 <p>上面的知识，网上其实都有，下面才是我们的重头戏，让你跟着楼仔，走一遍代码流程。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Louzai1</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">Louzai2</span> louzai2<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Louzai2</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">Louzai1</span> louzai1<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h2 id="2-1-代码入口"><a href="#2-1-代码入口" class="headerlink" title="2.1 代码入口"></a>2.1 代码入口</h2><p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%282%29.png" alt="图片"></p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/Spring%E5%9B%BE/640%20%282%29.png" alt="图片"></p>
 <p>这里需要多跑几次，把前面的 beanName 跳过去，只看 louzai1。</p>
