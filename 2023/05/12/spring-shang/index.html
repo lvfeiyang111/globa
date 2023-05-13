@@ -481,14 +481,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="1-Spring-Bean-的声明周期"><a href="#1-Spring-Bean-的声明周期" class="headerlink" title="1.Spring Bean 的声明周期"></a>1.Spring Bean 的声明周期</h2><p>Spring会优先选择无参构造方法通过反射创建对象，如果没有无参构造方法并且存在多个有参构造方法，Spring由于不知道使用哪个构造方法则会报错</p>
-<p>无参构造方法—-&gt;对象—–&gt;依赖注入——-&gt;初始化前（@PostConstruct）——&gt;初始化（InitializingBean）—-&gt;初始化后——&gt;放入Map单例池——-&gt;Bean</p>
+                <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="1-Spring-Bean-的生命周期"><a href="#1-Spring-Bean-的生命周期" class="headerlink" title="1.Spring Bean 的生命周期"></a>1.Spring Bean 的生命周期</h2><p>Spring会优先选择无参构造方法通过反射创建对象，如果没有无参构造方法并且存在多个有参构造方法，Spring由于不知道使用哪个构造方法则会报错</p>
+<p>无参构造方法—-&gt;对象—–&gt;依赖注入—？(循环依赖提前Aop)—-&gt;初始化前（@PostConstruct）——&gt;初始化（InitializingBean）—-&gt;初始化后—Aop—&gt;放入Map单例池——-&gt;Bean</p>
 <h2 id="2-Spring-Aop"><a href="#2-Spring-Aop" class="headerlink" title="2.Spring Aop"></a>2.Spring Aop</h2><p>当类有接口时，Spring使用的是JDK动态代理，在内存中生成代理类，代理类继承了Proxy，传入的内部类就是给Proxy类中的属性赋值，然后代理类调用父类中的此方法，方法中通过反射执行增强的目标方法，</p>
 <p><strong>被Aop增强后的类，在单例池中不再放原来的Bean，而是放的代理类</strong></p>
 <p>当类上没接口时，Spring使用的是cglib。cglib代理类就是继承了目标类。</p>
 <p>第一种情况：直接调用父类方法</p>
 <p>第二种情况：聚合目标类，然后注入值，通过调聚合类中的目标方法</p>
-<h1 id="3-Spring如何使用三级缓存打破循环依赖"><a href="#3-Spring如何使用三级缓存打破循环依赖" class="headerlink" title="3.Spring如何使用三级缓存打破循环依赖"></a>3.Spring如何使用三级缓存打破循环依赖</h1><p>看到一篇非常详细的文章,看完豁然开朗，搬运自微信公众号楼仔</p>
+<h1 id="3-Spring如何使用三级缓存打破循环依赖"><a href="#3-Spring如何使用三级缓存打破循环依赖" class="headerlink" title="3.Spring如何使用三级缓存打破循环依赖"></a>3.Spring如何使用三级缓存打破循环依赖</h1><p>比如A-&gt;依赖B ，B-&gt;依赖A</p>
+<p>首先创建A，依赖注入时发现没有B，添加一段Lambda表达式（用于判断A是否需要Aop的方法）到三级缓存中，并且添加A的beanName到creatingSet（用于判断对象是否在创建中）中。</p>
+<p>然后创建B，创建B，然后依赖注入时，先去一级缓存找A，发现没有并且creatingSet中有A的beanName，去二级缓存中找B，发现没有，执行三级缓存中的Lambda表达式，如果需要Aop，表达式返回的就是代理对象，不需要则返回普通对象，将返回出来的对象放入二级缓存中并删除三级缓存中的Lamnda表达式。</p>
+<p>B拿到对象后，创建成功，放入一级单例池中。</p>
+<p>回到A，然后注入B，经过后续生命周期流程。最终完成创建，删除二级缓存中的A，将A放入单例池。</p>
+<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">@Nullable
+   protected Object getSingleton(String beanName, boolean allowEarlyReference) &#123;
+       Object singletonObject &#x3D; this.singletonObjects.get(beanName);
+       &#x2F;&#x2F;双检锁
+       &#x2F;&#x2F;判断一级缓存中是否有，如果没有判断creatingSet中是否有，如果beanName在creatingSet中，说明出现了循环依赖
+       if (singletonObject &#x3D;&#x3D; null &amp;&amp; this.isSingletonCurrentlyInCreation(beanName)) &#123;
+           &#x2F;&#x2F;一级缓存没有，去二级缓存中查找
+           singletonObject &#x3D; this.earlySingletonObjects.get(beanName);
+           if (singletonObject &#x3D;&#x3D; null &amp;&amp; allowEarlyReference) &#123;
+               synchronized(this.singletonObjects) &#123;
+                   singletonObject &#x3D; this.singletonObjects.get(beanName);
+                   if (singletonObject &#x3D;&#x3D; null) &#123;
+                       singletonObject &#x3D; this.earlySingletonObjects.get(beanName);
+                       if (singletonObject &#x3D;&#x3D; null) &#123;
+                           &#x2F;&#x2F;二级缓存中没有，执行三级缓存中的Lambda表达式，如果需要Aop则返回代理对象，不需要则返回的是普通对象
+                           &#x2F;&#x2F;将三级缓存中的Lambda表达式删除，将对象添加进二级缓存。（Lambda表达式只执行一次，保证了未完成创建的对象的单例性质）
+                           ObjectFactory&lt;?&gt; singletonFactory &#x3D; (ObjectFactory)this.singletonFactories.get(beanName);
+                           if (singletonFactory !&#x3D; null) &#123;
+                               singletonObject &#x3D; singletonFactory.getObject();
+                               this.earlySingletonObjects.put(beanName, singletonObject);
+                               this.singletonFactories.remove(beanName);
+                           &#125;
+                       &#125;
+                   &#125;
+               &#125;
+           &#125;
+       &#125;
+
+       return singletonObject;
+   &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>看到一篇非常详细的文章,看完豁然开朗，搬运自微信公众号楼仔</p>
 <p>链接:<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU0OTE4MzYzMw==&amp;mid=2247545567&amp;idx=2&amp;sn=8478f342befd6d2d84e3e11c635c4952&amp;chksm=fbb1bb21ccc63237a4890e75a3b43a50b69ef88900fac7e784916fdff134cc94a058c192b63f&amp;scene=27">https://mp.weixin.qq.com/s?__biz=MzU0OTE4MzYzMw==&amp;mid=2247545567&amp;idx=2&amp;sn=8478f342befd6d2d84e3e11c635c4952&amp;chksm=fbb1bb21ccc63237a4890e75a3b43a50b69ef88900fac7e784916fdff134cc94a058c192b63f&amp;scene=27</a></p>
 <ul>
 <li><strong>第一级缓存</strong>：singletonObjects，用于保存实例化、注入、初始化完成的 bean 实例；</li>
@@ -616,7 +654,7 @@
 <li>如果 A 有 AOP，就创建一个代理对象；</li>
 <li>如果 A 没有 AOP，就返回原对象。</li>
 </ul>
-<p><strong>那“二级缓存”的作用就清楚了，就是用来存放对象工厂生成的对象，这个对象可能是原对象，也可能是个代理对象。</strong></p>
+<p><strong>那“二级缓存”的作用就清楚了，就是用来存放对象工厂生成的对象，这个对象可能是原对象S，也可能是个代理对象。</strong></p>
 <p>我再问一个问题，为什么要这样设计呢？把二级缓存干掉不行么 ？我们继续往下看。</p>
 <h1 id="4-2-能干掉第-2-级缓存么-？"><a href="#4-2-能干掉第-2-级缓存么-？" class="headerlink" title="4.2 能干掉第 2 级缓存么 ？"></a>4.2 能干掉第 2 级缓存么 ？</h1><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
