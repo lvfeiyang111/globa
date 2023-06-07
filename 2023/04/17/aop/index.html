@@ -1036,7 +1036,132 @@ taskkill -t -f -pid 进程号   #终止进程和子进程<span aria-hidden="true
 </ul>
 </li>
 </ul>
-<h1 id="8-更新中。。。。"><a href="#8-更新中。。。。" class="headerlink" title="8 更新中。。。。"></a>8 更新中。。。。</h1>
+<h2 id="8-Redisson配合Aop分布式锁注解"><a href="#8-Redisson配合Aop分布式锁注解" class="headerlink" title="8.Redisson配合Aop分布式锁注解"></a>8.Redisson配合Aop分布式锁注解</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<span class="token comment">/**
+ * 分布式锁注解
+ */</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span><span class="token comment">//运行时生效</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">)</span><span class="token comment">//作用在方法上</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">RedissonLock</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/**
+     * key的前缀,默认取方法全限定名，除非我们在不同方法上对同一个资源做分布式锁，就自己指定
+     *
+     * @return key的前缀
+     */</span>
+    <span class="token class-name">String</span> <span class="token function">prefixKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * springEl 表达式
+     *
+     * @return 表达式
+     */</span>
+    <span class="token class-name">String</span> <span class="token function">key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 等待锁的时间，默认-1，不等待直接失败,redisson默认也是-1
+     *
+     * @return 单位秒
+     */</span>
+    <span class="token keyword">int</span> <span class="token function">waitTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 等待锁的时间单位，默认毫秒
+     *
+     * @return 单位
+     */</span>
+    <span class="token class-name">TimeUnit</span> <span class="token function">unit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">MILLISECONDS</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>切面</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@Aspect</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@Order</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token comment">//确保比事务注解先执行，分布式锁在事务外</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedissonLockAspect</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">LockService</span> lockService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Around</span><span class="token punctuation">(</span><span class="token string">"@annotation(com.lfy.test.common.common.annotation.RedissonLock)"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">around</span><span class="token punctuation">(</span><span class="token class-name">ProceedingJoinPoint</span> joinPoint<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Throwable</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Method</span> method <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">MethodSignature</span><span class="token punctuation">)</span> joinPoint<span class="token punctuation">.</span><span class="token function">getSignature</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">RedissonLock</span> redissonLock <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">getAnnotation</span><span class="token punctuation">(</span><span class="token class-name">RedissonLock</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> prefix <span class="token operator">=</span> <span class="token class-name">StrUtil</span><span class="token punctuation">.</span><span class="token function">isBlank</span><span class="token punctuation">(</span>redissonLock<span class="token punctuation">.</span><span class="token function">prefixKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token class-name">SpElUtils</span><span class="token punctuation">.</span><span class="token function">getMethodKey</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span> <span class="token operator">:</span> redissonLock<span class="token punctuation">.</span><span class="token function">prefixKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//默认方法限定名+注解排名（可能多个）</span>
+        <span class="token class-name">String</span> key <span class="token operator">=</span> <span class="token class-name">SpElUtils</span><span class="token punctuation">.</span><span class="token function">parseSpEl</span><span class="token punctuation">(</span>method<span class="token punctuation">,</span> joinPoint<span class="token punctuation">.</span><span class="token function">getArgs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> redissonLock<span class="token punctuation">.</span><span class="token function">key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> lockService<span class="token punctuation">.</span><span class="token function">executeWithLockThrows</span><span class="token punctuation">(</span>prefix <span class="token operator">+</span> <span class="token string">":"</span> <span class="token operator">+</span> key<span class="token punctuation">,</span> redissonLock<span class="token punctuation">.</span><span class="token function">waitTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> redissonLock<span class="token punctuation">.</span><span class="token function">unit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> joinPoint<span class="token operator">::</span><span class="token function">proceed</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>lockservice</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<span class="token annotation punctuation">@Service</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LockService</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">RedissonClient</span> redissonClient<span class="token punctuation">;</span>
+
+
+    <span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">T</span> <span class="token function">executeWithLockThrows</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> waitTime<span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span> unit<span class="token punctuation">,</span> <span class="token class-name">SupplierThrow</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> supplier<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Throwable</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">RLock</span> lock <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getLock</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> lockSuccess <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span>waitTime<span class="token punctuation">,</span> unit<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>lockSuccess<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">BusinessException</span><span class="token punctuation">(</span><span class="token class-name">CommonErrorEnum</span><span class="token punctuation">.</span><span class="token constant">LOCK_LIMIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> supplier<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//执行锁内的代码逻辑</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+            lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@SneakyThrows</span>
+    <span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">T</span> <span class="token function">executeWithLock</span><span class="token punctuation">(</span><span class="token class-name">String</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> waitTime<span class="token punctuation">,</span> <span class="token class-name">TimeUnit</span> unit<span class="token punctuation">,</span> <span class="token class-name">Supplier</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> supplier<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token function">executeWithLockThrows</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> waitTime<span class="token punctuation">,</span> unit<span class="token punctuation">,</span> supplier<span class="token operator">::</span><span class="token function">get</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+	<span class="token comment">//函数式接口</span>
+    <span class="token annotation punctuation">@FunctionalInterface</span>
+    <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">SupplierThrow</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+
+        <span class="token comment">/**
+         * Gets a result.
+         *
+         * @return a result
+         */</span>
+        <span class="token class-name">T</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Throwable</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>el解析</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpElUtils</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">ExpressionParser</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SpelExpressionParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">DefaultParameterNameDiscoverer</span> parameterNameDiscoverer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DefaultParameterNameDiscoverer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	*	args 参数值
+	*	method 方法
+	*   spEl el表达式
+	*/</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">parseSpEl</span><span class="token punctuation">(</span><span class="token class-name">Method</span> method<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> <span class="token class-name">String</span> spEl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> params <span class="token operator">=</span> parameterNameDiscoverer<span class="token punctuation">.</span><span class="token function">getParameterNames</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//解析参数名</span>
+        <span class="token class-name">EvaluationContext</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StandardEvaluationContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//el解析需要的上下文对象</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> params<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            context<span class="token punctuation">.</span><span class="token function">setVariable</span><span class="token punctuation">(</span>params<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> args<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//所有参数名和参数值都作为原材料扔进去</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">Expression</span> expression <span class="token operator">=</span> parser<span class="token punctuation">.</span><span class="token function">parseExpression</span><span class="token punctuation">(</span>spEl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> expression<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">getMethodKey</span><span class="token punctuation">(</span><span class="token class-name">Method</span> method<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> method<span class="token punctuation">.</span><span class="token function">getDeclaringClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"#"</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h1 id="更新中。。。。"><a href="#更新中。。。。" class="headerlink" title="更新中。。。。"></a>更新中。。。。</h1>
                 
             </div>
             <hr/>
