@@ -617,13 +617,13 @@ public class Accpet &#123;
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//定义策略接口</span>
 <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">DayParse</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">//判断是否进入此策略</span>
-    <span class="token class-name">Boolean</span> <span class="token class-name">Check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Boolean</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//策略逻辑</span>
     <span class="token class-name">String</span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//策略名</span>
-    <span class="token class-name">String</span> <span class="token class-name">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//优先级</span>
-    <span class="token keyword">int</span> <span class="token class-name">GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -631,7 +631,7 @@ public class Accpet &#123;
 <p><strong>定义星期一类</strong></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Monday</span> <span class="token keyword">implements</span> <span class="token class-name">DayParse</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token class-name">Check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>code<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
             <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
@@ -642,11 +642,11 @@ public class Accpet &#123;
         <span class="token keyword">return</span> <span class="token string">"星期一"</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token class-name">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token string">"1"</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token class-name">GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -656,7 +656,7 @@ public class Accpet &#123;
 <p><strong>定义星期二</strong></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Tuesday</span> <span class="token keyword">implements</span> <span class="token class-name">DayParse</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token class-name">Check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>code<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
             <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
@@ -669,12 +669,12 @@ public class Accpet &#123;
     <span class="token punctuation">&#125;</span>
 
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token class-name">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token string">"1"</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token class-name">GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -702,9 +702,9 @@ public class Accpet &#123;
         <span class="token class-name">DayParse</span> thisDayParse<span class="token operator">=</span>ull<span class="token punctuation">;</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">DayParse</span> dayParse <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
             <span class="token comment">//遍历出符合策略的方法返回</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">dayParse<span class="token punctuation">.</span></span>Check</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>dayParse<span class="token punctuation">.</span><span class="token function">check</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
                 <span class="token comment">//校验优先级，当p不为空时，才会走到第二个优先级判断</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token class-name"><span class="token namespace">dayParse<span class="token punctuation">.</span></span>GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token class-name"><span class="token namespace">thisDayParse<span class="token punctuation">.</span></span>GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> dayParse<span class="token punctuation">.</span><span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> thisDayParse<span class="token punctuation">.</span><span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
                     p <span class="token operator">=</span> dayParse<span class="token punctuation">;</span>
                 <span class="token punctuation">&#125;</span>
 
@@ -762,9 +762,9 @@ public class Accpet &#123;
         <span class="token class-name">DayParse</span> thisDayParse<span class="token operator">=</span>ull<span class="token punctuation">;</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">DayParse</span> dayParse <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
             <span class="token comment">//遍历出符合策略的方法返回</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">dayParse<span class="token punctuation">.</span></span>Check</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>dayParse<span class="token punctuation">.</span><span class="token function">check</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
                 <span class="token comment">//校验优先级，当p不为空时，才会走到第二个优先级判断</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token class-name"><span class="token namespace">dayParse<span class="token punctuation">.</span></span>GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token class-name"><span class="token namespace">thisDayParse<span class="token punctuation">.</span></span>GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> dayParse<span class="token punctuation">.</span><span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> thisDayParse<span class="token punctuation">.</span><span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
                     p <span class="token operator">=</span> dayParse<span class="token punctuation">;</span>
                 <span class="token punctuation">&#125;</span>
 
@@ -807,7 +807,7 @@ public class Accpet &#123;
 <p>Bean初始化注入Factory</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Monday</span> <span class="token keyword">implements</span> <span class="token class-name">DayParse</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token class-name">Check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>code<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
             <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
@@ -818,11 +818,11 @@ public class Accpet &#123;
         <span class="token keyword">return</span> <span class="token string">"星期一"</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token class-name">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token string">"1"</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token class-name">GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
     <span class="token comment">/**
@@ -848,9 +848,9 @@ public class Accpet &#123;
         <span class="token class-name">DayParse</span> thisDayParse<span class="token operator">=</span>ull<span class="token punctuation">;</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">DayParse</span> dayParse <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
             <span class="token comment">//遍历出符合策略的方法返回</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">dayParse<span class="token punctuation">.</span></span>Check</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>dayParse<span class="token punctuation">.</span><span class="token function">check</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
                 <span class="token comment">//校验优先级，当p不为空时，才会走到第二个优先级判断</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token class-name"><span class="token namespace">dayParse<span class="token punctuation">.</span></span>GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token class-name"><span class="token namespace">thisDayParse<span class="token punctuation">.</span></span>GetPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> dayParse<span class="token punctuation">.</span><span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> thisDayParse<span class="token punctuation">.</span><span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
                     p <span class="token operator">=</span> dayParse<span class="token punctuation">;</span>
                 <span class="token punctuation">&#125;</span>  
             <span class="token punctuation">&#125;</span>
@@ -864,6 +864,62 @@ public class Accpet &#123;
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> thisDayParse<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="3-3自定义注解-后置处理器"><a href="#3-3自定义注解-后置处理器" class="headerlink" title="3.3自定义注解+后置处理器"></a>3.3自定义注解+后置处理器</h3><pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">&#x2F;&#x2F;自动注册注解
+@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface AutoRegister &#123;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AutoRegister</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Mon1</span> <span class="token keyword">implements</span> <span class="token class-name">MonFactorParse</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token function">check</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>code<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token class-name">WorkMon</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"星期一"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"1"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getPriority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>利用后置处理器，回顾一下Bean生命周期</p>
+<p>收集target目录下的class文件封装BeanDefinition –&gt; BeanFactoryPostProcessor –&gt; 实例化  –&gt;  各种Aware接口，用于注入BeanName以及属性注入等</p>
+<p>–&gt; SpringApplicationContontextAware 注入 Spring上下文对象 –&gt; BeanPostProcessor Before –&gt; @PostConstruct注解方法 –&gt; initializingBean 接口</p>
+<p>– &gt; BeanPostProcessor After  –&gt; 销毁注解方法 –&gt;自定义销毁回调方法</p>
+<hr>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RegisterTre</span> <span class="token keyword">implements</span> <span class="token class-name">BeanPostProcessor</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">postProcessAfterInitialization</span><span class="token punctuation">(</span><span class="token class-name">Object</span> bean<span class="token punctuation">,</span> <span class="token class-name">String</span> beanName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">BeansException</span> <span class="token punctuation">&#123;</span>
+
+        <span class="token keyword">boolean</span> interfaceTag <span class="token operator">=</span> bean <span class="token keyword">instanceof</span> <span class="token class-name">DayParse</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> annotationTag <span class="token operator">=</span> bean<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span><span class="token class-name">AutoRegister</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>interfaceTag <span class="token operator">&amp;&amp;</span> annotationTag<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token class-name">MonFactoryBean</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">DayParse</span><span class="token punctuation">)</span> bean<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token class-name">BeanPostProcessor</span><span class="token punctuation">.</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">postProcessAfterInitialization</span><span class="token punctuation">(</span>bean<span class="token punctuation">,</span> beanName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -1348,6 +1404,53 @@ taskkill -t -f -pid 进程号   #终止进程和子进程<span aria-hidden="true
 
 <p>测试：</p>
 <p><img src="https://lfymall.oss-cn-fuzhou.aliyuncs.com/study/1687056275957.jpg" alt="https://lfymall.oss-cn-fuzhou.aliyuncs.com/study/1687056275957.jpg"></p>
+<h2 id="10-观察者模式SpringEvent事件业务解耦"><a href="#10-观察者模式SpringEvent事件业务解耦" class="headerlink" title="10.观察者模式SpringEvent事件业务解耦"></a>10.观察者模式SpringEvent事件业务解耦</h2><p>定义消息</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Getter</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EventLfyEntity</span> <span class="token keyword">extends</span> <span class="token class-name">ApplicationEvent</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">Lfy</span> lfy<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">EventLfyEntity</span><span class="token punctuation">(</span><span class="token class-name">Object</span> source<span class="token punctuation">,</span> <span class="token class-name">Lfy</span> lfy<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>lfy <span class="token operator">=</span> lfy<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">class</span> <span class="token class-name">Lfy</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token class-name">Long</span> id<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>service中将关联的业务逻辑通过事件发送</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SendLfy</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Resource</span>
+    <span class="token keyword">private</span> <span class="token class-name">ApplicationEventPublisher</span> publisher<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sendMsg</span><span class="token punctuation">(</span><span class="token class-name">Lfy</span> lfy<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//业务逻辑</span>
+        xxxxx
+        <span class="token comment">//解耦事件</span>
+        publisher<span class="token punctuation">.</span><span class="token function">publishEvent</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EventLfyEntity</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span>lfy<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"ok"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>监听</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LfyListener</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//    @TransactionalEventListener(EventLfyEntity.class)</span>
+    <span class="token annotation punctuation">@Async</span>
+    <span class="token annotation punctuation">@EventListener</span><span class="token punctuation">(</span>classes <span class="token operator">=</span> <span class="token class-name">EventLfyEntity</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testListener</span><span class="token punctuation">(</span><span class="token class-name">EventLfyEntity</span> eventLfyEntity<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//处理业务逻辑</span>
+        <span class="token class-name">Lfy</span> lfy <span class="token operator">=</span> eventLfyEntity<span class="token punctuation">.</span><span class="token function">getLfy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>lfy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h1 id="更新中。。。。"><a href="#更新中。。。。" class="headerlink" title="更新中。。。。"></a>更新中。。。。</h1>
                 
             </div>
