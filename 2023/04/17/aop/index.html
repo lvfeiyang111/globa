@@ -903,8 +903,16 @@ public @interface AutoRegister &#123;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>利用后置处理器，回顾一下Bean生命周期</p>
-<p>收集target目录下的class文件封装BeanDefinition –&gt; BeanFactoryPostProcessor –&gt; 实例化  –&gt;  各种Aware接口，用于注入BeanName以及属性注入等</p>
-<p>–&gt; SpringApplicationContontextAware 注入 Spring上下文对象 –&gt; BeanPostProcessor Before –&gt; @PostConstruct注解方法 –&gt; initializingBean 接口</p>
+<p>收集target目录下的class文件封装BeanDefinition –&gt;</p>
+<p>收集完BeanDefinition 之后回调BeanFactoryPostProcessor接口中 postProcessBeanFactory（） –&gt;</p>
+<p>实例化前 InstantiationAwareBeanPostProcessor接口中 postProcessBeforeInstantiation（）–&gt;</p>
+<p>实例化  –&gt; </p>
+<p>实例化后 –&gt; InstantiationAwareBeanPostProcessor 接口中 postProcessAfterInstantiation（）–&gt;</p>
+<p>各种Aware接口，BeanName回调以及AutowiredAnnotationBeanPostProcessor后置处理器属性注入等,以及–&gt; </p>
+<p>SpringApplicationContontextAware 注入 Spring上下文对象 等等–&gt;</p>
+<p> BeanPostProcessor Before –&gt;</p>
+<p> @PostConstruct注解方法</p>
+<p> –&gt; initializingBean 接口</p>
 <p>– &gt; BeanPostProcessor After  –&gt; 销毁注解方法 –&gt;自定义销毁回调方法</p>
 <hr>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
