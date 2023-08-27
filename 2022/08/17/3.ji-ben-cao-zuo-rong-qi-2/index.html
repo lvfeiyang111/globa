@@ -698,7 +698,7 @@ skip-name-resolve
 <span class="token assign-left variable">server_id</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#server_id,同一局域网需要唯一</span>
 log-bin<span class="token operator">=</span>mysql-bin <span class="token comment">#开启二进制日志功能</span>
 read-only<span class="token operator">=</span><span class="token number">0</span> <span class="token comment">#</span>
-<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>mixed <span class="token comment">#指定二进制格式 </span>
+<span class="token assign-left variable">binlog_format</span><span class="token operator">=</span>mixed <span class="token comment">#指定二进制格式ROW、STATEMENT、MIX</span>
 <span class="token assign-left variable">expire_logs_days</span><span class="token operator">=</span><span class="token number">7</span> <span class="token comment">#二进制日志过期时间，默认为0表示不自动清理</span>
 <span class="token comment">#binlog-do-db=lfy #可以指定需要同步的库，也可以直接不指定</span>
 <span class="token assign-left variable">slave_skip_errors</span><span class="token operator">=</span><span class="token number">1062</span> <span class="token comment">#跳过主从复制中遇到的所有错误或指定类型错误，避免slave复制中断，1062是主键重复错误</span>
@@ -711,12 +711,18 @@ replicate-ignore-db<span class="token operator">=</span>performance_schema
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
+<li><p>ROW模式，除了记录sql语句之外，还会记录每个字段的变化情况，能够清楚的记录每行数据的变化历史，占用空间比较大</p>
+</li>
+<li><p>STATEMENT模式：只记录sql语句，但是没有记录上下文信息，在进行数据恢复的时候可能会导致数据丢失的情况；</p>
+</li>
+<li><p>MIX模式比较灵活的记录，理论上说当遇到表结构变更的时候，就会记录为statement，当遇到数据更新或者删除就会变为row模式</p>
+</li>
 <li><p>启动如果报错</p>
 <pre class="line-numbers language-log" data-language="log"><code class="language-log"><span class="token date number">2023-01-25</span> <span class="token time number">13:11:12+00:00</span> <span class="token punctuation">[</span><span class="token level error important">ERROR</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>Entrypoint<span class="token punctuation">]</span><span class="token operator">:</span> mysqld failed while attempting to check config
         <span class="token property">command was:</span> mysqld <span class="token operator">-</span><span class="token operator">-</span>verbose <span class="token operator">-</span><span class="token operator">-</span>help <span class="token operator">-</span><span class="token operator">-</span>log<span class="token operator">-</span>bin<span class="token operator">-</span>index<span class="token operator">=</span><span class="token operator">/</span>tmp<span class="token operator">/</span>tmp<span class="token punctuation">.</span>qD54ZxZd8y
         <span class="token property">mysqld:</span> Can't read dir of <span class="token string">'/etc/mysql/conf.d/'</span> <span class="token operator">(</span>Errcode<span class="token operator">:</span> <span class="token number">2</span> <span class="token operator">-</span> No such file or directory<span class="token operator">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>在本机conf目录下加上 conf.d和conf.mysql.d两个目录。配置文件放conf.d目录下</p>
+<p>在本机conf目录下加上 conf.d和mysql.conf.d两个目录。配置文件放conf.d目录下</p>
 </li>
 </ul>
 <p><strong>从容器配置</strong></p>
